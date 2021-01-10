@@ -6,14 +6,7 @@ import { Box, Sphere } from 'drei';
 import Trees from './Trees';
 import Water from './Water';
 
-const Terrain = ({
-  args,
-  simplex,
-  getHeightAt,
-  createMap,
-  colors,
-  colorThresholds,
-}) => {
+const Terrain = ({ args, getHeightAt, createMap, colors, colorThresholds }) => {
   const plane = useRef(null);
 
   const mesh = useUpdate(({ geometry }) => {

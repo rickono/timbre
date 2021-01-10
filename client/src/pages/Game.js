@@ -2,7 +2,7 @@ import './game.scss';
 
 import Terrain from '../components/Terrain';
 import { Canvas } from 'react-three-fiber';
-import { FlyControls, OrbitControls, Stars } from 'drei';
+import { PointerLockControls, OrbitControls, Stars } from 'drei';
 import SimplexNoise from 'simplex-noise';
 
 import Lights from '../components/Lights';
@@ -11,6 +11,7 @@ import Particles from '../components/Particles';
 import Water from '../components/Water';
 
 import biomes from '../helpers/biomes';
+import Player from '../components/Player';
 
 const SIDE_LENGTH = 160;
 const DIVISIONS = 40;
@@ -25,7 +26,7 @@ function Game() {
     amps,
     sqThresh,
     finalScaleAndThresh,
-  } = biomes.mesa;
+  } = biomes.whiteMountains;
 
   const getHeightAt = (x, z) => {
     const length = SIDE_LENGTH / DIVISIONS;
@@ -96,20 +97,20 @@ function Game() {
       <Canvas
         shadowMap
         colorManagement
-        camera={{ position: [0, 30, 0], fov: 60 }}
+        camera={{ position: [30, 30, 30], fov: 60 }}
       >
         {/* <fogExp2 attach='fog' args={['white', 0.003]} /> */}
         <fog attach='fog' args={['white', 1, 5000]} />
         <Terrain
           args={[SIDE_LENGTH, SIDE_LENGTH, DIVISIONS, DIVISIONS]}
-          simplex={simplex}
           createMap={createMap}
           getHeightAt={getHeightAt}
           colors={colors}
           colorThresholds={colorThresholds}
         />
         <Lights />
-        <OrbitControls movementSpeed={100} rollSpeed={1} />
+        {/* <OrbitControls  /> */}
+        <PointerLockControls />
         {/* <TransformControls /> */}
         <Effects />
         <Particles />
@@ -122,6 +123,7 @@ function Game() {
           fade // Faded dots (default=false)
         />
         {/* <Water /> */}
+        <Player getHeightAt={getHeightAt} />
       </Canvas>
     </>
   );
