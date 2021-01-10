@@ -1,0 +1,40 @@
+#root {
+  background-color: #22292c;
+}
+
+.container {
+  flex-direction: column-reverse;
+}
+
+.login {
+  background-color: #1db954;
+  padding: 1.2rem 3.4rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #444;
+  border: none;
+  border-radius: 3rem;
+  transition: all 0.2s ease-in-out;
+  font-weight: thin;
+
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    background-color: #9bf4ba;
+    color: #222;
+    box-shadow: 0px 0px 30px 10px #1db954;
+    ~ .name {
+      text-shadow: 0px 0px 10px #1db954;
+    }
+  }
+}
+
+.name {
+  margin-bottom: 3rem;
+  color: #cbd5cb;
+  font-size: 5rem;
+  transition: all 0.2s ease-in-out;
+  // text-shadow: 0px 0px 10px #1db954;
+}

@@ -1,17 +1,17 @@
 import './game.scss';
 
-import Terrain from '../components/Terrain';
+import Terrain from '../../components/Terrain';
 import { Canvas } from 'react-three-fiber';
 import { PointerLockControls, OrbitControls, Stars } from 'drei';
 import SimplexNoise from 'simplex-noise';
 
-import Lights from '../components/Lights';
-import Effects from '../components/Effects';
-import Particles from '../components/Particles';
-import Water from '../components/Water';
+import Lights from '../../components/Lights';
+import Effects from '../../components/Effects';
+import Particles from '../../components/Particles';
+import Water from '../../components/Water';
 
-import biomes from '../helpers/biomes';
-import Player from '../components/Player';
+import biomes from '../../helpers/biomes';
+import Player from '../../components/Player';
 
 const SIDE_LENGTH = 160;
 const DIVISIONS = 40;
