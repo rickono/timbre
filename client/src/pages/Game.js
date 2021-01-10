@@ -10,6 +10,7 @@ import {
   Stars,
 } from 'drei';
 import { useState } from 'react';
+import SimplexNoise from 'simplex-noise';
 
 import Lights from '../components/Lights';
 import Effects from '../components/Effects';
@@ -17,10 +18,6 @@ import Particles from '../components/Particles';
 import Water from '../components/Water';
 
 function Game() {
-  const x = 5;
-  const y = 0;
-  const z = 100;
-
   const green_mountains = {
     colors: [0xffffff, 0x167d0b, 0x55c949, 0x14a8e3],
     colorThresholds: [26, 3, 0, 'else'],

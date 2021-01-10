@@ -5,7 +5,6 @@ import { Box, Sphere } from 'drei';
 
 import SimplexNoise from 'simplex-noise';
 import Trees from './Trees';
-import { MeshStandardMaterial } from 'three';
 import Water from './Water';
 
 const Terrain = ({ args, biome }) => {
@@ -79,51 +78,63 @@ const Terrain = ({ args, biome }) => {
       Math.pow(ceilX - x, 2) + Math.pow(ceilZ - z, 2)
     );
 
-    console.log(floorX);
-    console.log(floorZ);
-    console.log(ceilX);
-    console.log(ceilZ);
-
     const points = [
       [ceilX, createMap(ceilX, floorZ), floorZ],
       [floorX, createMap(floorX, ceilZ), ceilZ],
-      // [ceilX, ceilY, createMap(ceilX, ceilY)],
-      // [roundX, createMap(roundX, roundZ), roundZ],
+
       //distance between these vectos and choose the smaller
-      // x % length > z % length
       distFloors > distCeils
         ? [ceilX, createMap(ceilX, ceilZ), ceilZ]
         : [floorX, createMap(floorX, floorZ), floorZ],
     ];
-    console.log(points);
-    return points;
+
+    // Get two vectors on the plane
+    const v1 = [
+      points[0][0] - points[1][0],
+      points[0][1] - points[1][1],
+      points[0][2] - points[1][2],
+    ];
+    const v2 = [
+      points[0][0] - points[2][0],
+      points[0][1] - points[2][1],
+      points[0][2] - points[2][2],
+    ];
+
+    // Get cross product of two vectors
+    const norm = [
+      [v1[1] * v2[2] - v1[2] * v2[1]],
+      [v1[2] * v2[0] - v1[0] * v2[2]],
+      [v1[0] * v2[1] - v1[1] * v2[0]],
+    ];
+
+    // Dot product of normal and vector to the point should be 0, so
+    // norm[0]*(points[0][0]-x) + norm[1]*(points[0][1]-y) + norm[2]*(points[0][2]-z) = 0
+
+    return (
+      (norm[0] * (points[0][0] - x) + norm[2] * (points[0][2] - z)) / norm[1] +
+      points[0][1]
+    );
   };
 
   const x = (Math.random() - 0.5) * 160;
   const z = (Math.random() - 0.5) * 160;
-  // const x = 30;
-  // const z = 30;
-  const y = createMap(x, z);
+  const y = getHeightAt(x, z);
 
-  console.log(x);
-  console.log('simplex noise: ', y);
-  console.log(z);
-
-  const testPoints = getHeightAt(x, z);
+  // const testPoints = getHeightAt(x, z);
 
   return (
     <group>
       <Box args={[1, 1, 1]} position={[x, y, z]}>
         <meshStandardMaterial attach='material' color='red' />
       </Box>
-      {testPoints.map((point) => {
+      {/* {testPoints.map((point) => {
         console.log(point);
         return (
           <Box color='black' args={[1, 1, 1]} position={point} key={point[1]}>
             <meshStandardMaterial attach='material' color='black' />
           </Box>
         );
-      })}
+      })} */}
       <mesh ref={mesh} rotation={[0, 0, 0]} receiveShadow>
         <planeGeometry
           attach='geometry'
