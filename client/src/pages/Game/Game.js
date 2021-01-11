@@ -13,11 +13,12 @@ import { Box, Sphere } from 'drei'
 
 import biomes from '../../helpers/biomes';
 import Player from '../../components/Player';
+import MusicPlayer from '../../components/MusicPlayer';
 
 const SIDE_LENGTH = 160;
-const DIVISIONS = 40;
+const DIVISIONS = SIDE_LENGTH / 4;
 
-function Game() {
+function Game({ cookies, setCookie, removeCookie }) {
   const simplex = new SimplexNoise();
 
   const {
@@ -28,20 +29,7 @@ function Game() {
     sqThresh,
     finalScaleAndThresh,
   } = biomes.greenMountains;
-  const [fog, setFog] = useState(1)
-  const [updateFog, setUpdateFog] = useState(true)
 
-  // useEffect(() => {
-  //   if (fog < 5000){
-  //     setFog(prevFog => prevFog + 1)
-  //   }
-  // }, [fog])
-
-  // useEffect(() => {
-  //   while (fog < 5000){
-  //     setFog(prevFog => prevFog + 1)
-  //   }
-  // }, [])
   const getHeightAt = (x, z) => {
     const length = SIDE_LENGTH / DIVISIONS;
     const floorX = Math.floor(x / length) * length;
@@ -148,6 +136,7 @@ function Game() {
         {/* <Water /> */}
         <Player getHeightAt={getHeightAt} />
       </Canvas>
+      <MusicPlayer cookies={cookies} />
     </>
   );
 }
