@@ -14,7 +14,7 @@ import biomes from '../../helpers/biomes';
 import Player from '../../components/Player';
 
 const SIDE_LENGTH = 160;
-const DIVISIONS = 40;
+const DIVISIONS = SIDE_LENGTH / 4;
 
 function Game() {
   const simplex = new SimplexNoise();
@@ -26,7 +26,7 @@ function Game() {
     amps,
     sqThresh,
     finalScaleAndThresh,
-  } = biomes.whiteMountains;
+  } = biomes.beach;
 
   const getHeightAt = (x, z) => {
     const length = SIDE_LENGTH / DIVISIONS;
