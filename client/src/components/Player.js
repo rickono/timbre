@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import * as THREE from 'three';
 import { useFrame, useThree } from 'react-three-fiber';
+import axios from 'axios';
 
 const SPEED = 0.2;
 
@@ -12,7 +13,7 @@ const Player = ({ getHeightAt }) => {
   const [moveRight, setMoveRight] = useState(false);
 
   useEffect(() => {
-    document.addEventListener('keydown', (e) => {
+    document.addEventListener('keydown', async (e) => {
       switch (e.key) {
         case 'w':
         case 'ArrowUp':
@@ -29,6 +30,12 @@ const Player = ({ getHeightAt }) => {
         case 'a':
         case 'ArrowLeft':
           setMoveLeft(true);
+          break;
+        case 'r':
+          const apiresponse = await axios.get(
+            'http://localhost:8888/api/v1/me/devices'
+          );
+          console.log(apiresponse);
           break;
         default:
           break;

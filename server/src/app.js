@@ -11,6 +11,10 @@ const api = require('./api');
 const app = express();
 const router = express.Router();
 
+const connectDB = require('./db');
+
+connectDB();
+
 app.use(morgan('dev'));
 app.use(helmet());
 app.use(cors());
