@@ -1,13 +1,12 @@
 import React, { useState, useRef } from 'react';
 
-const MusicPlayer = ({ cookies }) => {
+const MusicPlayer = ({ cookies, player }) => {
   const [intervalId, setIntervalId] = useState(
     setInterval(() => {
       initPlayer();
       console.log('hello');
     }, 1000)
   );
-  const player = useRef();
 
   const initPlayer = () => {
     if (window.Spotify !== null) {
