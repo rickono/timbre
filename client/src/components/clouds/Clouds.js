@@ -17,7 +17,7 @@ const Clouds = ({cloudnumber}) => {
     }
     return positions.map(p => <Cloud position={p} 
                                      numPuffs={randInt(1,10)} 
-                                     radius={Math.random() * .5 + 0.7} 
+                                     radius={Math.random() * 2.5 + 0.7} 
                                      widthSegments={randInt(5, 9)} 
                                      heightSegments={randInt(5, 9)} 
                                      offset={Math.random() * (0.7- 0.3) + 0.5}
