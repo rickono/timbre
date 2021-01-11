@@ -28,7 +28,6 @@ const Bush = ({ position }) => {
     jitter(geo, 0.2);
     return geo;
   });
-
   return (
     <mesh needsUpdate={true} position={position} geometry={geom} receiveShadow>
       {/* <coneGeometry attach='geometry' args={[3, 10, 4]} /> */}

@@ -14,5 +14,4 @@ const SimpleTree = ({ position }) => {
     </mesh>
   );
 };
-
 export default SimpleTree;
