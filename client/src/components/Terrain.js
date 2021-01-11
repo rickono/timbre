@@ -1,10 +1,10 @@
-import React, { useRef } from 'react';
-import { useFrame, useUpdate } from 'react-three-fiber';
+import React, { useRef } from "react";
+import { useFrame, useUpdate } from "react-three-fiber";
 
-import { Box, Sphere } from 'drei';
+import { Box, Sphere } from "drei";
 
-import Trees from './Trees';
-import Water from './Water';
+import Trees from "./Trees";
+import Water from "./Water";
 
 const Terrain = ({ args, getHeightAt, createMap, colors, colorThresholds }) => {
   const plane = useRef(null);
@@ -12,7 +12,7 @@ const Terrain = ({ args, getHeightAt, createMap, colors, colorThresholds }) => {
   const mesh = useUpdate(({ geometry }) => {
     plane.current = geometry;
     // ===== If using planeGeometry =====
-
+    //hello
     geometry.vertices = geometry.vertices.map((vertex) => {
       return {
         x: -vertex.x,
@@ -29,7 +29,7 @@ const Terrain = ({ args, getHeightAt, createMap, colors, colorThresholds }) => {
         geometry.vertices[face.c].y
       );
       colors.every((color, i) => {
-        if (colorThresholds[i] === 'else' || maxHeight > colorThresholds[i]) {
+        if (colorThresholds[i] === "else" || maxHeight > colorThresholds[i]) {
           const faceColor =
             color.constructor === Array
               ? color[Math.floor(Math.random() * color.length)]
@@ -64,7 +64,7 @@ const Terrain = ({ args, getHeightAt, createMap, colors, colorThresholds }) => {
   return (
     <group>
       <Box args={[1, 1, 1]} position={[x, y, z]}>
-        <meshStandardMaterial attach='material' color='red' />
+        <meshStandardMaterial attach="material" color="red" />
       </Box>
       {/* {testPoints.map((point) => {
         console.log(point);
@@ -76,7 +76,7 @@ const Terrain = ({ args, getHeightAt, createMap, colors, colorThresholds }) => {
       })} */}
       <mesh ref={mesh} rotation={[0, 0, 0]} receiveShadow>
         <planeGeometry
-          attach='geometry'
+          attach="geometry"
           args={args}
           computeFaceNormals
           computeVertexNormals
@@ -84,10 +84,10 @@ const Terrain = ({ args, getHeightAt, createMap, colors, colorThresholds }) => {
           verticesNeedUpdate
           elementsNeedUpdate
         />
-        <meshStandardMaterial attach='material' vertexColors flatShading />
+        <meshStandardMaterial attach="material" vertexColors flatShading />
       </mesh>
       <Sphere args={[20, 30, 30]} position={[-100, 50, -100]}>
-        <meshStandardMaterial attach='material' color='orange' />
+        <meshStandardMaterial attach="material" color="orange" />
       </Sphere>
       {/* <Trees positions={[[30, 30, createMap(30, 30)]]} /> */}
     </group>
