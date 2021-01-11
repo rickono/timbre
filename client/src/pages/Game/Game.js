@@ -1,17 +1,17 @@
-import './game.scss';
+import "./game.scss";
 
-import Terrain from '../../components/Terrain';
-import { Canvas } from 'react-three-fiber';
-import { PointerLockControls, OrbitControls, Stars } from 'drei';
-import SimplexNoise from 'simplex-noise';
+import Terrain from "../../components/Terrain";
+import { Canvas } from "react-three-fiber";
+import { PointerLockControls, OrbitControls, Stars } from "drei";
+import SimplexNoise from "simplex-noise";
 
-import Lights from '../../components/Lights';
-import Effects from '../../components/Effects';
-import Particles from '../../components/Particles';
-import Water from '../../components/Water';
+import Lights from "../../components/Lights";
+import Effects from "../../components/Effects";
+import Particles from "../../components/Particles";
+import Water from "../../components/Water";
 
-import biomes from '../../helpers/biomes';
-import Player from '../../components/Player';
+import biomes from "../../helpers/biomes";
+import Player from "../../components/Player";
 
 const SIDE_LENGTH = 160;
 const DIVISIONS = 40;
@@ -26,7 +26,7 @@ function Game() {
     amps,
     sqThresh,
     finalScaleAndThresh,
-  } = biomes.whiteMountains;
+  } = biomes.beach;
 
   const getHeightAt = (x, z) => {
     const length = SIDE_LENGTH / DIVISIONS;
@@ -100,7 +100,7 @@ function Game() {
         camera={{ position: [30, 30, 30], fov: 60 }}
       >
         {/* <fogExp2 attach='fog' args={['white', 0.003]} /> */}
-        <fog attach='fog' args={['white', 1, 5000]} />
+        <fog attach="fog" args={["white", 1, 5000]} />
         <Terrain
           args={[SIDE_LENGTH, SIDE_LENGTH, DIVISIONS, DIVISIONS]}
           createMap={createMap}
