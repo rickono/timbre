@@ -12,7 +12,6 @@ const Terrain = ({ args, getHeightAt, createMap, colors, colorThresholds }) => {
   const mesh = useUpdate(({ geometry }) => {
     plane.current = geometry;
     // ===== If using planeGeometry =====
-    //hello
     geometry.vertices = geometry.vertices.map((vertex) => {
       return {
         x: -vertex.x,
