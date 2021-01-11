@@ -1,5 +1,5 @@
 import './game.scss';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Terrain from '../../components/Terrain';
 import { Canvas } from 'react-three-fiber';
 import { PointerLockControls, OrbitControls, Stars } from 'drei';
@@ -9,17 +9,19 @@ import Lights from '../../components/Lights';
 import Effects from '../../components/Effects';
 import Particles from '../../components/Particles';
 import Water from '../../components/Water';
-import { Box, Sphere } from 'drei'
+import { Box, Sphere } from 'drei';
 
 import biomes from '../../helpers/biomes';
 import Player from '../../components/Player';
 import MusicPlayer from '../../components/MusicPlayer';
 
-const SIDE_LENGTH = 160;
+const SIDE_LENGTH = 320;
 const DIVISIONS = SIDE_LENGTH / 4;
 
 function Game({ cookies, setCookie, removeCookie }) {
   const simplex = new SimplexNoise();
+
+  const player = useRef();
 
   const {
     colors,
@@ -93,7 +95,7 @@ function Game({ cookies, setCookie, removeCookie }) {
       ? height * finalScaleAndThresh[1] + finalScaleAndThresh[2]
       : height + finalScaleAndThresh[2];
   };
-  const b = <Box position={[0, 20, 0]} args={[20, 20, 20]}></Box>
+  const b = <Box position={[0, 20, 0]} args={[20, 20, 20]}></Box>;
   return (
     <>
       {/* <mesh position={[0,0,0]}>
@@ -104,7 +106,7 @@ function Game({ cookies, setCookie, removeCookie }) {
           />
         <meshStandardMaterial color="red" attach='material' />
       </mesh> */}
-      
+
       <Canvas
         shadowMap
         colorManagement
@@ -124,7 +126,7 @@ function Game({ cookies, setCookie, removeCookie }) {
         <PointerLockControls />
         {/* <TransformControls /> */}
         <Effects />
-        <Particles />
+        {/* <Particles /> */}
         <Stars
           radius={100} // Radius of the inner sphere (default=100)
           depth={50} // Depth of area where stars should fit (default=50)
@@ -136,7 +138,7 @@ function Game({ cookies, setCookie, removeCookie }) {
         {/* <Water /> */}
         <Player getHeightAt={getHeightAt} />
       </Canvas>
-      <MusicPlayer cookies={cookies} />
+      <MusicPlayer cookies={cookies} player={player} />
     </>
   );
 }
