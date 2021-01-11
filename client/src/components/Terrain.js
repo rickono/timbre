@@ -3,8 +3,11 @@ import { useFrame, useUpdate } from 'react-three-fiber';
 
 import { Box, Sphere } from 'drei';
 
-import Trees from './Trees';
+// import Trees from './trees/Trees';
 import Water from './Water';
+import StackedTree from './trees/StackedTree';
+import SimpleTree from './trees/SimpleTree';
+import Bush from './trees/Bush';
 
 const Terrain = ({ args, getHeightAt, createMap, colors, colorThresholds }) => {
   const plane = useRef(null);
@@ -58,11 +61,17 @@ const Terrain = ({ args, getHeightAt, createMap, colors, colorThresholds }) => {
   const x = (Math.random() - 0.5) * 160;
   const z = (Math.random() - 0.5) * 160;
   const y = getHeightAt(x, z);
+  const t = getHeightAt(1,2)
+  const t2 = getHeightAt(5,5)
+  console.log(t)
 
   // const testPoints = getHeightAt(x, z);
 
   return (
     <group>
+      <Bush position={[10, getHeightAt(10,10), 10]}/>
+      <StackedTree position={[1, t, 2]}/>
+      <SimpleTree position={[5, t2, 5]}/>
       <Box args={[1, 1, 1]} position={[x, y, z]}>
         <meshStandardMaterial attach='material' color='red' />
       </Box>
@@ -87,7 +96,7 @@ const Terrain = ({ args, getHeightAt, createMap, colors, colorThresholds }) => {
         <meshStandardMaterial attach='material' vertexColors flatShading />
       </mesh>
       <Sphere args={[20, 30, 30]} position={[-100, 50, -100]}>
-        <meshStandardMaterial attach='material' color='orange' />
+        <meshStandardMaterial attach='material' color='white' />
       </Sphere>
       {/* <Trees positions={[[30, 30, createMap(30, 30)]]} /> */}
     </group>

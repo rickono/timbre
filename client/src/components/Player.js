@@ -72,7 +72,6 @@ const Player = ({ getHeightAt }) => {
 
     let toMoveX = 0,
       toMoveZ = 0;
-
     if (moveUp) {
       toMoveX += (lookingAt.x / length) * SPEED;
       toMoveZ += (lookingAt.z / length) * SPEED;

@@ -1,5 +1,5 @@
 import './game.scss';
-
+import React, { useEffect, useState } from 'react';
 import Terrain from '../../components/Terrain';
 import { Canvas } from 'react-three-fiber';
 import { PointerLockControls, OrbitControls, Stars } from 'drei';
@@ -9,6 +9,7 @@ import Lights from '../../components/Lights';
 import Effects from '../../components/Effects';
 import Particles from '../../components/Particles';
 import Water from '../../components/Water';
+import { Box, Sphere } from 'drei'
 
 import biomes from '../../helpers/biomes';
 import Player from '../../components/Player';
@@ -26,8 +27,21 @@ function Game() {
     amps,
     sqThresh,
     finalScaleAndThresh,
-  } = biomes.whiteMountains;
+  } = biomes.greenMountains;
+  const [fog, setFog] = useState(1)
+  const [updateFog, setUpdateFog] = useState(true)
 
+  // useEffect(() => {
+  //   if (fog < 5000){
+  //     setFog(prevFog => prevFog + 1)
+  //   }
+  // }, [fog])
+
+  // useEffect(() => {
+  //   while (fog < 5000){
+  //     setFog(prevFog => prevFog + 1)
+  //   }
+  // }, [])
   const getHeightAt = (x, z) => {
     const length = SIDE_LENGTH / DIVISIONS;
     const floorX = Math.floor(x / length) * length;
@@ -91,9 +105,18 @@ function Game() {
       ? height * finalScaleAndThresh[1] + finalScaleAndThresh[2]
       : height + finalScaleAndThresh[2];
   };
-
+  const b = <Box position={[0, 20, 0]} args={[20, 20, 20]}></Box>
   return (
     <>
+      {/* <mesh position={[0,0,0]}>
+        <boxGeometry
+          attach="geometry"
+          args={[10,10,10]}
+          // mo={{name: "name", vertices : b.vertices}}
+          />
+        <meshStandardMaterial color="red" attach='material' />
+      </mesh> */}
+      
       <Canvas
         shadowMap
         colorManagement
