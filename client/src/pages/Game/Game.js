@@ -28,7 +28,7 @@ function Game({ cookies, setCookie, removeCookie }) {
     amps,
     sqThresh,
     finalScaleAndThresh,
-  } = biomes.greenMountains;
+  } = biomes.whiteMountains;
 
   const getHeightAt = (x, z) => {
     const length = SIDE_LENGTH / DIVISIONS;

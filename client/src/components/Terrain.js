@@ -8,6 +8,9 @@ import Water from './Water';
 import StackedTree from './trees/StackedTree';
 import SimpleTree from './trees/SimpleTree';
 import Bush from './trees/Bush';
+import Trees from './trees/Trees';
+import Cloud from './clouds/Cloud';
+import Clouds from './clouds/Clouds';
 
 const Terrain = ({ args, getHeightAt, createMap, colors, colorThresholds }) => {
   const plane = useRef(null);
@@ -68,6 +71,9 @@ const Terrain = ({ args, getHeightAt, createMap, colors, colorThresholds }) => {
 
   return (
     <group>
+      {/* <Clouds positions={[[0,20,0], [10, 20, 10]]}/> */}
+      <Clouds cloudnumber={100}/>
+      <Trees treeNumber={50} getHeightAt={getHeightAt}/>
       <Bush position={[10, getHeightAt(10,10), 10]}/>
       <StackedTree position={[1, t, 2]}/>
       <SimpleTree position={[5, t2, 5]}/>

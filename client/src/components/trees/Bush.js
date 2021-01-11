@@ -24,7 +24,7 @@ const Bush = ({ position }) => {
         v.y += map(Math.random(),0,1,-per,per)
         v.z += map(Math.random(),0,1,-per,per)
     })
-    jitter(geo, 0.2)
+    jitter(geo, 1)
     return geo
   })
 

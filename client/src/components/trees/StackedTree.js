@@ -29,7 +29,7 @@ const StackedTree = ({ position }) => {
     <mesh needsUpdate={true} position={position} geometry={geom} receiveShadow>
 
       {/* <coneGeometry attach='geometry' args={[3, 10, 4]} /> */}
-      <meshStandardMaterial flatshading needsUpdate={true} attach='material' vertexColors={true} transparent />
+      <meshStandardMaterial needsUpdate={true} attach='material' vertexColors={true} transparent flatshading/>
     </mesh>
   );
 };
