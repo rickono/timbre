@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import * as THREE from 'three';
 import { useFrame, useThree } from 'react-three-fiber';
-import axios from 'axios';
 
 const SPEED = 0.2;
 
@@ -12,7 +11,11 @@ const Player = ({ getHeightAt }) => {
   const [moveLeft, setMoveLeft] = useState(false);
   const [moveRight, setMoveRight] = useState(false);
   const [velocity, setVelocity] = useState(0);
+  const [height, setHeight] = useState(0);
   const [offset, setOffset] = useState(0);
+  const [time, setTime] = useState(0);
+
+  const GRAVITY = 0.05;
 
   useEffect(() => {
     document.addEventListener('keydown', async (e) => {
@@ -33,11 +36,8 @@ const Player = ({ getHeightAt }) => {
         case 'ArrowLeft':
           setMoveLeft(true);
           break;
-        case 'r':
-          const apiresponse = await axios.get(
-            'http://localhost:8888/api/v1/me/devices'
-          );
-          console.log(apiresponse);
+        case ' ':
+          jump();
           break;
         default:
           break;
@@ -67,7 +67,13 @@ const Player = ({ getHeightAt }) => {
     });
   });
 
-  useFrame(() => {
+  const jump = () => {
+    if (height === 0) {
+      setVelocity(0.8);
+    }
+  };
+
+  useFrame((state, delta) => {
     const lookingAt = new THREE.Vector3();
     camera.getWorldDirection(lookingAt);
     const length = Math.sqrt(lookingAt.x ** 2 + lookingAt.z ** 2);
@@ -93,7 +99,17 @@ const Player = ({ getHeightAt }) => {
 
     camera.position.x += toMoveX;
     camera.position.z += toMoveZ;
-    camera.position.y = getHeightAt(camera.position.x, camera.position.z) + 5;
+
+    setOffset(Math.sin(time * 14) / 4);
+    setTime(time + delta);
+
+    setHeight(height + velocity > 0 ? height + velocity : 0);
+    setVelocity(velocity - GRAVITY);
+    camera.position.y =
+      getHeightAt(camera.position.x, camera.position.z) +
+      5 +
+      height +
+      (moveUp || moveBack || moveLeft || moveRight ? offset : 0);
   });
 
   return <mesh />;
