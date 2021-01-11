@@ -11,6 +11,8 @@ const Player = ({ getHeightAt }) => {
   const [moveBack, setMoveBack] = useState(false);
   const [moveLeft, setMoveLeft] = useState(false);
   const [moveRight, setMoveRight] = useState(false);
+  const [velocity, setVelocity] = useState(0);
+  const [offset, setOffset] = useState(0);
 
   useEffect(() => {
     document.addEventListener('keydown', async (e) => {
