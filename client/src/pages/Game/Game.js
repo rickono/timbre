@@ -17,7 +17,7 @@ import MusicPlayer from '../../components/MusicPlayer';
 const SIDE_LENGTH = 160;
 const DIVISIONS = SIDE_LENGTH / 4;
 
-function Game() {
+function Game({ cookies, setCookie, removeCookie }) {
   const simplex = new SimplexNoise();
 
   const {
@@ -126,7 +126,7 @@ function Game() {
         {/* <Water /> */}
         <Player getHeightAt={getHeightAt} />
       </Canvas>
-      <MusicPlayer />
+      <MusicPlayer cookies={cookies} />
     </>
   );
 }
