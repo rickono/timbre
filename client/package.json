@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.6.0",
     "axios": "^0.21.1",
     "drei": "^2.2.13",
+    "p5": "^1.2.0",
     "r-audio": "^1.2.0",
     "react": "^17.0.1",
     "react-cookie": "^4.0.3",

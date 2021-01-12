@@ -72,8 +72,18 @@ const Terrain = ({ args, getHeightAt, createMap, colors, colorThresholds }) => {
   return (
     <group>
       {/* <Clouds positions={[[0,20,0], [10, 20, 10]]}/> */}
-      <Clouds cloudnumber={100}/>
-      <Trees treeNumber={50} getHeightAt={getHeightAt}/>
+      <Clouds cloudnumber={50} 
+              side_length={args[0]} 
+              minHeight={20} 
+              maxHeight={30} 
+              color="white"
+      />
+      <Trees treeNumber={100} 
+             getHeightAt={getHeightAt}
+             sideLength={args[0]}
+             maxHeight={5}
+             minHeight={4}
+      />
       <Bush position={[10, getHeightAt(10,10), 10]}/>
       <StackedTree position={[1, t, 2]}/>
       <SimpleTree position={[5, t2, 5]}/>

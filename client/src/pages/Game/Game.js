@@ -112,8 +112,8 @@ function Game({ cookies, setCookie, removeCookie }) {
         colorManagement
         camera={{ position: [30, 30, 30], fov: 60 }}
       >
-        {/* <fogExp2 attach='fog' args={['white', 0.003]} /> */}
-        <fog attach='fog' args={['white', 1, 5000]} />
+        {/* <fogExp2 attach='fog' args={['white', 0.005]} /> */}
+        <fog attach='fog' args={['black', 1, 200]} />
         <Terrain
           args={[SIDE_LENGTH, SIDE_LENGTH, DIVISIONS, DIVISIONS]}
           createMap={createMap}
