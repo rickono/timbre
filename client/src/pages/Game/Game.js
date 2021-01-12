@@ -140,7 +140,7 @@ function Game({ cookies, setCookie, removeCookie }) {
         <Player getHeightAt={getHeightAt} />
       </Canvas>
       <MusicPlayer cookies={cookies} player={player} />
-      <Introduction />
+      {/* <Introduction /> */}
     </>
   );
 }
