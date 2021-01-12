@@ -31,7 +31,7 @@ function Game({ cookies, setCookie, removeCookie }) {
     amps,
     sqThresh,
     finalScaleAndThresh,
-  } = biomes.beach;
+  } = biomes.greenMountains;
 
   const getHeightAt = (x, z) => {
     const length = SIDE_LENGTH / DIVISIONS;

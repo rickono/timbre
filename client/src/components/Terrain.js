@@ -73,6 +73,7 @@ const Terrain = ({ args, getHeightAt, createMap, colors, colorThresholds }) => {
     <group>
       {/* <Clouds positions={[[0,20,0], [10, 20, 10]]}/> */}
       <Clouds cloudnumber={50} 
+              getHeightAt={getHeightAt}
               side_length={args[0]} 
               minHeight={20} 
               maxHeight={30} 

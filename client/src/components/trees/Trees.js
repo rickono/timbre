@@ -20,6 +20,7 @@ const Trees = ({treeNumber, getHeightAt, sideLength, minHeight, maxHeight}) => {
       }
     const randRange = (max, min) => Math.random() * (max - min) + min
     let positions = []
+    //so the positions are bounded not in water or on mountains
     for (let i = 0; i < treeNumber; i++){
         let x = Math.random() * sideLength - sideLength / 2
         let z = Math.random() * sideLength - sideLength / 2
@@ -47,7 +48,12 @@ const Trees = ({treeNumber, getHeightAt, sideLength, minHeight, maxHeight}) => {
                                 leafColor={0x006400} 
                                 trunkColor={0x654321} 
                                 sides={randInt(3, 5)}
-                            />: <Bush position={p}/>)
+                            />: <Bush position={p} 
+                                      widthSegment={3} 
+                                      heightSegement={5} 
+                                      radius={randRange(1, 3)}
+                                />
+        )
     });
 };
 export default Trees;
