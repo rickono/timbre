@@ -59,12 +59,15 @@ router
           },
           { upsert: true }
         );
+
+        res.redirect(
+          `http://localhost:3000/auth?access_token=${data.body['access_token']}&refresh_token=${data.body['refresh_token']}`
+        );
       },
       (err) => {
         console.log('Something went wrong!', err);
       }
     );
-    res.redirect('http://localhost:3000/game');
   })
   .get('/me/devices', (req, res) => {
     // console.log(req);

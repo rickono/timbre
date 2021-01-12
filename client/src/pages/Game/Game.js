@@ -14,6 +14,7 @@ import { Box, Sphere } from 'drei';
 import biomes from '../../helpers/biomes';
 import Player from '../../components/Player';
 import MusicPlayer from '../../components/MusicPlayer';
+import Introduction from '../../components/ui/Introduction';
 
 const SIDE_LENGTH = 320;
 const DIVISIONS = SIDE_LENGTH / 4;
@@ -139,6 +140,7 @@ function Game({ cookies, setCookie, removeCookie }) {
         <Player getHeightAt={getHeightAt} />
       </Canvas>
       <MusicPlayer cookies={cookies} player={player} />
+      {/* <Introduction /> */}
     </>
   );
 }

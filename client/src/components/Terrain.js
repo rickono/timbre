@@ -1,7 +1,7 @@
-import React, { useRef } from "react";
-import { useFrame, useUpdate } from "react-three-fiber";
+import React, { useRef } from 'react';
+import { useFrame, useUpdate } from 'react-three-fiber';
 
-import { Box, Sphere } from "drei";
+import { Box, Sphere } from 'drei';
 
 // import Trees from './trees/Trees';
 import Water from './Water';
@@ -34,7 +34,7 @@ const Terrain = ({ args, getHeightAt, createMap, colors, colorThresholds }) => {
         geometry.vertices[face.c].y
       );
       colors.every((color, i) => {
-        if (colorThresholds[i] === "else" || maxHeight > colorThresholds[i]) {
+        if (colorThresholds[i] === 'else' || maxHeight > colorThresholds[i]) {
           const faceColor =
             color.constructor === Array
               ? color[Math.floor(Math.random() * color.length)]
@@ -63,9 +63,9 @@ const Terrain = ({ args, getHeightAt, createMap, colors, colorThresholds }) => {
   const x = (Math.random() - 0.5) * 160;
   const z = (Math.random() - 0.5) * 160;
   const y = getHeightAt(x, z);
-  const t = getHeightAt(1,2)
-  const t2 = getHeightAt(5,5)
-  console.log(t)
+  const t = getHeightAt(1, 2);
+  const t2 = getHeightAt(5, 5);
+  console.log(t);
 
   // const testPoints = getHeightAt(x, z);
 
@@ -88,7 +88,7 @@ const Terrain = ({ args, getHeightAt, createMap, colors, colorThresholds }) => {
       <StackedTree position={[1, t, 2]}/>
       <SimpleTree position={[5, t2, 5]}/>
       <Box args={[1, 1, 1]} position={[x, y, z]}>
-        <meshStandardMaterial attach="material" color="red" />
+        <meshStandardMaterial attach='material' color='red' />
       </Box>
       {/* {testPoints.map((point) => {
         console.log(point);
@@ -100,7 +100,7 @@ const Terrain = ({ args, getHeightAt, createMap, colors, colorThresholds }) => {
       })} */}
       <mesh ref={mesh} rotation={[0, 0, 0]} receiveShadow>
         <planeGeometry
-          attach="geometry"
+          attach='geometry'
           args={args}
           computeFaceNormals
           computeVertexNormals
@@ -108,7 +108,7 @@ const Terrain = ({ args, getHeightAt, createMap, colors, colorThresholds }) => {
           verticesNeedUpdate
           elementsNeedUpdate
         />
-        <meshStandardMaterial attach="material" vertexColors flatShading />
+        <meshStandardMaterial attach='material' vertexColors flatShading />
       </mesh>
       <Sphere args={[20, 30, 30]} position={[-100, 50, -100]}>
         <meshStandardMaterial attach='material' color='white' />
