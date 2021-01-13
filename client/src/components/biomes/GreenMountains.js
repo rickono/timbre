@@ -1,21 +1,11 @@
 import React from 'react'
-import bicreateMapomes from '../../helpers/biomes'
 import Terrain from '../Terrain';
 import { PointerLockControls, OrbitControls, Stars } from 'drei';
 import SimplexNoise from 'simplex-noise';
-
 import Lights from '../../components/Lights';
-import Effects from '../../components/Effects';
-import Particles from '../../components/Particles';
-import Water from '../../components/Water';
-import { Box, Sphere } from 'drei';
-
 import biomes from '../../helpers/biomes';
 import Player from '../../components/Player';
-import MusicPlayer from '../../components/MusicPlayer';
-import Introduction from '../../components/ui/Introduction';
-//the main issue is the createMap function...idk how we can use it without just copying it many times
-const GreenMountains = (wrapGetHeightAt , wrapCreateMap, DIVISIONS, SIDE_LENGTH) => {
+const GreenMountains = ({wrapGetHeightAt , wrapCreateMap, DIVISIONS, SIDE_LENGTH}) => {
     //could provide a seed
     const simplex = new SimplexNoise();
     const {
