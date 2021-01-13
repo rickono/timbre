@@ -1,21 +1,8 @@
 import './game.scss';
 import React, { useEffect, useState, useRef } from 'react';
-import Terrain from '../../components/Terrain';
-import { Canvas } from 'react-three-fiber';
-import { PointerLockControls, OrbitControls, Stars } from 'drei';
-import SimplexNoise from 'simplex-noise';
-
-import Lights from '../../components/Lights';
-import Effects from '../../components/Effects';
-import Particles from '../../components/Particles';
-import Water from '../../components/Water';
-import { Box, Sphere } from 'drei';
-
-import biomes from '../../helpers/biomes';
-import Player from '../../components/Player';
 import MusicPlayer from '../../components/MusicPlayer';
 import Introduction from '../../components/ui/Introduction';
-import GreenMountains from "../../components/biomes/GreenMountains"
+import Biome from "../../components/biomes/Biome"
 
 const SIDE_LENGTH = 320;
 const DIVISIONS = SIDE_LENGTH / 4;
@@ -75,7 +62,6 @@ function Game({ cookies, setCookie, removeCookie }) {
     };
   }
   
-
   const wrapCreateMap = (freqs, amps, sqThresh, finalScaleAndThresh, simplex) => {
     return (x, z) => {
       let height = 0;
@@ -90,40 +76,14 @@ function Game({ cookies, setCookie, removeCookie }) {
         : height + finalScaleAndThresh[2];
     };
   }
-  console.log("first")
-  console.log(wrapCreateMap)
-  console.log(typeof(wrapCreateMap)) 
   return (
-    
     <>
-      {/* logarithmic depth buffer? */}
-      <Canvas
-        shadowMap
-        colorManagement
-        camera={{ position: [30, 30, 30], fov: 60}}
-      >
-        {/* <fogExp2 attach='fog' args={['white', 0.005]} /> */}
-        {/* <fog attach='fog' args={['black', 1, 200]} />
-        <Terrain
-          args={[SIDE_LENGTH, SIDE_LENGTH, DIVISIONS, DIVISIONS]}
-          createMap={createMap}
-          getHeightAt={getHeightAt}
-          colors={colors}
-          colorThresholds={colorThresholds}
-        />
-        <Lights /> */}
-        {/* <OrbitControls  /> */}
-        <PointerLockControls />
-        {/* <TransformControls /> */}
-        {/* <Effects /> */}
-        {/* <Particles /> */}
-        <GreenMountains wrapCreateMap={wrapCreateMap} 
-                        wrapGetHeightAt={wrapGetHeightAt}
-                        DIVISIONS={DIVISIONS}
-                        SIDE_LENGTH={SIDE_LENGTH}
-                        />
-      
-      </Canvas>
+      <Biome wrapCreateMap={wrapCreateMap} 
+             wrapGetHeightAt={wrapGetHeightAt}
+             DIVISIONS={DIVISIONS}
+             SIDE_LENGTH={SIDE_LENGTH}
+             biome={"beach"}
+      />
       {/* <MusicPlayer cookies={cookies} player={player} /> */}
       {/* <Introduction /> */}
     </>

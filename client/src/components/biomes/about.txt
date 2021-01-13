@@ -1,0 +1,2 @@
+We should probably create biome objects that hold all of the settings for the biome including
+the number of tree, the lighting, the terrain...everything
