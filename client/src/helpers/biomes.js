@@ -1,7 +1,7 @@
 const biomes = {
   greenMountains: {
     colors: [0xffffff, 0x167d0b, 0x55c949, 0x14a8e3],
-    colorThresholds: [26, 3, 0, 'else'],
+    colorThresholds: [26, 3, 0, -Infinity],
     freqs: [1 / 100, 1 / 50],
     amps: [5, 2.5],
     sqThresh: [1, Infinity],
@@ -17,7 +17,7 @@ const biomes = {
       0x023e8a,
       0x03045e,
     ],
-    colorThresholds: [5.5, 3, 2, 1, -1, -2, 'else'],
+    colorThresholds: [5.5, 3, 2, 1, -1, -2, -Infinity],
     freqs: [1 / 100, 1 / 50],
     amps: [3, 4],
     sqThresh: [1, Infinity],
@@ -33,7 +33,7 @@ const biomes = {
       0x023e8a,
       0x03045e,
     ],
-    colorThresholds: [14, 8, 2, 1, -1, -2, 'else'],
+    colorThresholds: [14, 8, 2, 1, -1, -2, -Infinity],
     freqs: [1 / 200, 1 / 100],
     amps: [4, 8],
     sqThresh: [6, Infinity],
@@ -41,7 +41,7 @@ const biomes = {
   },
   whiteMountains: {
     colors: [0xffffff, 0xcaf0f8, 0xade8f4, 0x2b2d42, [0x264653, 0x2b2d42]],
-    colorThresholds: [30, 25, 17, -1, 'else'],
+    colorThresholds: [30, 25, 17, -1, -Infinity],
     freqs: [1 / 50, 1 / 20],
     amps: [5, 3],
     sqThresh: [0, 3],

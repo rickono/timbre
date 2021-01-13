@@ -27,7 +27,7 @@ const Terrain = ({ args, getHeightAt, createMap, colors, colorThresholds }) => {
         geometry.vertices[face.c].y
       );
       colors.every((color, i) => {
-        if (colorThresholds[i] === 'else' || maxHeight > colorThresholds[i]) {
+        if (maxHeight > colorThresholds[i]) {
           const faceColor =
             color.constructor === Array
               ? color[Math.floor(Math.random() * color.length)]
