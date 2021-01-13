@@ -1,11 +1,11 @@
 import React from 'react'
-import Terrain from '../Terrain';
+import Terrain from './Terrain';
 import { PointerLockControls, Stars } from 'drei';
 import SimplexNoise from 'simplex-noise';
-import Lights from '../Lights';
+import Lights from './Lights';
 import { Canvas } from 'react-three-fiber';
-import biomes from '../../helpers/biomes';
-import Player from '../Player';
+import biomes from '../helpers/biomes';
+import Player from './Player';
 const Biome = ({wrapGetHeightAt , wrapCreateMap, DIVISIONS, SIDE_LENGTH, biome}) => {
     //could provide a seed
     const simplex = new SimplexNoise();
@@ -21,11 +21,6 @@ const Biome = ({wrapGetHeightAt , wrapCreateMap, DIVISIONS, SIDE_LENGTH, biome})
         directionalLight,
         stars
     } = biomes[biome]
-    // const fog = [false, "black", 1, 200] 
-    // const ambientLight = ['papayawhip', 0.2]
-    // const directionalLight = ['orange', 0.5]
-    // const stars = false
-
     const [ directionalColor, directionalIntensity ] = directionalLight
     const [ isFog, fogColor, fogNear, fogFar ] = fog
     const [ ambientColor, ambientIntensity ] = ambientLight

@@ -2,7 +2,7 @@ import './game.scss';
 import React, { useEffect, useState, useRef } from 'react';
 import MusicPlayer from '../../components/MusicPlayer';
 import Introduction from '../../components/ui/Introduction';
-import Biome from "../../components/biomes/Biome"
+import Biome from "../../components/Biome"
 
 const SIDE_LENGTH = 320;
 const DIVISIONS = SIDE_LENGTH / 4;
