@@ -1,7 +1,37 @@
 import React from 'react'
-import biomes from '../../helpers/biomes'
+import bicreateMapomes from '../../helpers/biomes'
+import Terrain from '../Terrain';
+import { PointerLockControls, OrbitControls, Stars } from 'drei';
+import SimplexNoise from 'simplex-noise';
 
-const GreenMountains = (getHeightAt , createMap, ) => {
+import Lights from '../../components/Lights';
+import Effects from '../../components/Effects';
+import Particles from '../../components/Particles';
+import Water from '../../components/Water';
+import { Box, Sphere } from 'drei';
+
+import biomes from '../../helpers/biomes';
+import Player from '../../components/Player';
+import MusicPlayer from '../../components/MusicPlayer';
+import Introduction from '../../components/ui/Introduction';
+//the main issue is the createMap function...idk how we can use it without just copying it many times
+const GreenMountains = (wrapGetHeightAt , wrapCreateMap, DIVISIONS, SIDE_LENGTH) => {
+    //could provide a seed
+    const simplex = new SimplexNoise();
+    const {
+        colors,
+        colorThresholds,
+        freqs,
+        amps,
+        sqThresh,
+        finalScaleAndThresh,
+    } = biomes.greenMountains
+    console.log("here")
+    console.log(typeof(wrapCreateMap))
+    console.log("here2")
+    console.log(typeof(wrapGetHeightAt))
+    const createMap = wrapCreateMap(freqs, amps, sqThresh, finalScaleAndThresh, simplex)
+    const getHeightAt = wrapGetHeightAt(createMap)
     return (
         <div>
             <fog attach='fog' args={['black', 1, 200]} />
@@ -13,6 +43,16 @@ const GreenMountains = (getHeightAt , createMap, ) => {
                 colorThresholds={colorThresholds}
             />
             <Lights /> 
+            <Stars
+                radius={100} // Radius of the inner sphere (default=100)
+                depth={50} // Depth of area where stars should fit (default=50)
+                count={3000} // Amount of stars (default=5000)
+                factor={12} // Size factor (default=4)
+                saturation={0} // Saturation 0-1 (default=0)
+                fade // Faded dots (default=false)
+            />
+            {/* <Water /> */}
+            <Player getHeightAt={getHeightAt} />
         </div>
     )
 }
