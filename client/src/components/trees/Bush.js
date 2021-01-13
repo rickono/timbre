@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import * as THREE from 'three';
 
-const Bush = ({ position, radius, widthSegment, heightSegment}) => {
+const Bush = ({ position, radius, widthSegment, heightSegment, color}) => {
   const geom = useMemo(() => {
     const geo = new THREE.Geometry();
     let shift = 0
@@ -35,7 +35,7 @@ const Bush = ({ position, radius, widthSegment, heightSegment}) => {
       <meshStandardMaterial
         needsUpdate={true}
         attach='material'
-        color='green'
+        color={color}
         transparent
         flatshading
       />

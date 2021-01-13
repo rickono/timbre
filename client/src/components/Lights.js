@@ -36,7 +36,7 @@ const Lights = () => {
         castShadow
         color={'orange'}
         position={[25, 0, 10]}
-        intensity={1}
+        intensity={0.5}
         shadow-mapSize-width={1024}
         shadow-mapSize-height={1024}
         shadow-camera-far={50}

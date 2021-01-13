@@ -1,16 +1,9 @@
 import React, { useRef } from 'react';
 import { useFrame, useUpdate } from 'react-three-fiber';
-
 import { Box, Sphere } from 'drei';
-
-// import Trees from './trees/Trees';
-import Water from './Water';
-import StackedTree from './trees/StackedTree';
-import SimpleTree from './trees/SimpleTree';
-import Bush from './trees/Bush';
 import Trees from './trees/Trees';
-import Cloud from './clouds/Cloud';
 import Clouds from './clouds/Clouds';
+import Rocks from './rocks/Rocks';
 
 const Terrain = ({ args, getHeightAt, createMap, colors, colorThresholds }) => {
   const plane = useRef(null);
@@ -26,7 +19,7 @@ const Terrain = ({ args, getHeightAt, createMap, colors, colorThresholds }) => {
       };
     });
     // ===== Colors =====
-    //if really want to make more general could functions instead...mightbe overkill
+    //if really want to make more general could use functions instead...mightbe overkill
     geometry.faces.forEach((face) => {
       const maxHeight = Math.max(
         geometry.vertices[face.a].y,
@@ -47,58 +40,29 @@ const Terrain = ({ args, getHeightAt, createMap, colors, colorThresholds }) => {
     });
   });
 
-  // const createMap = (x, z) => {
-  //   let height = 0;
-  //   freqs.forEach((freq, i) => {
-  //     height +=
-  //       simplex.current.noise2D(x * freq, z * freq) * amps[i] > sqThresh[i]
-  //         ? Math.pow(simplex.current.noise2D(x * freq, z * freq) * amps[i], 2)
-  //         : simplex.current.noise2D(x * freq, z * freq) * amps[i];
-  //   });
-  //   return height > finalScaleAndThresh[0]
-  //     ? height * finalScaleAndThresh[1] + finalScaleAndThresh[2]
-  //     : height + finalScaleAndThresh[2];
-  // };
-
-  const x = (Math.random() - 0.5) * 160;
-  const z = (Math.random() - 0.5) * 160;
-  const y = getHeightAt(x, z);
-  const t = getHeightAt(1, 2);
-  const t2 = getHeightAt(5, 5);
-  console.log(t);
-
-  // const testPoints = getHeightAt(x, z);
-
   return (
     <group>
-      {/* <Clouds positions={[[0,20,0], [10, 20, 10]]}/> */}
+      <Rocks rockNumber={50}
+             getHeightAt={getHeightAt} 
+             sideLength={args[0]} 
+             colors={["grey", "darkgrey"]} 
+             minHeight={-1} 
+             maxHeight={2}/>
       <Clouds cloudnumber={50} 
               getHeightAt={getHeightAt}
               side_length={args[0]} 
               minHeight={20} 
               maxHeight={30} 
-              color="white"
+              colors={["white", "lightgrey", "lightpink"]}
       />
-      <Trees treeNumber={100} 
+      <Trees treeNumber={75} 
              getHeightAt={getHeightAt}
              sideLength={args[0]}
-             maxHeight={5}
-             minHeight={4}
+             maxHeight={9}
+             minHeight={2}
+             trunkColors={[0x654321]}
+             leafColors={[0x006400,  0x90EE90, 0x9FEE90]}
       />
-      <Bush position={[10, getHeightAt(10,10), 10]}/>
-      <StackedTree position={[1, t, 2]}/>
-      <SimpleTree position={[5, t2, 5]}/>
-      <Box args={[1, 1, 1]} position={[x, y, z]}>
-        <meshStandardMaterial attach='material' color='red' />
-      </Box>
-      {/* {testPoints.map((point) => {
-        console.log(point);
-        return (
-          <Box color='black' args={[1, 1, 1]} position={point} key={point[1]}>
-            <meshStandardMaterial attach='material' color='black' />
-          </Box>
-        );
-      })} */}
       <mesh ref={mesh} rotation={[0, 0, 0]} receiveShadow>
         <planeGeometry
           attach='geometry'
@@ -114,7 +78,6 @@ const Terrain = ({ args, getHeightAt, createMap, colors, colorThresholds }) => {
       <Sphere args={[20, 30, 30]} position={[-100, 50, -100]}>
         <meshStandardMaterial attach='material' color='white' />
       </Sphere>
-      {/* <Trees positions={[[30, 30, createMap(30, 30)]]} /> */}
     </group>
   );
 };

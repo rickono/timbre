@@ -31,7 +31,7 @@ function Game({ cookies, setCookie, removeCookie }) {
     amps,
     sqThresh,
     finalScaleAndThresh,
-  } = biomes.greenMountains;
+  } = biomes.mesa;
 
   const getHeightAt = (x, z) => {
     const length = SIDE_LENGTH / DIVISIONS;
@@ -99,19 +99,11 @@ function Game({ cookies, setCookie, removeCookie }) {
   const b = <Box position={[0, 20, 0]} args={[20, 20, 20]}></Box>;
   return (
     <>
-      {/* <mesh position={[0,0,0]}>
-        <boxGeometry
-          attach="geometry"
-          args={[10,10,10]}
-          // mo={{name: "name", vertices : b.vertices}}
-          />
-        <meshStandardMaterial color="red" attach='material' />
-      </mesh> */}
-
+      {/* logarithmic depth buffer? */}
       <Canvas
         shadowMap
         colorManagement
-        camera={{ position: [30, 30, 30], fov: 60 }}
+        camera={{ position: [30, 30, 30], fov: 60}}
       >
         {/* <fogExp2 attach='fog' args={['white', 0.005]} /> */}
         <fog attach='fog' args={['black', 1, 200]} />
@@ -139,7 +131,7 @@ function Game({ cookies, setCookie, removeCookie }) {
         {/* <Water /> */}
         <Player getHeightAt={getHeightAt} />
       </Canvas>
-      <MusicPlayer cookies={cookies} player={player} />
+      {/* <MusicPlayer cookies={cookies} player={player} /> */}
       {/* <Introduction /> */}
     </>
   );

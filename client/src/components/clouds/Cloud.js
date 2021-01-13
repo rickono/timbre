@@ -49,8 +49,6 @@ const Cloud = ({ position, color, numPuffs, radius, widthSegments, heightSegment
 
   return (
     <mesh needsUpdate={true} position={position} geometry={geom} receiveShadow>
-
-      {/* <coneGeometry attach='geometry' args={[3, 10, 4]} /> */}
       <meshStandardMaterial needsUpdate={true} attach='material' color={color} transparent opacity={1} flatshading/>
     </mesh>
   );

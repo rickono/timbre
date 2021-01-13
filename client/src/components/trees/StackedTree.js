@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import * as THREE from 'three';
 
 const StackedTree = ({ position, baseWidth , height, leafColor, trunkColor, sides }) => {
-  // const [ baseWidth , height, leafColor, trunkColor, sides ] = [1.5, 4, 0x006400, 0x654321, 4]
   const geom = useMemo(() => {
     const geo = new THREE.Geometry();
     const level1 = new THREE.ConeGeometry(baseWidth/2.25, height/3, sides);
@@ -17,7 +16,6 @@ const StackedTree = ({ position, baseWidth , height, leafColor, trunkColor, side
     level3.faces.forEach((f) => f.color.set(leafColor));
     level3.translate(0, height / 3, 0);
     geo.merge(level3);
-    // const trunk = new THREE.CylinderGeometry(0.5,0.5,2)
     const trunk = new THREE.CylinderGeometry(baseWidth / 6, baseWidth / 6, height * 2 / 3, 6);
     trunk.faces.forEach((f) => f.color.set(trunkColor));
     trunk.translate(0, 0, 0);
@@ -27,7 +25,6 @@ const StackedTree = ({ position, baseWidth , height, leafColor, trunkColor, side
 
   return (
     <mesh needsUpdate={true} position={position} geometry={geom} receiveShadow>
-      {/* <coneGeometry attach='geometry' args={[3, 10, 4]} /> */}
       <meshStandardMaterial
         needsUpdate={true}
         attach='material'

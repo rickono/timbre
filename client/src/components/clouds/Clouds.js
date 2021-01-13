@@ -2,7 +2,13 @@ import React, { useMemo } from 'react';
 import * as THREE from "three";
 import Cloud from './Cloud';
 
-const Clouds = ({cloudnumber, getHeightAt, side_length, color, minHeight, maxHeight}) => {
+const Clouds = ({cloudnumber, getHeightAt, side_length, colors, minHeight, maxHeight}) => {
+    const randInt = (min, max) => {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+    const randVal = (arr) => arr[randInt(0, arr.length - 1)]
     let positions = []
     //maybe make thsi into some simplex noise thing
     for (let i =0; i < cloudnumber; i++){
@@ -20,7 +26,7 @@ const Clouds = ({cloudnumber, getHeightAt, side_length, color, minHeight, maxHei
                                      radius={[1, 5]} 
                                      widthSegments={[5, 9]} 
                                      heightSegments={[5, 9]} 
-                                     color={color}
+                                     color={randVal(colors)}
                                      />);
 }
 export default Clouds;
