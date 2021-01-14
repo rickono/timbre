@@ -129,52 +129,46 @@ function Game({ cookies, setCookie, removeCookie }) {
 
   const randVal = (arr) => {
     const i = randInt(0, arr.length - 1);
+    console.log(i);
     return arr[i];
   };
+
   const generateSettings = (mood) => {
-    let colors, ambLight, dirLight, fog, stars
-    if (mood === "happy"){
-      colors = randVal(colorSchemes.happy)
-      ambLight = {ambientColor : 'papayawhip', 
-                  ambientIntensity: 0.2
-                 }
-      dirLight = {directionalColor : 'orange', 
-                  directionalIntensity : 0.5,
-                 }
-      fog = {isFog: false, 
-             fogColor : "light", 
-             fogNear : 1, 
-             fogFar: 200,
-            }
-      stars = false
-    }
-    else if (mood === "sad"){
-        colors = randVal(colorSchemes.happy)
-        ambLight = {ambientColor : 'lightblue', 
-                    ambientIntensity: 0.2
-                   }
-        dirLight = {directionalColor : 'lightblue', 
-                    directionalIntensity : 0.5}
-        fog = {isFog: true, 
-              fogColor : "black", 
-              fogNear : 1, 
-              fogFar: 200}
-        stars = true
+    let colors, ambLight, dirLight, fog, stars, timeOfDay;
+    if (mood === 'happy') {
+      colors = randVal(colorSchemes.happy);
+      ambLight = { ambientColor: 'papayawhip', ambientIntensity: 0.2 };
+      dirLight = { directionalColor: 'orange', directionalIntensity: 0.5 };
+      fog = { isFog: false, fogColor: 'white', fogNear: 1, fogFar: 200 };
+      stars = false;
+      timeOfDay = 'day';
+    } else if (mood === 'sad') {
+      colors = randVal(colorSchemes.sad);
+      ambLight = { ambientColor: 'lightblue', ambientIntensity: 0.2 };
+      dirLight = { directionalColor: 'lightblue', directionalIntensity: 0.5 };
+      fog = { isFog: true, fogColor: 'black', fogNear: 1, fogFar: 200 };
+      stars = true;
+      timeOfDay = 'night';
+    } else {
+      timeOfDay = 'sunset';
     }
 
-    const rockInfo = {rockNumber : 50,
-                      rockColors : ['grey', 'darkgrey'],
-                      rockRange : [-1, 2],
-                    }
-    const treeInfo = {treeNumber : 75,
-                      treeRange : [2, 9],
-                      treeTrunkColor : [0x654321],
-                      treeLeafColor : [0x006400, 0x90ee90, 0x9fee90],
-                    }
-    const cloudInfo = {cloudNumber : 50,
-                       cloudRange : [20, 30],
-                       cloudColors: ['white', 'lightgrey', 'lightpink'],
-                      }
+    const rockInfo = {
+      rockNumber: 50,
+      rockColors: ['grey', 'darkgrey'],
+      rockRange: [-1, 2],
+    };
+    const treeInfo = {
+      treeNumber: 75,
+      treeRange: [2, 9],
+      treeTrunkColor: [0x654321],
+      treeLeafColor: [0x006400, 0x90ee90, 0x9fee90],
+    };
+    const cloudInfo = {
+      cloudNumber: 50,
+      cloudRange: [20, 30],
+      cloudColors: ['white', 'lightgrey', 'lightpink'],
+    };
     const greenMountains = {
       colors: colors,
       colorThresholds: [28, 5, 2, -Infinity],
@@ -182,61 +176,73 @@ function Game({ cookies, setCookie, removeCookie }) {
       amps: [randRange(4, 5), 2.5],
       sqThresh: [1, Infinity],
       finalScaleAndThresh: [4, 1.5, 2],
-      fog : fog,
-      ambientLight : ambLight,
-      directionalLight : dirLight,
-      stars : stars,
-      rockInfo : rockInfo,
-      cloudInfo : cloudInfo, 
-      treeInfo : treeInfo,
-    }
+      fog: fog,
+      ambientLight: ambLight,
+      directionalLight: dirLight,
+      rockInfo: rockInfo,
+      cloudInfo: cloudInfo,
+      treeInfo: treeInfo,
+      skyInfo: {
+        stars,
+        timeOfDay,
+      },
+    };
     const whiteMountains = {
-      colors: colors.slice(0,4).concat([colors.slice(3, 5)]),
+      colors: colors.slice(0, 4).concat([colors.slice(3, 5)]),
       colorThresholds: [36, 31, 23, 6, -Infinity],
-      freqs: [randRange(1 / 60, 1/40), randRange(1 / 30, 1/20)],
-      amps: [randRange(4,5), 3],
+      freqs: [randRange(1 / 60, 1 / 40), randRange(1 / 30, 1 / 20)],
+      amps: [randRange(4, 5), 3],
       sqThresh: [0, 3],
       finalScaleAndThresh: [2, 1.7, 7],
-      fog : fog,
-      ambientLight : ambLight,
-      directionalLight : dirLight,
-      stars : stars,
-      rockInfo : rockInfo,
-      cloudInfo : cloudInfo, 
-      treeInfo : treeInfo
-    }
+      fog: fog,
+      ambientLight: ambLight,
+      directionalLight: dirLight,
+      rockInfo: rockInfo,
+      cloudInfo: cloudInfo,
+      treeInfo: treeInfo,
+      skyInfo: {
+        stars,
+        timeOfDay,
+      },
+    };
     const mesa = {
-      colors: colors, 
+      colors: colors,
       colorThresholds: [14, 8, 2, -2, -Infinity],
-      freqs: [randRange(1 / 200, 1 / 150), randRange(1 / 110, 1/90)],
+      freqs: [randRange(1 / 200, 1 / 150), randRange(1 / 110, 1 / 90)],
       amps: [4, 8],
       sqThresh: [6, Infinity],
       finalScaleAndThresh: [5, 3, 3],
-      fog : fog,
-      ambientLight : ambLight,
-      directionalLight : dirLight,
-      stars : stars,
-      rockInfo : rockInfo,
-      cloudInfo : cloudInfo, 
-      treeInfo : treeInfo
-    }
+      fog: fog,
+      ambientLight: ambLight,
+      directionalLight: dirLight,
+      rockInfo: rockInfo,
+      cloudInfo: cloudInfo,
+      treeInfo: treeInfo,
+      skyInfo: {
+        stars,
+        timeOfDay,
+      },
+    };
     const beach = {
       colors: colors,
       colorThresholds: [5.5, 3, 1, -2, -Infinity],
-      freqs: [randRange(1/150, 1/100), randRange(1 / 60, 1/40)],
+      freqs: [randRange(1 / 150, 1 / 100), randRange(1 / 60, 1 / 40)],
       amps: [3, 4],
       sqThresh: [1, Infinity],
       finalScaleAndThresh: [0, 1.5, 1.5],
-      fog : fog,
-      ambientLight : ambLight,
-      directionalLight : dirLight,
-      stars : stars,
-      rockInfo : rockInfo,
-      cloudInfo : cloudInfo, 
-      treeInfo : treeInfo
-    }
-    return randVal([beach])
-  }
+      fog: fog,
+      ambientLight: ambLight,
+      directionalLight: dirLight,
+      rockInfo: rockInfo,
+      cloudInfo: cloudInfo,
+      treeInfo: treeInfo,
+      skyInfo: {
+        stars,
+        timeOfDay,
+      },
+    };
+    return randVal([beach, mesa, greenMountains, whiteMountains]);
+  };
   return (
     <>
       <Biome
@@ -244,7 +250,7 @@ function Game({ cookies, setCookie, removeCookie }) {
         wrapGetHeightAt={wrapGetHeightAt}
         DIVISIONS={DIVISIONS}
         SIDE_LENGTH={SIDE_LENGTH}
-        biome={generateSettings('sad')}
+        biome={generateSettings('happy')}
       />
     </>
   );

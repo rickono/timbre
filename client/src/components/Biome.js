@@ -1,6 +1,6 @@
 import React from 'react';
 import Terrain from './Terrain';
-import { PointerLockControls, Stars } from 'drei';
+import { PointerLockControls, Stars, Sky, OrbitControls } from 'drei';
 import SimplexNoise from 'simplex-noise';
 import Lights from './Lights';
 import { Canvas } from 'react-three-fiber';
@@ -25,10 +25,10 @@ const Biome = ({
     fog,
     ambientLight,
     directionalLight,
-    stars,
     treeInfo,
     cloudInfo,
     rockInfo,
+    skyInfo: { stars, timeOfDay },
   } = biome;
   const { directionalColor, directionalIntensity } = directionalLight;
   const { isFog, fogColor, fogNear, fogFar } = fog;
@@ -68,9 +68,9 @@ const Biome = ({
         cloudColors={cloudColors}
         cloudNumber={cloudNumber}
         cloudRange={cloudNumber}
-
       />
       <PointerLockControls />
+      {/* <OrbitControls /> */}
       <Lights
         directionalColor={directionalColor}
         directionalIntensity={directionalIntensity}
@@ -88,6 +88,29 @@ const Biome = ({
         />
       )}
       {/* <Water /> */}
+      {timeOfDay === 'sunset' ? (
+        <Sky
+          distance={45000} // Camera distance (default=450000)
+          azimuth={0.3719} // Sun rotation around the Y axis from 0 to 1 (default=0.25)
+          turbidity={6}
+          rayleigh={3}
+          mieCoefficient={0.01}
+          mieDirectionalG={0.9999}
+          inclination={0.5005}
+          exposure={0.4}
+        />
+      ) : timeOfDay === 'day' ? (
+        <Sky
+          distance={45000} // Camera distance (default=450000)
+          azimuth={0.3719} // Sun rotation around the Y axis from 0 to 1 (default=0.25)
+          turbidity={6}
+          rayleigh={0.4}
+          mieCoefficient={0.01}
+          mieDirectionalG={0.9999}
+          inclination={0.56}
+          exposure={0.1}
+        />
+      ) : null}
       <Player getHeightAt={getHeightAt} />
     </Canvas>
   );

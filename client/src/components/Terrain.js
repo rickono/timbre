@@ -5,22 +5,22 @@ import Trees from './trees/Trees';
 import Clouds from './clouds/Clouds';
 import Rocks from './rocks/Rocks';
 
-const Terrain = ({ 
-  args, 
-  getHeightAt, 
-  createMap, 
-  colors, 
-  colorThresholds, 
-  rockColors, 
-  cloudColors, 
-  treeLeafColors, 
+const Terrain = ({
+  args,
+  getHeightAt,
+  createMap,
+  colors,
+  colorThresholds,
+  rockColors,
+  cloudColors,
+  treeLeafColors,
   treeTrunkColors,
   rockRange,
   rockNumber,
   cloudNumber,
   treeNumber,
   cloudRange,
-  treeRange
+  treeRange,
 }) => {
   const plane = useRef(null);
 
@@ -58,26 +58,30 @@ const Terrain = ({
 
   return (
     <group>
-      <Rocks rockNumber={rockNumber}
-             getHeightAt={getHeightAt} 
-             sideLength={args[0]} 
-             colors={rockColors} 
-             minHeight={rockRange[0]} 
-             maxHeight={rockRange[1]}/>
-      <Clouds cloudnumber={cloudNumber} 
-              getHeightAt={getHeightAt}
-              side_length={args[0]} 
-              minHeight={cloudRange[0]} 
-              maxHeight={cloudRange[1]} 
-              colors={cloudColors}
+      <Rocks
+        rockNumber={rockNumber}
+        getHeightAt={getHeightAt}
+        sideLength={args[0]}
+        colors={rockColors}
+        minHeight={rockRange[0]}
+        maxHeight={rockRange[1]}
       />
-      <Trees treeNumber={treeNumber} 
-             getHeightAt={getHeightAt}
-             sideLength={args[0]}
-             maxHeight={treeRange[1]}
-             minHeight={treeRange[0]}
-             trunkColors={treeTrunkColors}
-             leafColors={treeLeafColors}
+      <Clouds
+        cloudnumber={cloudNumber}
+        getHeightAt={getHeightAt}
+        side_length={args[0]}
+        minHeight={cloudRange[0]}
+        maxHeight={cloudRange[1]}
+        colors={cloudColors}
+      />
+      <Trees
+        treeNumber={treeNumber}
+        getHeightAt={getHeightAt}
+        sideLength={args[0]}
+        maxHeight={treeRange[1]}
+        minHeight={treeRange[0]}
+        trunkColors={treeTrunkColors}
+        leafColors={treeLeafColors}
       />
       <mesh ref={mesh} rotation={[0, 0, 0]} receiveShadow>
         <planeGeometry
@@ -91,9 +95,6 @@ const Terrain = ({
         />
         <meshStandardMaterial attach='material' vertexColors flatShading />
       </mesh>
-      <Sphere args={[20, 30, 30]} position={[-100, 50, -100]}>
-        <meshStandardMaterial attach='material' color='white' />
-      </Sphere>
     </group>
   );
 };
