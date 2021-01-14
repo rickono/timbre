@@ -3,6 +3,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import MusicPlayer from '../../components/MusicPlayer';
 import Introduction from '../../components/ui/Introduction';
 import Biome from "../../components/Biome"
+import colorSchemes from "../../helpers/colorSchemes"
+import {randInt, randRange} from "../../helpers/utils"
 
 const SIDE_LENGTH = 320;
 const DIVISIONS = SIDE_LENGTH / 4;
@@ -75,13 +77,43 @@ function Game({ cookies, setCookie, removeCookie }) {
         : height + finalScaleAndThresh[2];
     };
   }
+  //write some code ot generate an environments settign based on whether its happy or sad
+
+  const randVal = (arr) => {
+    const i = randInt(0, arr.length - 1)
+    console.log(i)
+    return arr[i]
+  }
+  const generateSettings = (mood) => {
+    let colors, ambLight, dirLight, fog, stars
+    if (mood === "happy"){
+      colors = randVal(colorSchemes.happy)
+      ambLight = ['papayawhip', 0.2] 
+      dirLight = ['orange', 0.5]
+      fog = [true, "white", 1, 200]
+      stars = false
+    }
+    const greenMountains = {
+      colors: colors,
+      colorThresholds: [26, 3, 0, -Infinity],
+      freqs: [randRange(1 / 120, 1/80), randRange(1 / 40, 1/30)],
+      amps: [randRange(4, 5), 2.5],
+      sqThresh: [1, Infinity],
+      finalScaleAndThresh: [4, 1.5, 0],
+      fog : fog,
+      ambientLight : ambLight,
+      directionalLight : dirLight,
+      stars : stars,
+    }
+    return randVal([greenMountains])
+  }
   return (
     <>
       <Biome wrapCreateMap={wrapCreateMap} 
              wrapGetHeightAt={wrapGetHeightAt}
              DIVISIONS={DIVISIONS}
              SIDE_LENGTH={SIDE_LENGTH}
-             biome={"beach"}
+             biome={generateSettings("happy")}
       />
       {/* <MusicPlayer cookies={cookies} player={player} /> */}
       {/* <Introduction /> */}

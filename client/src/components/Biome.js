@@ -20,7 +20,7 @@ const Biome = ({wrapGetHeightAt , wrapCreateMap, DIVISIONS, SIDE_LENGTH, biome})
         ambientLight,
         directionalLight,
         stars
-    } = biomes[biome]
+    } = biome
     const [ directionalColor, directionalIntensity ] = directionalLight
     const [ isFog, fogColor, fogNear, fogFar ] = fog
     const [ ambientColor, ambientIntensity ] = ambientLight
@@ -40,6 +40,10 @@ const Biome = ({wrapGetHeightAt , wrapCreateMap, DIVISIONS, SIDE_LENGTH, biome})
                 getHeightAt={getHeightAt}
                 colors={colors}
                 colorThresholds={colorThresholds}
+                rockColors={["grey", "darkgrey"]}
+                treeLeafColors={[0x006400, 0x90EE90, 0x9FEE90]}
+                treeTrunkColors={[0x654321]}
+                cloudColors={["white", "lightgrey", "lightpink"]}
             />
             <PointerLockControls />
             <Lights directionalColor={directionalColor}

@@ -5,7 +5,7 @@ import Trees from './trees/Trees';
 import Clouds from './clouds/Clouds';
 import Rocks from './rocks/Rocks';
 
-const Terrain = ({ args, getHeightAt, createMap, colors, colorThresholds }) => {
+const Terrain = ({ args, getHeightAt, createMap, colors, colorThresholds, rockColors, cloudColors, treeLeafColors, treeTrunkColors }) => {
   const plane = useRef(null);
 
   const mesh = useUpdate(({ geometry }) => {
@@ -45,7 +45,7 @@ const Terrain = ({ args, getHeightAt, createMap, colors, colorThresholds }) => {
       <Rocks rockNumber={50}
              getHeightAt={getHeightAt} 
              sideLength={args[0]} 
-             colors={["grey", "darkgrey"]} 
+             colors={rockColors} 
              minHeight={-1} 
              maxHeight={2}/>
       <Clouds cloudnumber={50} 
@@ -53,15 +53,15 @@ const Terrain = ({ args, getHeightAt, createMap, colors, colorThresholds }) => {
               side_length={args[0]} 
               minHeight={20} 
               maxHeight={30} 
-              colors={["white", "lightgrey", "lightpink"]}
+              colors={cloudColors}
       />
       <Trees treeNumber={75} 
              getHeightAt={getHeightAt}
              sideLength={args[0]}
              maxHeight={9}
              minHeight={2}
-             trunkColors={[0x654321]}
-             leafColors={[0x006400,  0x90EE90, 0x9FEE90]}
+             trunkColors={treeTrunkColors}
+             leafColors={treeLeafColors}
       />
       <mesh ref={mesh} rotation={[0, 0, 0]} receiveShadow>
         <planeGeometry
