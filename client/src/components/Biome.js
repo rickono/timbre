@@ -67,7 +67,7 @@ const Biome = ({
         treeRange={treeRange}
         cloudColors={cloudColors}
         cloudNumber={cloudNumber}
-        cloudRange={cloudNumber}
+        cloudRange={cloudRange}
       />
       <PointerLockControls />
       {/* <OrbitControls /> */}
@@ -111,7 +111,7 @@ const Biome = ({
           exposure={0.1}
         />
       ) : null}
-      <Player getHeightAt={getHeightAt} />
+      <Player getHeightAt={getHeightAt} SIDE_LENGTH={SIDE_LENGTH} />
     </Canvas>
   );
 };
