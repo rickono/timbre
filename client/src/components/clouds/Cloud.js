@@ -1,15 +1,9 @@
 import React, { useMemo } from 'react';
 import * as THREE from "three";
+import {randRange, randInt} from "../../helpers/utils"
 //potentially ring around mountain
 //make the different puffs different sizes within the same cloud
 const Cloud = ({ position, color, numPuffs, radius, widthSegments, heightSegments}) => {
-  const randInt = (min, max) => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-  const randRange = (max, min) => Math.random() * (max - min) + min
-
   const geom = useMemo(() => {
     const geo = new THREE.Geometry()
     //could cause out of bonds issues ont centered but this is easier

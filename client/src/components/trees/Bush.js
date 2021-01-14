@@ -11,13 +11,6 @@ const Bush = ({ position, radius, widthSegment, heightSegment, color}) => {
       geo.merge(tuft);
       shift += radius / 2
     }
-    // const tuft2 = new THREE.SphereGeometry(radius, 3, 5);
-    // tuft2.translate(1, 0, 0);
-    // geo.merge(tuft2);
-
-    // const tuft3 = new THREE.SphereGeometry(2.0, 3, 5);
-    // tuft3.translate(0, 0, 0);
-    // geo.merge(tuft3);
     const map = (val, smin, smax, emin, emax) =>
       ((emax - emin) * (val - smin)) / (smax - smin) + emin;
     //randomly displace the x,y,z coords by the `per` value
