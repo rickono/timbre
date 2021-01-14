@@ -2,7 +2,7 @@ import './game.scss';
 import React, { useEffect, useState, useRef } from 'react';
 import Biome from '../../components/Biome';
 import colorSchemes from '../../helpers/colorSchemes';
-import { randInt, randRange } from '../../helpers/utils';
+import { randRange, randVal } from '../../helpers/utils';
 
 import axios from 'axios';
 
@@ -127,28 +127,31 @@ function Game({ cookies, setCookie, removeCookie }) {
   };
   //write some code ot generate an environments settign based on whether its happy or sad
 
-  const randVal = (arr) => {
-    const i = randInt(0, arr.length - 1);
-    console.log(i);
-    return arr[i];
-  };
-
   //maybe radnomly generate the lighting...it has a huge effect
   //maybe the lighting should go with the color scheme..thats probably best
+  //test lightblue, light purple adn white for sad
+  //terst papayawhip, orange, yellow, white for happy
+  //idk what to test for chill
   const generateSettings = (mood) => {
     let colors, ambLight, dirLight, fog, stars, timeOfDay, cloudColors;
+    const happyColors = ["yellow", "lightyellow", "orange", "white", "papyawhip"]
+    const sadColors = ["white", "lightpurple", "lightblue"]
     if (mood === 'happy') {
+      const ambientColor = randVal(happyColors)
+      const directionalColor = randVal(happyColors)
       colors = randVal(colorSchemes.happy);
-      ambLight = { ambientColor: 'white', ambientIntensity: 0.2 };
-      dirLight = { directionalColor: 'white', directionalIntensity: 0.5 };
+      ambLight = { ambientColor, ambientIntensity: 0.2 };
+      dirLight = { directionalColor, directionalIntensity: 0.5 };
       fog = { isFog: true, fogColor: 0xadbfc7, fogNear: 1, fogFar: 175 };
       stars = false;
       timeOfDay = 'day';
       cloudColors = ['white', 'papayawhip'] 
     } else if (mood === 'sad') {
+      const ambientColor = randVal(sadColors)
+      const directionalColor = randVal(sadColors)
       colors = randVal(colorSchemes.sad);
-      ambLight = { ambientColor: 'lightblue', ambientIntensity: 0.2 };
-      dirLight = { directionalColor: 'lightblue', directionalIntensity: 0.5 };
+      ambLight = { ambientColor, ambientIntensity: 0.2 };
+      dirLight = { directionalColor, directionalIntensity: 0.5 };
       fog = { isFog: true, fogColor: 'black', fogNear: 1, fogFar: 175 };
       stars = true;
       timeOfDay = 'night';
@@ -280,7 +283,7 @@ function Game({ cookies, setCookie, removeCookie }) {
         timeOfDay,
       },
     };
-    return randVal([beach, whiteMountains]);
+    return randVal([whiteMountains]);
   };
   return (
     <>
@@ -289,7 +292,7 @@ function Game({ cookies, setCookie, removeCookie }) {
         wrapGetHeightAt={wrapGetHeightAt}
         DIVISIONS={DIVISIONS}
         SIDE_LENGTH={SIDE_LENGTH}
-        biome={generateSettings('sad')}
+        biome={generateSettings('happy')}
       />
     </>
   );
