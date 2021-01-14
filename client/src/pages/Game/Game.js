@@ -133,12 +133,14 @@ function Game({ cookies, setCookie, removeCookie }) {
     return arr[i];
   };
 
+  //maybe radnomly generate the lighting...it has a huge effect
+  //maybe the lighting should go with the color scheme..thats probably best
   const generateSettings = (mood) => {
     let colors, ambLight, dirLight, fog, stars, timeOfDay, cloudColors;
     if (mood === 'happy') {
       colors = randVal(colorSchemes.happy);
-      ambLight = { ambientColor: 'papayawhip', ambientIntensity: 0.2 };
-      dirLight = { directionalColor: 'orange', directionalIntensity: 0.5 };
+      ambLight = { ambientColor: 'white', ambientIntensity: 0.2 };
+      dirLight = { directionalColor: 'white', directionalIntensity: 0.5 };
       fog = { isFog: true, fogColor: 0xadbfc7, fogNear: 1, fogFar: 175 };
       stars = false;
       timeOfDay = 'day';
@@ -196,7 +198,7 @@ function Game({ cookies, setCookie, removeCookie }) {
     };
     const whiteMountains = {
       colors: colors.slice(0, 4).concat([colors.slice(3, 5)]),
-      colorThresholds: [36, 31, 23, 6, -Infinity],
+      colorThresholds: [28, 23, 18, 6, -Infinity],
       freqs: [randRange(1 / 60, 1 / 40), randRange(1 / 30, 1 / 20)],
       amps: [randRange(4, 5), 3],
       sqThresh: [0, 3],
@@ -256,7 +258,7 @@ function Game({ cookies, setCookie, removeCookie }) {
       freqs: [randRange(1 / 150, 1 / 100), randRange(1 / 60, 1 / 40)],
       amps: [3, 4],
       sqThresh: [1, Infinity],
-      finalScaleAndThresh: [0, 1.5, 1.5],
+      finalScaleAndThresh: [0, 1.5, 0],
       fog: fog,
       ambientLight: ambLight,
       directionalLight: dirLight,
@@ -278,7 +280,7 @@ function Game({ cookies, setCookie, removeCookie }) {
         timeOfDay,
       },
     };
-    return randVal([beach, greenMountains, whiteMountains, mesa]);
+    return randVal([beach, whiteMountains]);
   };
   return (
     <>
@@ -287,7 +289,7 @@ function Game({ cookies, setCookie, removeCookie }) {
         wrapGetHeightAt={wrapGetHeightAt}
         DIVISIONS={DIVISIONS}
         SIDE_LENGTH={SIDE_LENGTH}
-        biome={generateSettings('chill')}
+        biome={generateSettings('sad')}
       />
     </>
   );

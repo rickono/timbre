@@ -23,7 +23,7 @@ const Lights = ({
         // shadow-radius={30}
         castShadow
       /> */}
-      <Box args={[5, 5, 5]} position={[-100, 100, 200]} />
+      {/* <Box args={[5, 5, 5]} position={[-100, 100, 200]} /> */}
       <directionalLight
         castShadow
         color={directionalColor}
