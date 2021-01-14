@@ -22,6 +22,7 @@ const scopes = [
   'user-read-email',
   'playlist-read-private',
   'user-read-playback-state',
+  'user-top-read',
 ];
 
 const state = 'state';
@@ -78,6 +79,17 @@ router
       (err) => {
         console.log(err);
       }
+    );
+  })
+  .get('/me/toptracks', (req, res) => {
+    console.log(req.headers['access-token']);
+    spotifyApi.setAccessToken(req.headers['access-token']);
+    spotifyApi.getMyTopTracks().then(
+      (data) => {
+        const topTracks = data.body;
+        console.log(topTracks);
+      },
+      (err) => console.log(err)
     );
   });
 
