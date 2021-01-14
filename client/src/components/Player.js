@@ -5,7 +5,7 @@ import { useFrame, useThree } from 'react-three-fiber';
 import axios from 'axios';
 const SPEED = 0.2;
 
-const Player = ({ getHeightAt, cookies }) => {
+const Player = ({ getHeightAt, cookies, SIDE_LENGTH }) => {
   const { camera } = useThree();
   const [moveUp, setMoveUp] = useState(false);
   const [moveBack, setMoveBack] = useState(false);
@@ -98,8 +98,10 @@ const Player = ({ getHeightAt, cookies }) => {
       toMoveZ -= (lookingAt.x / length) * SPEED;
     }
 
-    camera.position.x += toMoveX;
-    camera.position.z += toMoveZ;
+    camera.position.x +=
+      Math.abs(toMoveX + camera.position.x) < SIDE_LENGTH / 2 ? toMoveX : 0;
+    camera.position.z +=
+      Math.abs(toMoveZ + camera.position.z) < SIDE_LENGTH / 2 ? toMoveZ : 0;
 
     setOffset(Math.sin(time * 14) / 4);
     setTime(time + delta);
