@@ -84,10 +84,11 @@ router
   .get('/me/toptracks', (req, res) => {
     console.log(req.headers['access-token']);
     spotifyApi.setAccessToken(req.headers['access-token']);
+    spotifyApi.setRefreshToken(req.headers['refresh-token']);
     spotifyApi.getMyTopTracks().then(
       (data) => {
         const topTracks = data.body;
-        console.log(topTracks);
+        res.send(topTracks);
       },
       (err) => console.log(err)
     );
