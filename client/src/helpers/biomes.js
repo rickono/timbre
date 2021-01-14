@@ -6,6 +6,10 @@ const biomes = {
     amps: [5, 2.5],
     sqThresh: [1, Infinity],
     finalScaleAndThresh: [4, 1.5, 0],
+    fog : [true, "black", 1, 200],
+    ambientLight : ['papayawhip', 0.2],
+    directionalLight : ['orange', 0.5],
+    stars : true,
   },
   beach: {
     colors: [
@@ -22,6 +26,10 @@ const biomes = {
     amps: [3, 4],
     sqThresh: [1, Infinity],
     finalScaleAndThresh: [0, 1.5, 1.5],
+    fog : [true, "black", 1, 200],
+    ambientLight : ['papayawhip', 0.2],
+    directionalLight : ['orange', 0.5],
+    stars : true,
   },
   mesa: {
     colors: [
@@ -38,6 +46,10 @@ const biomes = {
     amps: [4, 8],
     sqThresh: [6, Infinity],
     finalScaleAndThresh: [5, 3, 3],
+    fog : [true, "black", 1, 200],
+    ambientLight : ['papayawhip', 0.2],
+    directionalLight : ['orange', 0.5],
+    stars : true,
   },
   whiteMountains: {
     colors: [0xffffff, 0xcaf0f8, 0xade8f4, 0x2b2d42, [0x264653, 0x2b2d42]],
@@ -46,6 +58,10 @@ const biomes = {
     amps: [5, 3],
     sqThresh: [0, 3],
     finalScaleAndThresh: [2, 1.7, 0],
+    fog : [true, "black", 1, 200],
+    ambientLight : ['papayawhip', 0.2],
+    directionalLight : ['orange', 0.5],
+    stars : true,
   },
 };
 
