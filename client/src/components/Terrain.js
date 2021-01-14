@@ -5,7 +5,23 @@ import Trees from './trees/Trees';
 import Clouds from './clouds/Clouds';
 import Rocks from './rocks/Rocks';
 
-const Terrain = ({ args, getHeightAt, createMap, colors, colorThresholds, rockColors, cloudColors, treeLeafColors, treeTrunkColors }) => {
+const Terrain = ({ 
+  args, 
+  getHeightAt, 
+  createMap, 
+  colors, 
+  colorThresholds, 
+  rockColors, 
+  cloudColors, 
+  treeLeafColors, 
+  treeTrunkColors,
+  rockRange,
+  rockNumber,
+  cloudNumber,
+  treeNumber,
+  cloudRange,
+  treeRange
+}) => {
   const plane = useRef(null);
 
   const mesh = useUpdate(({ geometry }) => {
@@ -42,24 +58,24 @@ const Terrain = ({ args, getHeightAt, createMap, colors, colorThresholds, rockCo
 
   return (
     <group>
-      <Rocks rockNumber={50}
+      <Rocks rockNumber={rockNumber}
              getHeightAt={getHeightAt} 
              sideLength={args[0]} 
              colors={rockColors} 
-             minHeight={-1} 
-             maxHeight={2}/>
-      <Clouds cloudnumber={50} 
+             minHeight={rockRange[0]} 
+             maxHeight={rockRange[1]}/>
+      <Clouds cloudnumber={cloudNumber} 
               getHeightAt={getHeightAt}
               side_length={args[0]} 
-              minHeight={20} 
-              maxHeight={30} 
+              minHeight={cloudRange[0]} 
+              maxHeight={cloudRange[1]} 
               colors={cloudColors}
       />
-      <Trees treeNumber={75} 
+      <Trees treeNumber={treeNumber} 
              getHeightAt={getHeightAt}
              sideLength={args[0]}
-             maxHeight={9}
-             minHeight={2}
+             maxHeight={treeRange[1]}
+             minHeight={treeRange[0]}
              trunkColors={treeTrunkColors}
              leafColors={treeLeafColors}
       />
