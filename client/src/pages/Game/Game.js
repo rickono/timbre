@@ -129,8 +129,10 @@ function Game({ cookies, setCookie, removeCookie }) {
 
   const randVal = (arr) => {
     const i = randInt(0, arr.length - 1);
+    console.log(i);
     return arr[i];
   };
+
   const generateSettings = (mood) => {
     let colors, ambLight, dirLight, fog, stars;
     if (mood === 'happy') {
