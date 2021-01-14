@@ -26,10 +26,16 @@ const Biome = ({
     ambientLight,
     directionalLight,
     stars,
+    treeInfo,
+    cloudInfo,
+    rockInfo,
   } = biome;
-  const [directionalColor, directionalIntensity] = directionalLight;
-  const [isFog, fogColor, fogNear, fogFar] = fog;
-  const [ambientColor, ambientIntensity] = ambientLight;
+  const { directionalColor, directionalIntensity } = directionalLight;
+  const { isFog, fogColor, fogNear, fogFar } = fog;
+  const { ambientColor, ambientIntensity } = ambientLight;
+  const { cloudNumber, cloudColors, cloudRange } = cloudInfo;
+  const { treeNumber, treeLeafColor, treeTrunkColor, treeRange } = treeInfo;
+  const { rockNumber, rockColors, rockRange } = rockInfo;
 
   const createMap = wrapCreateMap(
     freqs,
@@ -52,10 +58,17 @@ const Biome = ({
         getHeightAt={getHeightAt}
         colors={colors}
         colorThresholds={colorThresholds}
-        rockColors={['grey', 'darkgrey']}
-        treeLeafColors={[0x006400, 0x90ee90, 0x9fee90]}
-        treeTrunkColors={[0x654321]}
-        cloudColors={['white', 'lightgrey', 'lightpink']}
+        rockColors={rockColors}
+        rockNumber={rockNumber}
+        rockRange={rockRange}
+        treeLeafColors={treeLeafColor}
+        treeTrunkColors={treeTrunkColor}
+        treeNumber={treeNumber}
+        treeRange={treeRange}
+        cloudColors={cloudColors}
+        cloudNumber={cloudNumber}
+        cloudRange={cloudNumber}
+
       />
       <PointerLockControls />
       <Lights
