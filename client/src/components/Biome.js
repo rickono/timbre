@@ -67,7 +67,7 @@ const Biome = ({
         treeRange={treeRange}
         cloudColors={cloudColors}
         cloudNumber={cloudNumber}
-        cloudRange={cloudNumber}
+        cloudRange={cloudRange}
       />
       <PointerLockControls />
       {/* <OrbitControls /> */}

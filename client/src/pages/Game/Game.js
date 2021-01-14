@@ -149,7 +149,13 @@ function Game({ cookies, setCookie, removeCookie }) {
       fog = { isFog: true, fogColor: 'black', fogNear: 1, fogFar: 200 };
       stars = true;
       timeOfDay = 'night';
+      //change this
     } else {
+      colors = randVal(colorSchemes.happy);
+      ambLight = { ambientColor: 'lightpink', ambientIntensity: 0.2 };
+      dirLight = { directionalColor: 'lightblue', directionalIntensity: 0.5 };
+      fog = { isFog: false, fogColor: 'white', fogNear: 1, fogFar: 200 };
+      stars = true;
       timeOfDay = 'sunset';
     }
 
@@ -197,7 +203,10 @@ function Game({ cookies, setCookie, removeCookie }) {
       fog: fog,
       ambientLight: ambLight,
       directionalLight: dirLight,
-      rockInfo: rockInfo,
+      rockInfo: { rockNumber: 50,
+                  rockColors: ['grey', 'darkgrey'],
+                  rockRange: [-1, 5],
+                },
       cloudInfo: cloudInfo,
       treeInfo: treeInfo,
       skyInfo: {
@@ -241,7 +250,7 @@ function Game({ cookies, setCookie, removeCookie }) {
         timeOfDay,
       },
     };
-    return randVal([beach, mesa, greenMountains, whiteMountains]);
+    return randVal([whiteMountains]);
   };
   return (
     <>
@@ -250,7 +259,7 @@ function Game({ cookies, setCookie, removeCookie }) {
         wrapGetHeightAt={wrapGetHeightAt}
         DIVISIONS={DIVISIONS}
         SIDE_LENGTH={SIDE_LENGTH}
-        biome={generateSettings('happy')}
+        biome={generateSettings('chill')}
       />
     </>
   );
