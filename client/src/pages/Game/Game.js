@@ -1,15 +1,56 @@
 import './game.scss';
 import React, { useEffect, useState, useRef } from 'react';
-import MusicPlayer from '../../components/MusicPlayer';
-import Introduction from '../../components/ui/Introduction';
-import Biome from "../../components/Biome"
-import colorSchemes from "../../helpers/colorSchemes"
-import {randInt, randRange} from "../../helpers/utils"
+import Biome from '../../components/Biome';
+import colorSchemes from '../../helpers/colorSchemes';
+import { randInt, randRange } from '../../helpers/utils';
+
+import axios from 'axios';
 
 const SIDE_LENGTH = 320;
 const DIVISIONS = SIDE_LENGTH / 4;
 
 function Game({ cookies, setCookie, removeCookie }) {
+  let player = useRef();
+  const songs = useRef();
+
+  const playerCheckInterval = setInterval(() => checkForPlayer(), 1000);
+
+  const checkForPlayer = () => {
+    if (window.Spotify !== null && window.Spotify !== undefined) {
+      player.current = new window.Spotify.Player({
+        name: 'Weblab Player',
+        getOAuthToken: (callback) => {
+          callback(cookies['access_token']);
+        },
+        volume: 0.5,
+      });
+      player.current.connect();
+      initEventListeners();
+      clearInterval(playerCheckInterval);
+    }
+  };
+
+  const initEventListeners = async () => {
+    player.current.addListener('ready', ({ device_id }) => {
+      console.log('Ready to play music!');
+      console.log('Device ID: ', device_id);
+    });
+    const config = {
+      headers: {
+        'access-token': cookies['access_token'],
+        'refresh-token': cookies['refresh_token'],
+      },
+    };
+
+    const res = await axios.get(
+      'http://localhost:8888/api/v1/me/toptracks',
+      config
+    );
+    const data = res.data;
+    songs.current = data;
+    console.log(songs.current);
+  };
+
   const wrapGetHeightAt = (createMap) => {
     return (x, z) => {
       const length = SIDE_LENGTH / DIVISIONS;
@@ -23,17 +64,17 @@ function Game({ cookies, setCookie, removeCookie }) {
       const distCeils = Math.sqrt(
         Math.pow(ceilX - x, 2) + Math.pow(ceilZ - z, 2)
       );
-  
+
       const points = [
         [ceilX, createMap(ceilX, floorZ), floorZ],
         [floorX, createMap(floorX, ceilZ), ceilZ],
-  
+
         //distance between these vectos and choose the smaller
         distFloors > distCeils
           ? [ceilX, createMap(ceilX, ceilZ), ceilZ]
           : [floorX, createMap(floorX, floorZ), floorZ],
       ];
-  
+
       // Get two vectors on the plane
       const v1 = [
         points[0][0] - points[1][0],
@@ -45,25 +86,32 @@ function Game({ cookies, setCookie, removeCookie }) {
         points[0][1] - points[2][1],
         points[0][2] - points[2][2],
       ];
-  
+
       // Get cross product of two vectors
       const norm = [
         [v1[1] * v2[2] - v1[2] * v2[1]],
         [v1[2] * v2[0] - v1[0] * v2[2]],
         [v1[0] * v2[1] - v1[1] * v2[0]],
       ];
-  
+
       // Dot product of normal and vector to the point should be 0, so
       // norm[0]*(points[0][0]-x) + norm[1]*(points[0][1]-y) + norm[2]*(points[0][2]-z) = 0
-  
+
       return (
-        (norm[0] * (points[0][0] - x) + norm[2] * (points[0][2] - z)) / norm[1] +
+        (norm[0] * (points[0][0] - x) + norm[2] * (points[0][2] - z)) /
+          norm[1] +
         points[0][1]
       );
     };
-  }
-  
-  const wrapCreateMap = (freqs, amps, sqThresh, finalScaleAndThresh, simplex) => {
+  };
+
+  const wrapCreateMap = (
+    freqs,
+    amps,
+    sqThresh,
+    finalScaleAndThresh,
+    simplex
+  ) => {
     return (x, z) => {
       let height = 0;
       freqs.forEach((freq, i) => {
@@ -76,14 +124,13 @@ function Game({ cookies, setCookie, removeCookie }) {
         ? height * finalScaleAndThresh[1] + finalScaleAndThresh[2]
         : height + finalScaleAndThresh[2];
     };
-  }
+  };
   //write some code ot generate an environments settign based on whether its happy or sad
 
   const randVal = (arr) => {
-    const i = randInt(0, arr.length - 1)
-    console.log(i)
-    return arr[i]
-  }
+    const i = randInt(0, arr.length - 1);
+    return arr[i];
+  };
   const generateSettings = (mood) => {
     let colors, ambLight, dirLight, fog, stars
     if (mood === "happy"){
@@ -96,7 +143,7 @@ function Game({ cookies, setCookie, removeCookie }) {
     const greenMountains = {
       colors: colors,
       colorThresholds: [26, 3, 0, -Infinity],
-      freqs: [randRange(1 / 120, 1/80), randRange(1 / 40, 1/30)],
+      freqs: [randRange(1 / 120, 1 / 80), randRange(1 / 40, 1 / 30)],
       amps: [randRange(4, 5), 2.5],
       sqThresh: [1, Infinity],
       finalScaleAndThresh: [4, 1.5, 0],
@@ -145,14 +192,13 @@ function Game({ cookies, setCookie, removeCookie }) {
   }
   return (
     <>
-      <Biome wrapCreateMap={wrapCreateMap} 
-             wrapGetHeightAt={wrapGetHeightAt}
-             DIVISIONS={DIVISIONS}
-             SIDE_LENGTH={SIDE_LENGTH}
-             biome={generateSettings("happy")}
+      <Biome
+        wrapCreateMap={wrapCreateMap}
+        wrapGetHeightAt={wrapGetHeightAt}
+        DIVISIONS={DIVISIONS}
+        SIDE_LENGTH={SIDE_LENGTH}
+        biome={generateSettings('happy')}
       />
-      {/* <MusicPlayer cookies={cookies} player={player} /> */}
-      {/* <Introduction /> */}
     </>
   );
 }

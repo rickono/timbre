@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import * as THREE from 'three';
 import { useFrame, useThree } from 'react-three-fiber';
 
+import axios from 'axios';
 const SPEED = 0.2;
 
-const Player = ({ getHeightAt }) => {
+const Player = ({ getHeightAt, cookies }) => {
   const { camera } = useThree();
   const [moveUp, setMoveUp] = useState(false);
   const [moveBack, setMoveBack] = useState(false);
