@@ -1,8 +1,10 @@
 import React, { useMemo } from 'react';
 import * as THREE from 'three';
+import { randRange } from '../../helpers/utils';
 
-const StackedTree = ({ position, baseWidth , height, leafColor, trunkColor, sides }) => {
+const StackedTree = ({ position , height, leafColor, trunkColor, sides }) => {
   const geom = useMemo(() => {
+    const baseWidth = height / 2 + randRange(-height / (2 * 5), height / (2 * 5))
     const geo = new THREE.Geometry();
     const level1 = new THREE.ConeGeometry(baseWidth/2.25, height/3, sides);
     level1.faces.forEach((f) => f.color.set(leafColor));

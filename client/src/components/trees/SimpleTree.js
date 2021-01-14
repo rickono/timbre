@@ -1,8 +1,10 @@
 import React, { useMemo } from 'react';
 import * as THREE from 'three';
+import { randRange } from '../../helpers/utils';
 
-const SimpleTree = ({ position, height, width, sides, leafColor, trunkColor}) => {
+const SimpleTree = ({ position, height, sides, leafColor, trunkColor}) => {
   const geom = useMemo(() => {
+    const width = height / 3 + randRange(-height / (3 * 5), height / (3 * 5))
     const geo = new THREE.Geometry();
     const level1 = new THREE.ConeGeometry(width, height, sides);
     level1.faces.forEach((f) => f.color.set(leafColor));
