@@ -90,7 +90,7 @@ function Game({ cookies, setCookie, removeCookie }) {
       colors = randVal(colorSchemes.happy)
       ambLight = ['papayawhip', 0.2] 
       dirLight = ['orange', 0.5]
-      fog = [true, "white", 1, 200]
+      fog = [false, "white", 1, 200]
       stars = false
     }
     const greenMountains = {
@@ -105,7 +105,43 @@ function Game({ cookies, setCookie, removeCookie }) {
       directionalLight : dirLight,
       stars : stars,
     }
-    return randVal([greenMountains])
+    const whiteMountains = {
+      colors: colors.slice(0,4).concat([colors.slice(3, 5)]),
+      colorThresholds: [30, 25, 17, -1, -Infinity],
+      freqs: [randRange(1 / 60, 1/40), randRange(1 / 30, 1/20)],
+      amps: [randRange(4,5), 3],
+      sqThresh: [0, 3],
+      finalScaleAndThresh: [2, 1.7, 0],
+      fog : fog,
+      ambientLight : ambLight,
+      directionalLight : dirLight,
+      stars : stars,
+    }
+    const mesa = {
+      colors: colors, 
+      colorThresholds: [14, 8, 2, -2, -Infinity],
+      freqs: [randRange(1 / 200, 1 / 150), randRange(1 / 110, 1/90)],
+      amps: [4, 8],
+      sqThresh: [6, Infinity],
+      finalScaleAndThresh: [5, 3, 3],
+      fog : fog,
+      ambientLight : ambLight,
+      directionalLight : dirLight,
+      stars : stars,
+    }
+    const beach = {
+      colors: colors,
+      colorThresholds: [5.5, 3, 1, -2, -Infinity],
+      freqs: [randRange(1/150, 1/100), randRange(1 / 60, 1/40)],
+      amps: [3, 4],
+      sqThresh: [1, Infinity],
+      finalScaleAndThresh: [0, 1.5, 1.5],
+      fog : fog,
+      ambientLight : ambLight,
+      directionalLight : dirLight,
+      stars : stars
+    }
+    return randVal([beach, greenMountains, whiteMountains, mesa])
   }
   return (
     <>
