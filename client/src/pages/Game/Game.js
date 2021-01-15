@@ -283,7 +283,7 @@ function Game({ cookies, setCookie, removeCookie }) {
         timeOfDay,
       },
     };
-    return randVal([whiteMountains]);
+    return randVal([whiteMountains, beach, greenMountains, mesa]);
   };
   return (
     <>
@@ -292,7 +292,7 @@ function Game({ cookies, setCookie, removeCookie }) {
         wrapGetHeightAt={wrapGetHeightAt}
         DIVISIONS={DIVISIONS}
         SIDE_LENGTH={SIDE_LENGTH}
-        biome={generateSettings('happy')}
+        biome={generateSettings('chill')}
       />
     </>
   );
