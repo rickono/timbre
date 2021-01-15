@@ -42,13 +42,29 @@ function Game({ cookies, setCookie, removeCookie }) {
       },
     };
 
-    const res = await axios.get(
+    const topSongsRes = await axios.get(
       'http://localhost:8888/api/v1/me/toptracks',
       config
     );
-    const data = res.data;
-    songs.current = data;
-    console.log(songs.current);
+    const topSongs = topSongsRes.data.items;
+
+    const topSongsIds = topSongs.map((song) => song.id);
+
+    const recommendedSongsRes = await axios.get(
+      `http://localhost:8888/api/v1/recommended?seed=${topSongsIds.slice(
+        0,
+        5
+      )}`,
+      config
+    );
+
+    const recommendedSongs = recommendedSongsRes.data.tracks;
+    console.log(recommendedSongs[0].uri);
+
+    await axios.get(
+      `http://localhost:8888/api/v1/play?id=${player.current._options.id}&uris=${recommendedSongs[0].uri}`,
+      config
+    );
   };
 
   const wrapGetHeightAt = (createMap) => {
@@ -134,28 +150,34 @@ function Game({ cookies, setCookie, removeCookie }) {
   //idk what to test for chill
   const generateSettings = (mood) => {
     let colors, ambLight, dirLight, fog, stars, timeOfDay, cloudColors;
-    const happyColors = ["yellow", "lightyellow", "orange", "white", "papyawhip"]
-    const sadColors = ["white", "lightpurple", "lightblue"]
+    const happyColors = [
+      'yellow',
+      'lightyellow',
+      'orange',
+      'white',
+      'papyawhip',
+    ];
+    const sadColors = ['white', 'lightpurple', 'lightblue'];
     if (mood === 'happy') {
-      const ambientColor = randVal(happyColors)
-      const directionalColor = randVal(happyColors)
+      const ambientColor = randVal(happyColors);
+      const directionalColor = randVal(happyColors);
       colors = randVal(colorSchemes.happy);
       ambLight = { ambientColor, ambientIntensity: 0.2 };
       dirLight = { directionalColor, directionalIntensity: 0.5 };
       fog = { isFog: true, fogColor: 0xadbfc7, fogNear: 1, fogFar: 175 };
       stars = false;
       timeOfDay = 'day';
-      cloudColors = ['white', 'papayawhip'] 
+      cloudColors = ['white', 'papayawhip'];
     } else if (mood === 'sad') {
-      const ambientColor = randVal(sadColors)
-      const directionalColor = randVal(sadColors)
+      const ambientColor = randVal(sadColors);
+      const directionalColor = randVal(sadColors);
       colors = randVal(colorSchemes.sad);
       ambLight = { ambientColor, ambientIntensity: 0.2 };
       dirLight = { directionalColor, directionalIntensity: 0.5 };
       fog = { isFog: true, fogColor: 'black', fogNear: 1, fogFar: 175 };
       stars = true;
       timeOfDay = 'night';
-      cloudColors = ['lightgrey', 'grey']
+      cloudColors = ['lightgrey', 'grey'];
       //change this
     } else {
       colors = randVal(colorSchemes.happy);
@@ -165,11 +187,11 @@ function Game({ cookies, setCookie, removeCookie }) {
       //0x57363b
       stars = true;
       timeOfDay = 'sunset';
-      cloudColors = ['white', 'lightpink']
+      cloudColors = ['white', 'lightpink'];
     }
-    const rockColors = ['grey', 'darkgrey']
-    const treeTrunkColor = [0x654321]
-    const treeLeafColor = [0x006400, 0x90ee90, 0x9fee90] 
+    const rockColors = ['grey', 'darkgrey'];
+    const treeTrunkColor = [0x654321];
+    const treeLeafColor = [0x006400, 0x90ee90, 0x9fee90];
 
     const greenMountains = {
       colors: colors,
@@ -181,19 +203,14 @@ function Game({ cookies, setCookie, removeCookie }) {
       fog: fog,
       ambientLight: ambLight,
       directionalLight: dirLight,
-      rockInfo: { rockNumber: 100,
-                  rockColors,
-                  rockRange: [1, 7],
-                },
-      cloudInfo: { cloudNumber: 30,
-                   cloudRange: [30, 50],
-                   cloudColors,
-                  },
-      treeInfo: { treeNumber: 75,
-                  treeRange: [5, 15],
-                  treeTrunkColor,
-                  treeLeafColor,
-                },
+      rockInfo: { rockNumber: 100, rockColors, rockRange: [1, 7] },
+      cloudInfo: { cloudNumber: 30, cloudRange: [30, 50], cloudColors },
+      treeInfo: {
+        treeNumber: 75,
+        treeRange: [5, 15],
+        treeTrunkColor,
+        treeLeafColor,
+      },
       skyInfo: {
         stars,
         timeOfDay,
@@ -209,19 +226,14 @@ function Game({ cookies, setCookie, removeCookie }) {
       fog: fog,
       ambientLight: ambLight,
       directionalLight: dirLight,
-      rockInfo: { rockNumber: 100,
-                  rockColors,
-                  rockRange: [-Infinity, 6],
-                },
-      cloudInfo: { cloudNumber: 30,
-                   cloudRange: [30, 50],
-                   cloudColors,
-                  },
-      treeInfo: { treeNumber: 75,
-                  treeRange: [-Infinity, 9],
-                  treeTrunkColor,
-                  treeLeafColor,
-                  },
+      rockInfo: { rockNumber: 100, rockColors, rockRange: [-Infinity, 6] },
+      cloudInfo: { cloudNumber: 30, cloudRange: [30, 50], cloudColors },
+      treeInfo: {
+        treeNumber: 75,
+        treeRange: [-Infinity, 9],
+        treeTrunkColor,
+        treeLeafColor,
+      },
       skyInfo: {
         stars,
         timeOfDay,
@@ -237,19 +249,14 @@ function Game({ cookies, setCookie, removeCookie }) {
       fog: fog,
       ambientLight: ambLight,
       directionalLight: dirLight,
-      rockInfo: { rockNumber: 70,
-                  rockColors,
-                  rockRange: [-1, 7],
-                },
-      cloudInfo: { cloudNumber: 30,
-                   cloudRange: [30, 50],
-                   cloudColors, 
-                  },
-      treeInfo: { treeNumber: 75,
-                  treeRange: [0, 7],
-                  treeTrunkColor,
-                  treeLeafColor,
-                },
+      rockInfo: { rockNumber: 70, rockColors, rockRange: [-1, 7] },
+      cloudInfo: { cloudNumber: 30, cloudRange: [30, 50], cloudColors },
+      treeInfo: {
+        treeNumber: 75,
+        treeRange: [0, 7],
+        treeTrunkColor,
+        treeLeafColor,
+      },
       skyInfo: {
         stars,
         timeOfDay,
@@ -265,19 +272,14 @@ function Game({ cookies, setCookie, removeCookie }) {
       fog: fog,
       ambientLight: ambLight,
       directionalLight: dirLight,
-      rockInfo: { rockNumber: 50,
-                  rockColors,
-                  rockRange: [3, Infinity],
-                },
-      cloudInfo: {  cloudNumber: 30,
-                    cloudRange: [20, 30],
-                    cloudColors,
-                  },
-      treeInfo: { treeNumber: 50,
-                  treeRange: [4, Infinity],
-                  treeTrunkColor,
-                  treeLeafColor,
-                },
+      rockInfo: { rockNumber: 50, rockColors, rockRange: [3, Infinity] },
+      cloudInfo: { cloudNumber: 30, cloudRange: [20, 30], cloudColors },
+      treeInfo: {
+        treeNumber: 50,
+        treeRange: [4, Infinity],
+        treeTrunkColor,
+        treeLeafColor,
+      },
       skyInfo: {
         stars,
         timeOfDay,

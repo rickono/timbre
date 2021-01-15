@@ -127,15 +127,20 @@ router
   .get('/play', (req, res) => {
     spotifyApi.setAccessToken(req.headers['access-token']);
     spotifyApi.setRefreshToken(req.headers['refresh-token']);
-    spotifyApi.play({ device_id: req.query.id, uris: [req.query.uri] }).then(
-      () => {
-        console.log('Playing...');
-        res.send({ data: 'Sucessfully started playing' });
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    spotifyApi
+      .play({
+        device_id: req.query.id,
+        uris: [req.query.uris],
+      })
+      .then(
+        () => {
+          console.log('Playing...');
+          res.send({ data: 'Sucessfully started playing' });
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
   });
 
 module.exports = router;
