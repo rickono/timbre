@@ -75,6 +75,7 @@ router
     spotifyApi.getMyDevices().then(
       (data) => {
         const availableDevices = data.body.devices;
+        res.json(availableDevices);
       },
       (err) => {
         console.log(err);
@@ -91,6 +92,49 @@ router
         res.send(topTracks);
       },
       (err) => console.log(err)
+    );
+  })
+  .get('/recommended', (req, res) => {
+    spotifyApi.setAccessToken(req.headers['access-token']);
+    spotifyApi.setRefreshToken(req.headers['refresh-token']);
+    spotifyApi
+      .getRecommendations({
+        seed_tracks: req.query.seed.split(',').slice(0, 5),
+      })
+      .then(
+        (data) => {
+          const recommendedSongs = data.body;
+          res.send(recommendedSongs);
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+  })
+  .put('/transfer', (req, res) => {
+    spotifyApi.setAccessToken(req.headers['access-token']);
+    spotifyApi.setRefreshToken(req.headers['refresh-token']);
+    spotifyApi.transferMyPlayback([req.query.id]).then(
+      () => {
+        console.log('Transferring playback');
+        res.send({ data: 'Sucessfully transferred player' });
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  })
+  .get('/play', (req, res) => {
+    spotifyApi.setAccessToken(req.headers['access-token']);
+    spotifyApi.setRefreshToken(req.headers['refresh-token']);
+    spotifyApi.play({ device_id: req.query.id, uris: [req.query.uri] }).then(
+      () => {
+        console.log('Playing...');
+        res.send({ data: 'Sucessfully started playing' });
+      },
+      (err) => {
+        console.log(err);
+      }
     );
   });
 
