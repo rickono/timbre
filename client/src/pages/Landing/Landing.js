@@ -1,11 +1,11 @@
-import "../../global.scss";
-import "./landing.scss";
-import axios from "axios";
+import '../../global.scss';
+import './landing.scss';
+import axios from 'axios';
 
-import React from "react";
+import React from 'react';
 
 const onLogin = async () => {
-  const res = await axios.get("http://localhost:8888/api/v1/auth");
+  const res = await axios.get('http://localhost:8888/api/v1/auth');
   const authUrl = res.data.url;
   console.log(authUrl);
   window.location = authUrl;
@@ -13,11 +13,11 @@ const onLogin = async () => {
 
 const Landing = () => {
   return (
-    <div className="container">
-      <button className="login" onClick={onLogin}>
+    <div className='container'>
+      <button className='login' onClick={onLogin}>
         Login with Spotify
       </button>
-      <h1 className="name">Rasberry</h1>
+      <h1 className='name'>TIMBRE</h1>
     </div>
   );
 };
