@@ -11,7 +11,7 @@ const DIVISIONS = SIDE_LENGTH / 4;
 
 function Game({ cookies, setCookie, removeCookie }) {
   let player = useRef();
-  const songs = useRef();
+  const songs = useRef([]);
 
   const playerCheckInterval = setInterval(() => checkForPlayer(), 1000);
 
@@ -67,13 +67,12 @@ function Game({ cookies, setCookie, removeCookie }) {
     );
   };
 
-
   return (
     <>
       <Biome
         DIVISIONS={DIVISIONS}
         SIDE_LENGTH={SIDE_LENGTH}
-        mood={"happy"}
+        mood={'happy'}
         seed={0}
       />
     </>

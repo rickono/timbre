@@ -5,17 +5,20 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass';
+import { GlitchPass } from '../helpers/Glitchpass';
 
 extend({
   EffectComposer,
   ShaderPass,
   RenderPass,
   UnrealBloomPass,
+  GlitchPass,
 });
 
-export default function Effects() {
+export default function Effects({ bloom, glitch }) {
   const composer = useRef();
   const { scene, gl, size, camera } = useThree();
+
   const aspect = useMemo(() => new THREE.Vector2(size.width, size.height), [
     size,
   ]);
@@ -26,7 +29,8 @@ export default function Effects() {
   return (
     <effectComposer ref={composer} args={[gl]}>
       <renderPass attachArray='passes' scene={scene} camera={camera} />
-      <unrealBloomPass attachArray='passes' args={[aspect, 0.6, 1, 0]} />
+      <unrealBloomPass attachArray='passes' args={[aspect, bloom, 1, 0]} />
+      <glitchPass attachArray='passes' factor={glitch ? 1 : 0} />
     </effectComposer>
   );
 }

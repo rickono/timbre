@@ -1,20 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Terrain from './Terrain';
 import { PointerLockControls, Stars, Sky, OrbitControls } from 'drei';
 import SimplexNoise from 'simplex-noise';
 import Lights from './Lights';
-import { Canvas } from 'react-three-fiber';
-import { generateSettings } from "../helpers/utils"
+import { Canvas, useFrame } from 'react-three-fiber';
+import { generateSettings } from '../helpers/utils';
 import Player from './Player';
+import Effects from './Effects';
 
-const Biome = ({
-  DIVISIONS,
-  SIDE_LENGTH,
-  mood,
-  seed,
-}) => {
+const Biome = ({ DIVISIONS, SIDE_LENGTH, mood, seed }) => {
+  const [bloom, setBloom] = useState(0.1);
   //could provide a seed
-  const simplex = new SimplexNoise(seed);
+  const [simplex, setSimplex] = useState(new SimplexNoise(seed));
+  const [glitch, setGlitch] = useState(false);
+  const [settings, setSettings] = useState(generateSettings(mood));
   const {
     colors,
     colorThresholds,
@@ -29,7 +28,7 @@ const Biome = ({
     cloudInfo,
     rockInfo,
     skyInfo: { stars, timeOfDay },
-  } = generateSettings(mood);
+  } = settings;
 
   const { directionalColor, directionalIntensity } = directionalLight;
   const { isFog, fogColor, fogNear, fogFar } = fog;
@@ -37,7 +36,20 @@ const Biome = ({
   const { cloudNumber, cloudColors, cloudRange } = cloudInfo;
   const { treeNumber, treeLeafColor, treeTrunkColor, treeRange } = treeInfo;
   const { rockNumber, rockColors, rockRange } = rockInfo;
- 
+
+  useEffect(() => {
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'n') {
+        console.log('n was pressed');
+        setGlitch(true);
+        setTimeout(() => {
+          setSettings(generateSettings(mood));
+          setGlitch(false);
+        }, 1000);
+      }
+    });
+  }, []);
+
   const createMap = (x, z) => {
     let height = 0;
     freqs.forEach((freq, i) => {
@@ -97,8 +109,7 @@ const Biome = ({
     // norm[0]*(points[0][0]-x) + norm[1]*(points[0][1]-y) + norm[2]*(points[0][2]-z) = 0
 
     return (
-      (norm[0] * (points[0][0] - x) + norm[2] * (points[0][2] - z)) /
-        norm[1] +
+      (norm[0] * (points[0][0] - x) + norm[2] * (points[0][2] - z)) / norm[1] +
       points[0][1]
     );
   };
@@ -169,6 +180,7 @@ const Biome = ({
           exposure={0.1}
         />
       ) : null}
+      <Effects bloom={bloom} glitch={glitch} />
       <Player getHeightAt={getHeightAt} SIDE_LENGTH={SIDE_LENGTH} />
     </Canvas>
   );
