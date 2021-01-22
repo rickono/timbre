@@ -16,6 +16,7 @@ function Game() {
   const songs = useRef([]);
   const recommended = useRef([]);
   const [loading, setLoading] = useState(true);
+  const [playerLoading, setPlayerLoading] = useState(true);
 
   const playerCheckInterval = setInterval(() => checkForPlayer(), 1000);
 
@@ -29,13 +30,13 @@ function Game() {
         volume: 0.5,
       });
       player.current.connect();
-      initEventListeners();
+      setPlayerLoading(false);
       clearInterval(playerCheckInterval);
     }
   };
 
-  const initEventListeners = async () => {
-    if (loading) {
+  useEffect(async () => {
+    if (!playerLoading) {
       player.current.addListener('ready', ({ device_id }) => {
         console.log('Ready to play music!');
         console.log('Device ID: ', device_id);
@@ -81,7 +82,7 @@ function Game() {
 
       setLoading(false);
     }
-  };
+  }, [playerLoading]);
 
   return (
     <>
