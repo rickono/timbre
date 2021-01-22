@@ -36,5 +36,11 @@
   color: #cbd5cb;
   font-size: 5rem;
   transition: all 0.2s ease-in-out;
+  font-weight: lighter;
+  letter-spacing: 0px;
   // text-shadow: 0px 0px 10px #1db954;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    letter-spacing: 5px;
+  }
 }

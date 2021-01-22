@@ -15,7 +15,7 @@ extend({
   GlitchPass,
 });
 
-export default function Effects({ bloom, glitch }) {
+export default function Effects({ glitch }) {
   const composer = useRef();
   const { scene, gl, size, camera } = useThree();
 
@@ -29,7 +29,7 @@ export default function Effects({ bloom, glitch }) {
   return (
     <effectComposer ref={composer} args={[gl]}>
       <renderPass attachArray='passes' scene={scene} camera={camera} />
-      <unrealBloomPass attachArray='passes' args={[aspect, bloom, 1, 0]} />
+      <unrealBloomPass attachArray='passes' args={[aspect, 0.1, 1, 0]} />
       <glitchPass attachArray='passes' factor={glitch ? 1 : 0} />
     </effectComposer>
   );

@@ -1,9 +1,10 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useFrame, useUpdate } from 'react-three-fiber';
 import { Box, Sphere } from 'drei';
 import Trees from './trees/Trees';
 import Clouds from './clouds/Clouds';
 import Rocks from './rocks/Rocks';
+import * as THREE from 'three';
 
 const Terrain = ({
   args,
@@ -22,39 +23,54 @@ const Terrain = ({
   cloudRange,
   treeRange,
 }) => {
-  const plane = useRef(null);
+  const [isFirstUpdate, setIsFirstUpdate] = useState(true);
 
-  const mesh = useUpdate(({ geometry }) => {
-    plane.current = geometry;
-    // ===== If using planeGeometry =====
-    geometry.vertices = geometry.vertices.map((vertex) => {
-      return {
-        x: -vertex.x,
-        y: createMap(-vertex.x, vertex.y),
-        z: vertex.y,
-      };
-    });
-    // ===== Colors =====
-    //if really want to make more general could use functions instead...mightbe overkill
-    geometry.faces.forEach((face) => {
-      const maxHeight = Math.max(
-        geometry.vertices[face.a].y,
-        geometry.vertices[face.b].y,
-        geometry.vertices[face.c].y
-      );
-      colors.every((color, i) => {
-        if (maxHeight > colorThresholds[i]) {
-          const faceColor =
-            color.constructor === Array
-              ? color[Math.floor(Math.random() * color.length)]
-              : color;
-          face.color.set(faceColor);
-          return false;
-        }
-        return true;
+  const mesh = useUpdate(
+    ({ geometry }) => {
+      console.log(geometry);
+
+      if (isFirstUpdate) {
+        geometry.vertices = geometry.vertices.map((vertex) => {
+          return new THREE.Vector3(
+            -vertex.x,
+            createMap(-vertex.x, vertex.y),
+            vertex.y
+          );
+        });
+        setIsFirstUpdate(false);
+      } else {
+        geometry.vertices = geometry.vertices.map((vertex) => {
+          return new THREE.Vector3(
+            vertex.x,
+            createMap(vertex.x, vertex.z),
+            vertex.z
+          );
+        });
+      }
+      geometry.vertices.needUpdate = true;
+      // ===== Colors =====
+      //if really want to make more general could use functions instead...mightbe overkill
+      geometry.faces.forEach((face) => {
+        const maxHeight = Math.max(
+          geometry.vertices[face.a].y,
+          geometry.vertices[face.b].y,
+          geometry.vertices[face.c].y
+        );
+        colors.every((color, i) => {
+          if (maxHeight > colorThresholds[i]) {
+            const faceColor =
+              color.constructor === Array
+                ? color[Math.floor(Math.random() * color.length)]
+                : color;
+            face.color.set(faceColor);
+            return false;
+          }
+          return true;
+        });
       });
-    });
-  });
+    },
+    [colors]
+  );
 
   return (
     <group>

@@ -9,7 +9,6 @@ import Player from './Player';
 import Effects from './Effects';
 
 const Biome = ({ DIVISIONS, SIDE_LENGTH, mood, seed }) => {
-  const [bloom, setBloom] = useState(0.1);
   //could provide a seed
   const [simplex, setSimplex] = useState(new SimplexNoise(seed));
   const [glitch, setGlitch] = useState(false);
@@ -180,7 +179,7 @@ const Biome = ({ DIVISIONS, SIDE_LENGTH, mood, seed }) => {
           exposure={0.1}
         />
       ) : null}
-      <Effects bloom={bloom} glitch={glitch} />
+      <Effects glitch={glitch} />
       <Player getHeightAt={getHeightAt} SIDE_LENGTH={SIDE_LENGTH} />
     </Canvas>
   );
