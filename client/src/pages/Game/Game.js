@@ -2,6 +2,7 @@ import './game.scss';
 import React, { useEffect, useState, useRef } from 'react';
 import Biome from '../../components/Biome';
 import { Canvas, useFrame, useResource } from 'react-three-fiber';
+import Cookies from 'js-cookie';
 
 import axios from 'axios';
 import { Box } from 'drei';
@@ -10,7 +11,7 @@ import Loading from '../../components/Loading';
 const SIDE_LENGTH = 320;
 const DIVISIONS = SIDE_LENGTH / 4;
 
-function Game({ cookies, setCookie, removeCookie }) {
+function Game() {
   let player = useRef();
   const songs = useRef([]);
   const recommended = useRef([]);
@@ -23,7 +24,7 @@ function Game({ cookies, setCookie, removeCookie }) {
       player.current = new window.Spotify.Player({
         name: 'Weblab Player',
         getOAuthToken: (callback) => {
-          callback(cookies['access_token']);
+          callback(Cookies.get('access-token'));
         },
         volume: 0.5,
       });
@@ -34,49 +35,52 @@ function Game({ cookies, setCookie, removeCookie }) {
   };
 
   const initEventListeners = async () => {
-    player.current.addListener('ready', ({ device_id }) => {
-      console.log('Ready to play music!');
-      console.log('Device ID: ', device_id);
-    });
-    const config = {
-      headers: {
-        'access-token': cookies['access_token'],
-        'refresh-token': cookies['refresh_token'],
-      },
-    };
-
-    const topSongsRes = await axios.get(
-      'http://localhost:8888/api/v1/me/toptracks',
-      config
-    );
-    const topSongs = topSongsRes.data.items;
-
-    const topSongsIds = topSongs.map((song) => song.id);
-
-    const recommendedSongsRes = await axios.get(
-      `http://localhost:8888/api/v1/recommended?seed=${topSongsIds.slice(
-        0,
-        5
-      )}`,
-      config
-    );
-
-    recommended.current = recommendedSongsRes.data.tracks.map((track) => {
-      return {
-        ...track,
-        position: [
-          Math.floor(Math.random() * SIDE_LENGTH - SIDE_LENGTH / 2),
-          Math.floor(Math.random() * SIDE_LENGTH - SIDE_LENGTH / 2),
-        ],
+    if (loading) {
+      player.current.addListener('ready', ({ device_id }) => {
+        console.log('Ready to play music!');
+        console.log('Device ID: ', device_id);
+        console.log(player);
+      });
+      const config = {
+        headers: {
+          'access-token': Cookies.get('access-token'),
+          'refresh-token': Cookies.get('refresh-token'),
+        },
       };
-    });
 
-    await axios.get(
-      `http://localhost:8888/api/v1/play?id=${player.current._options.id}&uris=${recommended.current[0].uri}`,
-      config
-    );
+      const topSongsRes = await axios.get(
+        'http://localhost:8888/api/v1/me/toptracks',
+        config
+      );
+      const topSongs = topSongsRes.data.items;
 
-    setLoading(false);
+      const topSongsIds = topSongs.map((song) => song.id);
+
+      const recommendedSongsRes = await axios.get(
+        `http://localhost:8888/api/v1/recommended?seed=${topSongsIds.slice(
+          0,
+          5
+        )}`,
+        config
+      );
+
+      recommended.current = recommendedSongsRes.data.tracks.map((track) => {
+        return {
+          ...track,
+          position: [
+            Math.floor(Math.random() * SIDE_LENGTH - SIDE_LENGTH / 2),
+            Math.floor(Math.random() * SIDE_LENGTH - SIDE_LENGTH / 2),
+          ],
+        };
+      });
+
+      await axios.get(
+        `http://localhost:8888/api/v1/play?id=${player.current._options.id}&uris=${recommended.current[0].uri}`,
+        config
+      );
+
+      setLoading(false);
+    }
   };
 
   return (
