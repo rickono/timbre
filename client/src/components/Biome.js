@@ -7,8 +7,9 @@ import { Canvas, useFrame } from 'react-three-fiber';
 import { generateSettings } from '../helpers/utils';
 import Player from './Player';
 import Effects from './Effects';
+import Songs from './Songs';
 
-const Biome = ({ DIVISIONS, SIDE_LENGTH, mood, seed }) => {
+const Biome = ({ DIVISIONS, SIDE_LENGTH, mood, seed, songs }) => {
   //could provide a seed
   const [simplex, setSimplex] = useState(new SimplexNoise(seed));
   const [glitch, setGlitch] = useState(false);
@@ -42,6 +43,7 @@ const Biome = ({ DIVISIONS, SIDE_LENGTH, mood, seed }) => {
         console.log('n was pressed');
         setGlitch(true);
         setTimeout(() => {
+          setSimplex(new SimplexNoise(Math.random()));
           setSettings(generateSettings(mood));
           setGlitch(false);
         }, 1000);
@@ -114,11 +116,7 @@ const Biome = ({ DIVISIONS, SIDE_LENGTH, mood, seed }) => {
   };
 
   return (
-    <Canvas
-      shadowMap
-      colorManagement
-      camera={{ position: [30, 30, 30], fov: 60 }}
-    >
+    <>
       {isFog && <fog attach='fog' args={[fogColor, fogNear, fogFar]} />}
       <Terrain
         args={[SIDE_LENGTH, SIDE_LENGTH, DIVISIONS, DIVISIONS]}
@@ -181,7 +179,8 @@ const Biome = ({ DIVISIONS, SIDE_LENGTH, mood, seed }) => {
       ) : null}
       <Effects glitch={glitch} />
       <Player getHeightAt={getHeightAt} SIDE_LENGTH={SIDE_LENGTH} />
-    </Canvas>
+      {/* <Songs songs={songs} getHeightAt={getHeightAt} /> */}
+    </>
   );
 };
 

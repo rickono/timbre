@@ -1,10 +1,11 @@
 import './game.scss';
 import React, { useEffect, useState, useRef } from 'react';
 import Biome from '../../components/Biome';
-import colorSchemes from '../../helpers/colorSchemes';
-import { randRange, randVal } from '../../helpers/utils';
+import { Canvas, useFrame, useResource } from 'react-three-fiber';
 
 import axios from 'axios';
+import { Box } from 'drei';
+import Loading from '../../components/Loading';
 
 const SIDE_LENGTH = 320;
 const DIVISIONS = SIDE_LENGTH / 4;
@@ -12,6 +13,8 @@ const DIVISIONS = SIDE_LENGTH / 4;
 function Game({ cookies, setCookie, removeCookie }) {
   let player = useRef();
   const songs = useRef([]);
+  const recommended = useRef([]);
+  const [loading, setLoading] = useState(true);
 
   const playerCheckInterval = setInterval(() => checkForPlayer(), 1000);
 
@@ -58,23 +61,44 @@ function Game({ cookies, setCookie, removeCookie }) {
       config
     );
 
-    const recommendedSongs = recommendedSongsRes.data.tracks;
-    console.log(recommendedSongs);
+    recommended.current = recommendedSongsRes.data.tracks.map((track) => {
+      return {
+        ...track,
+        position: [
+          Math.floor(Math.random() * SIDE_LENGTH - SIDE_LENGTH / 2),
+          Math.floor(Math.random() * SIDE_LENGTH - SIDE_LENGTH / 2),
+        ],
+      };
+    });
 
     await axios.get(
-      `http://localhost:8888/api/v1/play?id=${player.current._options.id}&uris=${recommendedSongs[0].uri}`,
+      `http://localhost:8888/api/v1/play?id=${player.current._options.id}&uris=${recommended.current[0].uri}`,
       config
     );
+
+    setLoading(false);
   };
 
   return (
     <>
-      <Biome
-        DIVISIONS={DIVISIONS}
-        SIDE_LENGTH={SIDE_LENGTH}
-        mood={'happy'}
-        seed={0}
-      />
+      <Canvas
+        shadowMap
+        colorManagement
+        camera={{ position: [30, 30, 30], fov: 60 }}
+      >
+        {loading ? (
+          <Loading />
+        ) : (
+          <Biome
+            DIVISIONS={DIVISIONS}
+            SIDE_LENGTH={SIDE_LENGTH}
+            mood={'happy'}
+            seed={0}
+            songs={recommended.current}
+          />
+        )}
+      </Canvas>
+      {loading ? <h1 className='loadingtext'>Loading...</h1> : ''}
     </>
   );
 }
