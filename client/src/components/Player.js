@@ -14,7 +14,6 @@ const Player = ({ getHeightAt, cookies, SIDE_LENGTH }) => {
   const [velocity, setVelocity] = useState(0);
   const [height, setHeight] = useState(0);
   const [offset, setOffset] = useState(0);
-  const [time, setTime] = useState(0);
 
   const GRAVITY = 0.05;
 
@@ -103,8 +102,7 @@ const Player = ({ getHeightAt, cookies, SIDE_LENGTH }) => {
     camera.position.z +=
       Math.abs(toMoveZ + camera.position.z) < SIDE_LENGTH / 2 ? toMoveZ : 0;
 
-    setOffset(Math.sin(time * 14) / 4);
-    setTime(time + delta);
+    setOffset(Math.sin(state.clock.elapsedTime * 14) / 4);
 
     setHeight(height + velocity > 0 ? height + velocity : 0);
     setVelocity(velocity - GRAVITY);

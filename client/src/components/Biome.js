@@ -179,7 +179,7 @@ const Biome = ({ DIVISIONS, SIDE_LENGTH, mood, seed, songs }) => {
       ) : null}
       <Effects glitch={glitch} />
       <Player getHeightAt={getHeightAt} SIDE_LENGTH={SIDE_LENGTH} />
-      {/* <Songs songs={songs} getHeightAt={getHeightAt} /> */}
+      <Songs songs={songs} getHeightAt={getHeightAt} />
     </>
   );
 };
