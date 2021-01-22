@@ -30,24 +30,16 @@ const Terrain = ({
       console.log(geometry);
 
       if (isFirstUpdate) {
-        geometry.vertices = geometry.vertices.map((vertex) => {
-          return new THREE.Vector3(
-            -vertex.x,
-            createMap(-vertex.x, vertex.y),
-            vertex.y
-          );
+        geometry.vertices.forEach((vertex) => {
+          vertex.set(-vertex.x, createMap(-vertex.x, vertex.y), vertex.y);
         });
         setIsFirstUpdate(false);
       } else {
-        geometry.vertices = geometry.vertices.map((vertex) => {
-          return new THREE.Vector3(
-            vertex.x,
-            createMap(vertex.x, vertex.z),
-            vertex.z
-          );
+        geometry.vertices.forEach((vertex) => {
+          vertex.set(vertex.x, createMap(vertex.x, vertex.z), vertex.z);
         });
       }
-      geometry.vertices.needUpdate = true;
+      geometry.verticesNeedUpdate = true;
       // ===== Colors =====
       //if really want to make more general could use functions instead...mightbe overkill
       geometry.faces.forEach((face) => {
