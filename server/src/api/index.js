@@ -54,7 +54,6 @@ router
           {
             name: userData.display_name,
             email: userData.email,
-            pictureUrl: userData.images[0].url,
             accessToken: data.body['access_token'],
             refreshToken: data.body['refresh_token'],
           },
