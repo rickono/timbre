@@ -59,7 +59,7 @@ function Game({ cookies, setCookie, removeCookie }) {
     );
 
     const recommendedSongs = recommendedSongsRes.data.tracks;
-    console.log(recommendedSongs[0].uri);
+    console.log(recommendedSongs);
 
     await axios.get(
       `http://localhost:8888/api/v1/play?id=${player.current._options.id}&uris=${recommendedSongs[0].uri}`,

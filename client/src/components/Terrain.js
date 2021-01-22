@@ -27,8 +27,6 @@ const Terrain = ({
 
   const mesh = useUpdate(
     ({ geometry }) => {
-      console.log(geometry);
-
       if (isFirstUpdate) {
         geometry.vertices.forEach((vertex) => {
           vertex.set(-vertex.x, createMap(-vertex.x, vertex.y), vertex.y);
@@ -60,6 +58,7 @@ const Terrain = ({
           return true;
         });
       });
+      geometry.colorsNeedUpdate = true;
     },
     [colors]
   );
