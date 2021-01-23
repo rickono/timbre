@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react';
-import * as THREE from 'three';
-import { useFrame, useThree } from 'react-three-fiber';
+import React, { useEffect, useState, useRef } from "react";
+import * as THREE from "three";
+import { useFrame, useThree } from "react-three-fiber";
 
-import axios from 'axios';
+import axios from "axios";
 const SPEED = 0.2;
 
 const Player = ({ getHeightAt, cookies, SIDE_LENGTH }) => {
@@ -18,47 +18,47 @@ const Player = ({ getHeightAt, cookies, SIDE_LENGTH }) => {
   const GRAVITY = 0.05;
 
   useEffect(() => {
-    document.addEventListener('keydown', async (e) => {
+    document.addEventListener("keydown", async (e) => {
       switch (e.key) {
-        case 'w':
-        case 'ArrowUp':
+        case "w":
+        case "ArrowUp":
           setMoveUp(true);
           break;
-        case 'd':
-        case 'ArrowRight':
+        case "d":
+        case "ArrowRight":
           setMoveRight(true);
           break;
-        case 's':
-        case 'ArrowDown':
+        case "s":
+        case "ArrowDown":
           setMoveBack(true);
           break;
-        case 'a':
-        case 'ArrowLeft':
+        case "a":
+        case "ArrowLeft":
           setMoveLeft(true);
           break;
-        case ' ':
+        case " ":
           jump();
           break;
         default:
           break;
       }
     });
-    document.addEventListener('keyup', (e) => {
+    document.addEventListener("keyup", (e) => {
       switch (e.key) {
-        case 'w':
-        case 'ArrowUp':
+        case "w":
+        case "ArrowUp":
           setMoveUp(false);
           break;
-        case 'd':
-        case 'ArrowRight':
+        case "d":
+        case "ArrowRight":
           setMoveRight(false);
           break;
-        case 's':
-        case 'ArrowDown':
+        case "s":
+        case "ArrowDown":
           setMoveBack(false);
           break;
-        case 'a':
-        case 'ArrowLeft':
+        case "a":
+        case "ArrowLeft":
           setMoveLeft(false);
           break;
         default:
@@ -102,7 +102,7 @@ const Player = ({ getHeightAt, cookies, SIDE_LENGTH }) => {
     camera.position.z +=
       Math.abs(toMoveZ + camera.position.z) < SIDE_LENGTH / 2 ? toMoveZ : 0;
 
-    setOffset(Math.sin(state.clock.elapsedTime * 14) / 6);
+    setOffset(Math.sin(state.clock.elapsedTime * 11) / 6);
 
     setHeight(height + velocity > 0 ? height + velocity : 0);
     setVelocity(velocity - GRAVITY);
