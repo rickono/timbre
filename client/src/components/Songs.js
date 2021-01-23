@@ -104,66 +104,72 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
             />
           );
         })}
-      <Text
-        color='pink'
-        fontSize={10}
-        maxWidth={80}
-        lineHeight={1.5}
-        letterSpacing={0}
-        textAlign='center'
-        font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
-        anchorX='center'
-        anchorY='bottom'
-        rotateY={20}
-        position={[0, 30, 0]}
-      >
-        MOVE AROUND USING WASD
-      </Text>
-      <Text
-        color='pink'
-        fontSize={10}
-        maxWidth={80}
-        lineHeight={1.5}
-        letterSpacing={0}
-        textAlign='center'
-        font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
-        anchorX='center'
-        anchorY='bottom'
-        rotation={[0, Math.PI/2, 0]}
-        position={[-50, 30, 50]}
-      >
-        MOVE AROUND USING WASD
-      </Text>
-      <Text
-        color='pink'
-        fontSize={10}
-        maxWidth={80}
-        lineHeight={1.5}
-        letterSpacing={0}
-        textAlign='center'
-        font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
-        anchorX='center'
-        anchorY='bottom'
-        rotation={[0, -Math.PI/2, 0]}
-        position={[50, 30, 50]}
-      >
-        MOVE AROUND USING WASD
-      </Text>
-      <Text
-        color='pink'
-        fontSize={10}
-        maxWidth={80}
-        lineHeight={1.5}
-        letterSpacing={0}
-        textAlign='center'
-        font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
-        anchorX='center'
-        anchorY='bottom'
-        rotation={[0, Math.PI, 0]}
-        position={[0, 30, 100]}
-      >
-        MOVE AROUND USING WASD
-      </Text>
+      {currentSelection === 0 ? (
+        <>
+          <Text
+            color='pink'
+            fontSize={10}
+            maxWidth={80}
+            lineHeight={1.5}
+            letterSpacing={0}
+            textAlign='center'
+            font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
+            anchorX='center'
+            anchorY='bottom'
+            rotation={[0, Math.PI / 4, 0]}
+            position={[-20, 30, -20]}
+          >
+            MOVE AROUND USING WASD AND SPACE
+          </Text>
+          <Text
+            color='pink'
+            fontSize={10}
+            maxWidth={80}
+            lineHeight={1.5}
+            letterSpacing={0}
+            textAlign='center'
+            font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
+            anchorX='center'
+            anchorY='bottom'
+            rotation={[0, (3 * Math.PI) / 4, 0]}
+            position={[-20, 30, 80]}
+          >
+            PRESS SHIFT NEXT TO A SONG TO PREVIEW
+          </Text>
+          <Text
+            color='pink'
+            fontSize={10}
+            maxWidth={80}
+            lineHeight={1.5}
+            letterSpacing={0}
+            textAlign='center'
+            font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
+            anchorX='center'
+            anchorY='bottom'
+            rotation={[0, (5 * Math.PI) / 4, 0]}
+            position={[80, 30, 80]}
+          >
+            PRESS E NEXT TO A SONG TO ADD TO PLAYLIST
+          </Text>
+          <Text
+            color='pink'
+            fontSize={10}
+            maxWidth={80}
+            lineHeight={1.5}
+            letterSpacing={0}
+            textAlign='center'
+            font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
+            anchorX='center'
+            anchorY='bottom'
+            rotation={[0, (7 * Math.PI) / 4, 0]}
+            position={[80, 30, -20]}
+          >
+            THE FLOATING BOXES ARE SONGS
+          </Text>{' '}
+        </>
+      ) : (
+        ''
+      )}
     </>
   );
 };
