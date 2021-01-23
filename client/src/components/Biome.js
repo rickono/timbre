@@ -3,11 +3,12 @@ import Terrain from './Terrain';
 import { PointerLockControls, Stars, Sky, OrbitControls } from 'drei';
 import SimplexNoise from 'simplex-noise';
 import Lights from './Lights';
-import { Canvas, useFrame } from 'react-three-fiber';
+import { Canvas, useFrame, useThree } from 'react-three-fiber';
 import { generateSettings } from '../helpers/utils';
 import Player from './Player';
 import Effects from './Effects';
 import Songs from './Songs';
+import * as THREE from 'three';
 
 const Biome = ({ DIVISIONS, SIDE_LENGTH, mood, seed, songs, playerId }) => {
   //could provide a seed
