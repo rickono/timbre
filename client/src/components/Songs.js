@@ -29,6 +29,40 @@ const Song = ({ position, args, color, speed, getHeightAt }) => {
   );
 };
 
+const Instruction = ({ rotation, position, text, color }) => {
+  const mesh = useRef(null);
+  useFrame((state, delta) => {
+    mesh.current.position.y =
+      position[1] + Math.sin(state.clock.elapsedTime) * 5;
+  });
+  return (
+    <Text
+      ref={mesh}
+      color={color}
+      fontSize={10}
+      maxWidth={80}
+      lineHeight={1.5}
+      letterSpacing={0}
+      textAlign='center'
+      font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
+      anchorX='center'
+      anchorY='bottom'
+      rotation={rotation}
+      position={position}
+    >
+      <MeshWobbleMaterial
+        emissive='white'
+        emissiveIntensity={1}
+        attach='material'
+        color={color}
+        speed={3}
+        factor={0.03}
+      />
+      {text}
+    </Text>
+  );
+};
+
 const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
   const positions = songs.map((song) => {
     return song.position;
@@ -106,66 +140,30 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
         })}
       {currentSelection === 0 ? (
         <>
-          <Text
+          <Instruction
             color='pink'
-            fontSize={10}
-            maxWidth={80}
-            lineHeight={1.5}
-            letterSpacing={0}
-            textAlign='center'
-            font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
-            anchorX='center'
-            anchorY='bottom'
             rotation={[0, Math.PI / 4, 0]}
             position={[-20, 30, -20]}
-          >
-            MOVE AROUND USING WASD AND SPACE
-          </Text>
-          <Text
+            text={'MOVE AROUND USING WASD AND SPACE'}
+          />
+          <Instruction
             color='pink'
-            fontSize={10}
-            maxWidth={80}
-            lineHeight={1.5}
-            letterSpacing={0}
-            textAlign='center'
-            font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
-            anchorX='center'
-            anchorY='bottom'
             rotation={[0, (3 * Math.PI) / 4, 0]}
             position={[-20, 30, 80]}
-          >
-            PRESS SHIFT NEXT TO A SONG TO PREVIEW
-          </Text>
-          <Text
+            text={'PRESS SHIFT NEXT TO A SONG TO PREVIEW'}
+          />
+          <Instruction
             color='pink'
-            fontSize={10}
-            maxWidth={80}
-            lineHeight={1.5}
-            letterSpacing={0}
-            textAlign='center'
-            font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
-            anchorX='center'
-            anchorY='bottom'
             rotation={[0, (5 * Math.PI) / 4, 0]}
             position={[80, 30, 80]}
-          >
-            PRESS E NEXT TO A SONG TO ADD TO PLAYLIST
-          </Text>
-          <Text
+            text={'PRESS E NEXT TO A SONG TO ADD TO PLAYLIST'}
+          />
+          <Instruction
             color='pink'
-            fontSize={10}
-            maxWidth={80}
-            lineHeight={1.5}
-            letterSpacing={0}
-            textAlign='center'
-            font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
-            anchorX='center'
-            anchorY='bottom'
             rotation={[0, (7 * Math.PI) / 4, 0]}
             position={[80, 30, -20]}
-          >
-            THE FLOATING BOXES ARE SONGS
-          </Text>{' '}
+            text={'THE FLOATING BOXES ARE SONGS'}
+          />
         </>
       ) : (
         ''
