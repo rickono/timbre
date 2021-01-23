@@ -1,23 +1,25 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { MeshWobbleMaterial } from 'drei';
+import { MeshWobbleMaterial, Text } from 'drei';
 import { useFrame, useThree } from 'react-three-fiber';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import * as THREE from 'three';
 
-const Song = ({ position, args, color, speed }) => {
+const Song = ({ position, args, color, speed, getHeightAt }) => {
   const mesh = useRef(null);
   useFrame((state, delta) => {
     mesh.current.rotation.x = mesh.current.rotation.y += 0.01;
     mesh.current.position.y =
-      mesh.current.position.y +
-      Math.sin(state.clock.elapsedTime + position[1]) / 12;
+      getHeightAt(mesh.current.position.x, mesh.current.position.z) +
+      10 +
+      Math.sin(state.clock.elapsedTime + position[1]) * 5;
   });
 
   return (
     <mesh castShadow position={position} ref={mesh}>
       <boxBufferGeometry attach='geometry' args={args} />
       <MeshWobbleMaterial
+        emissive='white'
+        emissiveIntensity={1}
         attach='material'
         color={color}
         speed={speed}
@@ -57,7 +59,7 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
               Math.sqrt(
                 (song.position[0] - camera.position.x) ** 2 +
                   (song.position[1] - camera.position.z) ** 2
-              ) < 5
+              ) < 15
             );
           });
 
@@ -92,16 +94,31 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
             <Song
               position={[
                 position[0],
-                getHeightAt(position[0], position[1]) + 4,
+                getHeightAt(position[0], position[1]) + 20,
                 position[1],
               ]}
               args={[3, 3, 3]}
               color='red'
               speed={2}
               key={position[1] / position[0]}
+              getHeightAt={getHeightAt}
             />
           );
         })}
+      <Text
+        color='pink'
+        fontSize={10}
+        maxWidth={80}
+        lineHeight={1.5}
+        letterSpacing={0}
+        textAlign='center'
+        font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
+        anchorX='center'
+        anchorY='bottom'
+        position={[0, 10, 0]}
+      >
+        MOVE AROUND USING WASD
+      </Text>
     </>
   );
 };
