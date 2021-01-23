@@ -65,7 +65,37 @@ function Game() {
         config
       );
 
-      recommended.current = recommendedSongsRes.data.tracks.map((track) => {
+      const recommendedSongs2Res = await axios.get(
+        `http://localhost:8888/api/v1/recommended?seed=${topSongsIds.slice(
+          6,
+          10
+        )}`,
+        config
+      );
+
+      const recommendedSongs3Res = await axios.get(
+        `http://localhost:8888/api/v1/recommended?seed=${topSongsIds.slice(
+          11,
+          15
+        )}`,
+        config
+      );
+
+      const recommendedSongs4Res = await axios.get(
+        `http://localhost:8888/api/v1/recommended?seed=${topSongsIds.slice(
+          16,
+          20
+        )}`,
+        config
+      );
+
+      const allRecommended = recommendedSongsRes.data.tracks.concat(
+        recommendedSongs2Res.data.tracks,
+        recommendedSongs3Res.data.tracks,
+        recommendedSongs4Res.data.tracks
+      );
+
+      recommended.current = allRecommended.map((track) => {
         return {
           ...track,
           position: [
@@ -74,11 +104,6 @@ function Game() {
           ],
         };
       });
-
-      await axios.get(
-        `http://localhost:8888/api/v1/play?id=${player.current._options.id}&uris=${recommended.current[0].uri}`,
-        config
-      );
 
       setLoading(false);
     }

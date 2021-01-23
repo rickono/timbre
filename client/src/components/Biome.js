@@ -37,19 +37,14 @@ const Biome = ({ DIVISIONS, SIDE_LENGTH, mood, seed, songs, playerId }) => {
   const { treeNumber, treeLeafColor, treeTrunkColor, treeRange } = treeInfo;
   const { rockNumber, rockColors, rockRange } = rockInfo;
 
-  useEffect(() => {
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'n') {
-        console.log('n was pressed');
-        setGlitch(true);
-        setTimeout(() => {
-          setSimplex(new SimplexNoise(Math.random()));
-          setSettings(generateSettings(mood));
-          setGlitch(false);
-        }, 1000);
-      }
-    });
-  }, []);
+  const changeScene = () => {
+    setGlitch(true);
+    setTimeout(() => {
+      setSimplex(new SimplexNoise(Math.random()));
+      setSettings(generateSettings(mood));
+      setGlitch(false);
+    }, 1000);
+  };
 
   const createMap = (x, z) => {
     let height = 0;
@@ -179,7 +174,12 @@ const Biome = ({ DIVISIONS, SIDE_LENGTH, mood, seed, songs, playerId }) => {
       ) : null}
       <Effects glitch={glitch} />
       <Player getHeightAt={getHeightAt} SIDE_LENGTH={SIDE_LENGTH} />
-      <Songs songs={songs} getHeightAt={getHeightAt} playerId={playerId} />
+      <Songs
+        songs={songs}
+        getHeightAt={getHeightAt}
+        playerId={playerId}
+        changeScene={changeScene}
+      />
     </>
   );
 };
