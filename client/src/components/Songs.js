@@ -52,6 +52,7 @@ const Songs = ({ songs, getHeightAt, playerId }) => {
       };
       if (e.key === 'Shift') {
         const closeSongs = songs.filter((song) => {
+          // console.log(song);
           return (
             Math.sqrt(
               (song.position[0] - camera.position.x) ** 2 +
@@ -59,13 +60,12 @@ const Songs = ({ songs, getHeightAt, playerId }) => {
             ) < 5
           );
         });
-
+        console.log(closeSongs);
         if (closeSongs.length > 0) {
-          console.log(closeSongs);
-          console.log(getClosestIndex(closeSongs));
-          const toPlay = songs[getClosestIndex(closeSongs)];
+          // console.log(closeSongs);
+          // console.log(getClosestIndex(closeSongs));
           await axios.get(
-            `http://localhost:8888/api/v1/play?id=${playerId}&uris=${toPlay.uri}`,
+            `http://localhost:8888/api/v1/play?id=${playerId}&uris=${closeSongs[0].uri}`,
             config
           );
         }
