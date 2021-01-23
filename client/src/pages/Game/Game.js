@@ -1,8 +1,9 @@
 import './game.scss';
 import React, { useEffect, useState, useRef } from 'react';
 import Biome from '../../components/Biome';
-import { Canvas, useFrame, useResource } from 'react-three-fiber';
+import { Canvas, useFrame, useResource, useThree } from 'react-three-fiber';
 import Cookies from 'js-cookie';
+import * as THREE from 'three';
 
 import axios from 'axios';
 import { Box } from 'drei';
