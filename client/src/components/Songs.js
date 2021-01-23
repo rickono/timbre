@@ -115,7 +115,53 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
         font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
         anchorX='center'
         anchorY='bottom'
-        position={[0, 10, 0]}
+        rotateY={20}
+        position={[0, 30, 0]}
+      >
+        MOVE AROUND USING WASD
+      </Text>
+      <Text
+        color='pink'
+        fontSize={10}
+        maxWidth={80}
+        lineHeight={1.5}
+        letterSpacing={0}
+        textAlign='center'
+        font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
+        anchorX='center'
+        anchorY='bottom'
+        rotation={[0, Math.PI/2, 0]}
+        position={[-50, 30, 50]}
+      >
+        MOVE AROUND USING WASD
+      </Text>
+      <Text
+        color='pink'
+        fontSize={10}
+        maxWidth={80}
+        lineHeight={1.5}
+        letterSpacing={0}
+        textAlign='center'
+        font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
+        anchorX='center'
+        anchorY='bottom'
+        rotation={[0, -Math.PI/2, 0]}
+        position={[50, 30, 50]}
+      >
+        MOVE AROUND USING WASD
+      </Text>
+      <Text
+        color='pink'
+        fontSize={10}
+        maxWidth={80}
+        lineHeight={1.5}
+        letterSpacing={0}
+        textAlign='center'
+        font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
+        anchorX='center'
+        anchorY='bottom'
+        rotation={[0, Math.PI, 0]}
+        position={[0, 30, 100]}
       >
         MOVE AROUND USING WASD
       </Text>
