@@ -52,7 +52,6 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
       if (e.key === 'Shift' || e.key === 'e') {
         if (!fired.current) {
           fired.current = true;
-          console.log('keydownnn');
           const closeSongs = songs.filter((song) => {
             // console.log(song);
             return (

@@ -2,7 +2,10 @@ import React, { useEffect, useState, useRef } from "react";
 import * as THREE from "three";
 import { useFrame, useThree } from "react-three-fiber";
 
+<<<<<<< HEAD
+=======
 import axios from "axios";
+>>>>>>> 8b0590e24c9594f7b48edb3fb1a15a4f1bee07be
 const SPEED = 0.2;
 
 const Player = ({ getHeightAt, cookies, SIDE_LENGTH }) => {
@@ -74,6 +77,7 @@ const Player = ({ getHeightAt, cookies, SIDE_LENGTH }) => {
   };
 
   useFrame((state, delta) => {
+    console.log(camera.position);
     const lookingAt = new THREE.Vector3();
     camera.getWorldDirection(lookingAt);
     const length = Math.sqrt(lookingAt.x ** 2 + lookingAt.z ** 2);
@@ -98,9 +102,13 @@ const Player = ({ getHeightAt, cookies, SIDE_LENGTH }) => {
     }
 
     camera.position.x +=
-      Math.abs(toMoveX + camera.position.x) < SIDE_LENGTH / 2 ? toMoveX : 0;
+      Math.abs(toMoveX + camera.position.x) < SIDE_LENGTH / 2
+        ? toMoveX * 70 * delta
+        : 0;
     camera.position.z +=
-      Math.abs(toMoveZ + camera.position.z) < SIDE_LENGTH / 2 ? toMoveZ : 0;
+      Math.abs(toMoveZ + camera.position.z) < SIDE_LENGTH / 2
+        ? toMoveZ * 70 * delta
+        : 0;
 
     setOffset(Math.sin(state.clock.elapsedTime * 11) / 6);
 
