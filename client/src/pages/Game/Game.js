@@ -100,6 +100,7 @@ function Game() {
             mood={'happy'}
             seed={0}
             songs={recommended.current}
+            playerId={player.current._options.id}
           />
         )}
       </Canvas>

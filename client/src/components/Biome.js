@@ -9,7 +9,7 @@ import Player from './Player';
 import Effects from './Effects';
 import Songs from './Songs';
 
-const Biome = ({ DIVISIONS, SIDE_LENGTH, mood, seed, songs }) => {
+const Biome = ({ DIVISIONS, SIDE_LENGTH, mood, seed, songs, playerId }) => {
   //could provide a seed
   const [simplex, setSimplex] = useState(new SimplexNoise(seed));
   const [glitch, setGlitch] = useState(false);
@@ -179,7 +179,7 @@ const Biome = ({ DIVISIONS, SIDE_LENGTH, mood, seed, songs }) => {
       ) : null}
       <Effects glitch={glitch} />
       <Player getHeightAt={getHeightAt} SIDE_LENGTH={SIDE_LENGTH} />
-      <Songs songs={songs} getHeightAt={getHeightAt} />
+      <Songs songs={songs} getHeightAt={getHeightAt} playerId={playerId} />
     </>
   );
 };
