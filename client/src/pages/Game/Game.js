@@ -8,6 +8,7 @@ import * as THREE from 'three';
 import axios from 'axios';
 import { Box } from 'drei';
 import Loading from '../../components/Loading';
+import Setup from './Setup';
 
 const SIDE_LENGTH = 320;
 const DIVISIONS = SIDE_LENGTH / 4;
@@ -18,6 +19,11 @@ function Game() {
   const recommended = useRef([]);
   const [loading, setLoading] = useState(true);
   const [playerLoading, setPlayerLoading] = useState(true);
+  const [setupDone, setSetupDone] = useState(false);
+
+  const setup = () => {
+    setSetupDone(true);
+  };
 
   const playerCheckInterval = setInterval(() => checkForPlayer(), 1000);
 
@@ -119,7 +125,7 @@ function Game() {
       >
         {loading ? (
           <Loading />
-        ) : (
+        ) : setupDone ? (
           <Biome
             DIVISIONS={DIVISIONS}
             SIDE_LENGTH={SIDE_LENGTH}
@@ -128,9 +134,12 @@ function Game() {
             songs={recommended.current}
             playerId={player.current._options.id}
           />
+        ) : (
+          ''
         )}
       </Canvas>
       {loading ? <h1 className='loadingtext'>Loading...</h1> : ''}
+      {setupDone || loading ? '' : <Setup setup={setup} />}
     </>
   );
 }

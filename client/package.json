@@ -8,6 +8,8 @@
     "@testing-library/user-event": "^12.6.0",
     "axios": "^0.21.1",
     "drei": "^2.2.13",
+    "formik": "^2.2.6",
+    "framer-motion": "^3.2.2-rc.1",
     "js-cookie": "^2.2.1",
     "p5": "^1.2.0",
     "r-audio": "^1.2.0",
