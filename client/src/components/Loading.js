@@ -7,7 +7,7 @@ import Montserrat from '../helpers/Montserrat_Regular.json';
 
 const Loading = () => {
   const mesh = useRef(null);
-  useFrame(() => (mesh.current.rotation.x = mesh.current.rotation.y += 0.01));
+  // useFrame(() => (mesh.current.rotation.x = mesh.current.rotation.y += 0.01));
 
   return (
     <>
