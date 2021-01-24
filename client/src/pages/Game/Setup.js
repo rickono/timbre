@@ -3,6 +3,7 @@ import './game.scss';
 
 import Cookies from 'js-cookie';
 import { motion } from 'framer-motion';
+import axios from 'axios';
 
 const ContinueButton = ({ handleContinue, stage }) => {
   const fadeInVariants = {
@@ -51,16 +52,27 @@ const Setup = ({ setup }) => {
   const [stage, setStage] = useState(0);
   const [playlistName, setPlaylistName] = useState('My Playlist');
 
-  const handleContinue = () => {
+  const config = {
+    headers: {
+      'access-token': Cookies.get('access-token'),
+      'refresh-token': Cookies.get('refresh-token'),
+    },
+  };
+
+  const handleContinue = async () => {
     setStage(stage + 1);
     if (stage === 2) {
-      console.log('stage 3');
       setTimeout(() => {
         setStage(stage + 1);
       }, 1000);
       setTimeout(() => {
         setup();
       }, 3000);
+      const playlistIdRes = await axios.get(
+        `http://localhost:8888/api/v1/createplaylist?name=${playlistName}`,
+        config
+      );
+      Cookies.set('playlist-id', playlistIdRes.data.id);
     }
   };
 

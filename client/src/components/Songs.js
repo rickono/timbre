@@ -105,7 +105,12 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
               changeScene();
               setCurrentSelection(currentSelection + 1);
               playlist.current = [...playlist.current, closeSongs[0].id];
-              console.log(playlist.current);
+              await axios.get(
+                `http://localhost:8888/api/v1/addtoplaylist?playlist=${Cookies.get(
+                  'playlist-id'
+                )}&uri=${closeSongs[0].uri}`,
+                config
+              );
             }
           }
         }
