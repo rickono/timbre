@@ -1,9 +1,12 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, Suspense } from 'react';
 import { MeshWobbleMaterial, Text } from 'drei';
 import { useFrame, useThree } from 'react-three-fiber';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import * as THREE from 'three';
+import { Sprite } from 'three';
+import img from './imagetest/yelmount.png';
+import TextSprite from './TextSprite';
 
 const SongText = ({ song, position }) => {
   const { camera } = useThree();
