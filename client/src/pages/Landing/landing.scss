@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap');
+
 #root {
   background-color: #22292c;
 }
@@ -22,7 +24,12 @@
     outline: none;
   }
   &:hover {
+    box-shadow: 0px 0px 20px #1db954;
+    background-color: #a5ebbd;
+    color: #222;
+
     ~ .name {
+      color: white;
       text-shadow: 0px 0px 10px white;
     }
   }
