@@ -3,6 +3,7 @@ import { MeshWobbleMaterial, Text } from 'drei';
 import { useFrame, useThree } from 'react-three-fiber';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import * as THREE from 'three';
 
 const SongText = ({ song, position }) => {
   const { camera } = useThree();
@@ -17,6 +18,14 @@ const SongText = ({ song, position }) => {
     if (distance < 15) {
       mesh.current.visible = true;
       console.log(mesh);
+      const lookingAt = new THREE.Vector3();
+      camera.getWorldDirection(lookingAt);
+      const toRotateY = Math.atan(lookingAt.x / lookingAt.z);
+      console.log(toRotateY);
+      console.log(lookingAt.x / lookingAt.z);
+      mesh.current.rotation.y = toRotateY < 0 ? toRotateY + 0 : toRotateY;
+      // mesh.current.rotation.x = Math.atan(lookingAt.y / lookingAt.z);
+      // mesh.current.rotation.z = Math.atan(lookingAt.y / lookingAt.x);
     } else {
       mesh.current.visible = false;
     }
