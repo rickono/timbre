@@ -8,6 +8,7 @@ import * as THREE from 'three';
 import axios from 'axios';
 import { Box } from 'drei';
 import Loading from '../../components/Loading';
+import Setup from './Setup';
 
 const SIDE_LENGTH = 320;
 const DIVISIONS = SIDE_LENGTH / 4;
@@ -18,6 +19,11 @@ function Game() {
   const recommended = useRef([]);
   const [loading, setLoading] = useState(true);
   const [playerLoading, setPlayerLoading] = useState(true);
+  const [setupDone, setSetupDone] = useState(false);
+
+  const setup = () => {
+    setSetupDone(true);
+  };
 
   const playerCheckInterval = setInterval(() => checkForPlayer(), 1000);
 
@@ -36,78 +42,81 @@ function Game() {
     }
   };
 
-  useEffect(async () => {
-    if (!playerLoading) {
-      player.current.addListener('ready', ({ device_id }) => {
-        console.log('Ready to play music!');
-        console.log('Device ID: ', device_id);
-        console.log(player);
-      });
-      const config = {
-        headers: {
-          'access-token': Cookies.get('access-token'),
-          'refresh-token': Cookies.get('refresh-token'),
-        },
-      };
-
-      const topSongsRes = await axios.get(
-        'http://localhost:8888/api/v1/me/toptracks',
-        config
-      );
-      const topSongs = topSongsRes.data.items;
-
-      const topSongsIds = topSongs.map((song) => song.id);
-
-      const recommendedSongsRes = await axios.get(
-        `http://localhost:8888/api/v1/recommended?seed=${topSongsIds.slice(
-          0,
-          5
-        )}`,
-        config
-      );
-
-      const recommendedSongs2Res = await axios.get(
-        `http://localhost:8888/api/v1/recommended?seed=${topSongsIds.slice(
-          6,
-          10
-        )}`,
-        config
-      );
-
-      const recommendedSongs3Res = await axios.get(
-        `http://localhost:8888/api/v1/recommended?seed=${topSongsIds.slice(
-          11,
-          15
-        )}`,
-        config
-      );
-
-      const recommendedSongs4Res = await axios.get(
-        `http://localhost:8888/api/v1/recommended?seed=${topSongsIds.slice(
-          16,
-          20
-        )}`,
-        config
-      );
-
-      const allRecommended = recommendedSongsRes.data.tracks.concat(
-        recommendedSongs2Res.data.tracks,
-        recommendedSongs3Res.data.tracks,
-        recommendedSongs4Res.data.tracks
-      );
-
-      recommended.current = allRecommended.map((track) => {
-        return {
-          ...track,
-          position: [
-            Math.floor(Math.random() * SIDE_LENGTH - SIDE_LENGTH / 2),
-            Math.floor(Math.random() * SIDE_LENGTH - SIDE_LENGTH / 2),
-          ],
+  useEffect(() => {
+    const init = async () => {
+      if (!playerLoading) {
+        player.current.addListener('ready', ({ device_id }) => {
+          console.log('Ready to play music!');
+          console.log('Device ID: ', device_id);
+          console.log(player);
+        });
+        const config = {
+          headers: {
+            'access-token': Cookies.get('access-token'),
+            'refresh-token': Cookies.get('refresh-token'),
+          },
         };
-      });
 
-      setLoading(false);
-    }
+        const topSongsRes = await axios.get(
+          'http://localhost:8888/api/v1/me/toptracks',
+          config
+        );
+        const topSongs = topSongsRes.data.items;
+
+        const topSongsIds = topSongs.map((song) => song.id);
+
+        const recommendedSongsRes = await axios.get(
+          `http://localhost:8888/api/v1/recommended?seed=${topSongsIds.slice(
+            0,
+            5
+          )}`,
+          config
+        );
+
+        const recommendedSongs2Res = await axios.get(
+          `http://localhost:8888/api/v1/recommended?seed=${topSongsIds.slice(
+            6,
+            10
+          )}`,
+          config
+        );
+
+        const recommendedSongs3Res = await axios.get(
+          `http://localhost:8888/api/v1/recommended?seed=${topSongsIds.slice(
+            11,
+            15
+          )}`,
+          config
+        );
+
+        const recommendedSongs4Res = await axios.get(
+          `http://localhost:8888/api/v1/recommended?seed=${topSongsIds.slice(
+            16,
+            20
+          )}`,
+          config
+        );
+
+        const allRecommended = recommendedSongsRes.data.tracks.concat(
+          recommendedSongs2Res.data.tracks,
+          recommendedSongs3Res.data.tracks,
+          recommendedSongs4Res.data.tracks
+        );
+
+        recommended.current = allRecommended.map((track) => {
+          return {
+            ...track,
+            position: [
+              Math.floor(Math.random() * SIDE_LENGTH - SIDE_LENGTH / 2),
+              Math.floor(Math.random() * SIDE_LENGTH - SIDE_LENGTH / 2),
+            ],
+          };
+        });
+
+        setLoading(false);
+      }
+    };
+    init();
   }, [playerLoading]);
 
   return (
@@ -119,7 +128,7 @@ function Game() {
       >
         {loading ? (
           <Loading />
-        ) : (
+        ) : setupDone ? (
           <Biome
             DIVISIONS={DIVISIONS}
             SIDE_LENGTH={SIDE_LENGTH}
@@ -128,9 +137,12 @@ function Game() {
             songs={recommended.current}
             playerId={player.current._options.id}
           />
+        ) : (
+          ''
         )}
       </Canvas>
       {loading ? <h1 className='loadingtext'>Loading...</h1> : ''}
+      {setupDone || loading ? '' : <Setup setup={setup} />}
     </>
   );
 }

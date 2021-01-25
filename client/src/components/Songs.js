@@ -29,6 +29,40 @@ const Song = ({ position, args, color, speed, getHeightAt }) => {
   );
 };
 
+const Instruction = ({ rotation, position, text, color }) => {
+  const mesh = useRef(null);
+  useFrame((state, delta) => {
+    mesh.current.position.y =
+      position[1] + Math.sin(state.clock.elapsedTime) * 5;
+  });
+  return (
+    <Text
+      ref={mesh}
+      color={color}
+      fontSize={10}
+      maxWidth={80}
+      lineHeight={1.5}
+      letterSpacing={0}
+      textAlign='center'
+      font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
+      anchorX='center'
+      anchorY='bottom'
+      rotation={rotation}
+      position={position}
+    >
+      <MeshWobbleMaterial
+        emissive='white'
+        emissiveIntensity={1}
+        attach='material'
+        color={color}
+        speed={3}
+        factor={0.03}
+      />
+      {text}
+    </Text>
+  );
+};
+
 const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
   const positions = songs.map((song) => {
     return song.position;
@@ -71,7 +105,12 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
               changeScene();
               setCurrentSelection(currentSelection + 1);
               playlist.current = [...playlist.current, closeSongs[0].id];
-              console.log(playlist.current);
+              await axios.get(
+                `http://localhost:8888/api/v1/addtoplaylist?playlist=${Cookies.get(
+                  'playlist-id'
+                )}&uri=${closeSongs[0].uri}`,
+                config
+              );
             }
           }
         }
@@ -104,66 +143,36 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
             />
           );
         })}
-      <Text
-        color='pink'
-        fontSize={10}
-        maxWidth={80}
-        lineHeight={1.5}
-        letterSpacing={0}
-        textAlign='center'
-        font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
-        anchorX='center'
-        anchorY='bottom'
-        rotateY={20}
-        position={[0, 30, 0]}
-      >
-        MOVE AROUND USING WASD
-      </Text>
-      <Text
-        color='pink'
-        fontSize={10}
-        maxWidth={80}
-        lineHeight={1.5}
-        letterSpacing={0}
-        textAlign='center'
-        font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
-        anchorX='center'
-        anchorY='bottom'
-        rotation={[0, Math.PI/2, 0]}
-        position={[-50, 30, 50]}
-      >
-        MOVE AROUND USING WASD
-      </Text>
-      <Text
-        color='pink'
-        fontSize={10}
-        maxWidth={80}
-        lineHeight={1.5}
-        letterSpacing={0}
-        textAlign='center'
-        font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
-        anchorX='center'
-        anchorY='bottom'
-        rotation={[0, -Math.PI/2, 0]}
-        position={[50, 30, 50]}
-      >
-        MOVE AROUND USING WASD
-      </Text>
-      <Text
-        color='pink'
-        fontSize={10}
-        maxWidth={80}
-        lineHeight={1.5}
-        letterSpacing={0}
-        textAlign='center'
-        font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
-        anchorX='center'
-        anchorY='bottom'
-        rotation={[0, Math.PI, 0]}
-        position={[0, 30, 100]}
-      >
-        MOVE AROUND USING WASD
-      </Text>
+      {currentSelection === 0 ? (
+        <>
+          <Instruction
+            color='pink'
+            rotation={[0, Math.PI / 4, 0]}
+            position={[-20, 30, -20]}
+            text={'MOVE AROUND USING WASD AND SPACE'}
+          />
+          <Instruction
+            color='pink'
+            rotation={[0, (3 * Math.PI) / 4, 0]}
+            position={[-20, 30, 80]}
+            text={'PRESS SHIFT NEXT TO A SONG TO PREVIEW'}
+          />
+          <Instruction
+            color='pink'
+            rotation={[0, (5 * Math.PI) / 4, 0]}
+            position={[80, 30, 80]}
+            text={'PRESS E NEXT TO A SONG TO ADD TO PLAYLIST'}
+          />
+          <Instruction
+            color='pink'
+            rotation={[0, (7 * Math.PI) / 4, 0]}
+            position={[80, 30, -20]}
+            text={'THE FLOATING BOXES ARE SONGS'}
+          />
+        </>
+      ) : (
+        ''
+      )}
     </>
   );
 };
