@@ -1,8 +1,8 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { MeshWobbleMaterial, Text } from 'drei';
-import { useFrame, useThree } from 'react-three-fiber';
-import axios from 'axios';
-import Cookies from 'js-cookie';
+import React, { useRef, useEffect, useState } from "react";
+import { MeshWobbleMaterial, Text } from "drei";
+import { useFrame, useThree } from "react-three-fiber";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const SongText = ({ song, position }) => {
   const { camera } = useThree();
@@ -58,18 +58,68 @@ const Song = ({ position, args, color, speed, getHeightAt, song }) => {
   return (
     <group>
       <mesh castShadow position={position} ref={mesh}>
-        <boxBufferGeometry attach='geometry' args={args} />
+        <boxBufferGeometry attach="geometry" args={args} />
         <MeshWobbleMaterial
-          emissive='white'
+          emissive="white"
           emissiveIntensity={1}
-          attach='material'
+          attach="material"
           color={color}
           speed={speed}
           factor={0.3}
         />
       </mesh>
+<<<<<<< HEAD
       <SongText song={song} position={position} />
+=======
+      <Text
+        color="lightgreen"
+        fontSize={2}
+        maxWidth={20}
+        lineHeight={1.5}
+        letterSpacing={0}
+        textAlign="center"
+        font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
+        anchorX="center"
+        anchorY="bottom"
+        position={[position[0], position[1] - 2, position[2]]}
+      >
+        {song.name}
+      </Text>
+>>>>>>> 462457dca369ae6761361ba2fd897f3708ad57d4
     </group>
+  );
+};
+
+const CurrentSong = ({ position, text, color }) => {
+  const mesh = useRef(null);
+  useFrame((state, delta) => {
+    mesh.current.position.y =
+      position[1] + Math.sin(state.clock.elapsedTime) * 5;
+  });
+  return (
+    <Text
+      ref={mesh}
+      color={color}
+      fontSize={5}
+      maxWidth={120}
+      lineHeight={1.5}
+      letterSpacing={0}
+      textAlign="center"
+      font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
+      anchorX="center"
+      anchorY="bottom"
+      position={position}
+    >
+      <MeshWobbleMaterial
+        emissive={color}
+        emissiveIntensity={1}
+        attach="material"
+        color={color}
+        speed={2}
+        factor={0.03}
+      />
+      {text}
+    </Text>
   );
 };
 
@@ -87,17 +137,17 @@ const Instruction = ({ rotation, position, text, color }) => {
       maxWidth={80}
       lineHeight={1.5}
       letterSpacing={0}
-      textAlign='center'
-      font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
-      anchorX='center'
-      anchorY='bottom'
+      textAlign="center"
+      font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
+      anchorX="center"
+      anchorY="bottom"
       rotation={rotation}
       position={position}
     >
       <MeshWobbleMaterial
-        emissive='white'
+        emissive="white"
         emissiveIntensity={1}
-        attach='material'
+        attach="material"
         color={color}
         speed={3}
         factor={0.03}
@@ -119,15 +169,15 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
   const { camera } = useThree();
   const config = {
     headers: {
-      'access-token': Cookies.get('access-token'),
-      'refresh-token': Cookies.get('refresh-token'),
+      "access-token": Cookies.get("access-token"),
+      "refresh-token": Cookies.get("refresh-token"),
     },
   };
 
   useEffect(() => {
     fired.current = false;
-    window.addEventListener('keydown', async (e) => {
-      if (e.key === 'Shift' || e.key === 'e') {
+    window.addEventListener("keydown", async (e) => {
+      if (e.key === "Shift" || e.key === "e") {
         if (!fired.current) {
           fired.current = true;
           const closeSongs = songs.filter((song) => {
@@ -145,13 +195,13 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
               `http://localhost:8888/api/v1/play?id=${playerId}&uris=${closeSongs[0].uri}`,
               config
             );
-            if (e.key === 'e') {
+            if (e.key === "e") {
               changeScene();
               setCurrentSelection(currentSelection + 1);
               playlist.current = [...playlist.current, closeSongs[0].id];
               await axios.get(
                 `http://localhost:8888/api/v1/addtoplaylist?playlist=${Cookies.get(
-                  'playlist-id'
+                  "playlist-id"
                 )}&uri=${closeSongs[0].uri}`,
                 config
               );
@@ -160,8 +210,8 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
         }
       }
     });
-    window.addEventListener('keyup', (e) => {
-      if (e.key === 'Shift' || e.key === 'e') {
+    window.addEventListener("keyup", (e) => {
+      if (e.key === "Shift" || e.key === "e") {
         fired.current = false;
       }
     });
@@ -178,7 +228,7 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
               song.position[1],
             ]}
             args={[3, 3, 3]}
-            color='red'
+            color="red"
             speed={2}
             key={song.id + song.position[0]}
             getHeightAt={getHeightAt}
@@ -189,32 +239,53 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
       {currentSelection === 0 ? (
         <>
           <Instruction
-            color='pink'
+            color="pink"
             rotation={[0, Math.PI / 4, 0]}
             position={[-20, 30, -20]}
-            text={'MOVE AROUND USING WASD AND SPACE'}
+            text={"MOVE AROUND USING WASD AND SPACE"}
           />
           <Instruction
-            color='pink'
+            color="pink"
             rotation={[0, (3 * Math.PI) / 4, 0]}
             position={[-20, 30, 80]}
-            text={'PRESS SHIFT NEXT TO A SONG TO PREVIEW'}
+            text={"PRESS SHIFT NEXT TO A SONG TO PREVIEW"}
           />
           <Instruction
-            color='pink'
+            color="pink"
             rotation={[0, (5 * Math.PI) / 4, 0]}
             position={[80, 30, 80]}
-            text={'PRESS E NEXT TO A SONG TO ADD TO PLAYLIST'}
+            text={"PRESS E NEXT TO A SONG TO ADD TO PLAYLIST"}
           />
           <Instruction
-            color='pink'
+            color="pink"
             rotation={[0, (7 * Math.PI) / 4, 0]}
             position={[80, 30, -20]}
-            text={'THE FLOATING BOXES ARE SONGS'}
+            text={"THE FLOATING BOXES ARE SONGS"}
           />
         </>
       ) : (
-        ''
+        <>
+          <CurrentSong
+            color="#0066dd"
+            position={[-10, 40, -10]}
+            text={"Song: I Will Follow You Into The Dark"}
+          />
+          <CurrentSong
+            color="#fff333"
+            position={[-9.5, 40, -9.5]}
+            text={"Song: I Will Follow You Into The Dark"}
+          />
+          <CurrentSong
+            color="#0066dd"
+            position={[-10, 30, -10]}
+            text={"Artist: Aminé"}
+          />
+          <CurrentSong
+            color="#fff333"
+            position={[-9.5, 30, -10]}
+            text={"Artist: Aminé"}
+          />
+        </>
       )}
     </>
   );
