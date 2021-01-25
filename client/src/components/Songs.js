@@ -4,7 +4,7 @@ import { useFrame, useThree } from 'react-three-fiber';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-const Song = ({ position, args, color, speed, getHeightAt }) => {
+const Song = ({ position, args, color, speed, getHeightAt, song }) => {
   const mesh = useRef(null);
   useFrame((state, delta) => {
     mesh.current.rotation.x = mesh.current.rotation.y += 0.01;
@@ -15,17 +15,33 @@ const Song = ({ position, args, color, speed, getHeightAt }) => {
   });
 
   return (
-    <mesh castShadow position={position} ref={mesh}>
-      <boxBufferGeometry attach='geometry' args={args} />
-      <MeshWobbleMaterial
-        emissive='white'
-        emissiveIntensity={1}
-        attach='material'
-        color={color}
-        speed={speed}
-        factor={0.3}
-      />
-    </mesh>
+    <group>
+      <mesh castShadow position={position} ref={mesh}>
+        <boxBufferGeometry attach='geometry' args={args} />
+        <MeshWobbleMaterial
+          emissive='white'
+          emissiveIntensity={1}
+          attach='material'
+          color={color}
+          speed={speed}
+          factor={0.3}
+        />
+      </mesh>
+      <Text
+        color='lightgreen'
+        fontSize={2}
+        maxWidth={20}
+        lineHeight={1.5}
+        letterSpacing={0}
+        textAlign='center'
+        font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
+        anchorX='center'
+        anchorY='bottom'
+        position={[position[0], position[1] - 2, position[2]]}
+      >
+        {song.name}
+      </Text>
+    </group>
   );
 };
 
@@ -125,24 +141,23 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
 
   return (
     <>
-      {positions
-        .slice(currentSelection * 10, currentSelection * 10 + 10)
-        .map((position) => {
-          return (
-            <Song
-              position={[
-                position[0],
-                getHeightAt(position[0], position[1]) + 20,
-                position[1],
-              ]}
-              args={[3, 3, 3]}
-              color='red'
-              speed={2}
-              key={position[1] / position[0]}
-              getHeightAt={getHeightAt}
-            />
-          );
-        })}
+      {songs.map((song) => {
+        return (
+          <Song
+            position={[
+              song.position[0],
+              getHeightAt(song.position[0], song.position[1]) + 20,
+              song.position[1],
+            ]}
+            args={[3, 3, 3]}
+            color='red'
+            speed={2}
+            key={song.id + song.position[0]}
+            getHeightAt={getHeightAt}
+            song={song}
+          />
+        );
+      })}
       {currentSelection === 0 ? (
         <>
           <Instruction
