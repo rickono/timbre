@@ -1,4 +1,6 @@
 import colorSchemes from './colorSchemes';
+import * as THREE from 'three'
+
 const randInt = (min, max) => {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -7,6 +9,24 @@ const randInt = (min, max) => {
 const randRange = (max, min) => Math.random() * (max - min) + min
 
 const randVal = (arr) => arr[randInt(0, arr.length - 1)]
+
+const getEulerAngles = (vector, targetVector) => {
+  // Normalize vectors to make sure they have a length of 1
+  vector.normalize();
+  targetVector.normalize();
+
+  // Create a quaternion, and apply starting, then ending vectors
+  let quaternion = new THREE.Quaternion();
+  quaternion.setFromUnitVectors(vector, targetVector);
+
+  // Quaternion now has rotation data within it. 
+  // We'll need to get it out with a THREE.Euler()
+  let euler = new THREE.Euler();
+  euler.setFromQuaternion(quaternion);
+  euler = euler.toArray();
+  console.log(euler)
+  return euler
+}
 
 const generateSettings = (mood) => {
   let colors, ambLight, dirLight, fog, stars, timeOfDay, cloudColors;
@@ -171,4 +191,4 @@ const generateSettings = (mood) => {
   return randVal([whiteMountains, greenMountains, mesa]);
 };
 
-export { randVal, randRange, randInt, generateSettings }
+export { randVal, randRange, randInt, generateSettings, getEulerAngles}

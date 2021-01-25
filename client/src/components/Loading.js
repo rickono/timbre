@@ -11,10 +11,10 @@ const Loading = () => {
 
   return (
     <>
-      <mesh position={[0, 0, 0]} ref={mesh}>
+      <mesh position={[-20, 60, -20]} ref={mesh}>
         {/* We create a cube here, and we have to define geometry and material */}
         {/* <circleBufferGeometry attach='geometry' args={[1,20]} /> */}
-        <boxBufferGeometry attach='geometry' args={[5, 5, 5]} />
+        <boxBufferGeometry attach='geometry' args={[10, 10, 10]} />
         <MeshWobbleMaterial
           attach='material'
           color='#1db954'
