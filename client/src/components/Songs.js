@@ -4,6 +4,47 @@ import { useFrame, useThree } from 'react-three-fiber';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
+const SongText = ({ song, position }) => {
+  const { camera } = useThree();
+
+  const mesh = useRef();
+  useFrame(() => {
+    const distance = Math.sqrt(
+      (mesh.current.position.x - camera.position.x) ** 2 +
+        (mesh.current.position.z - camera.position.z) ** 2
+    );
+    // console.log(distance);
+    if (distance < 15) {
+      mesh.current.visible = true;
+      console.log(mesh);
+    } else {
+      mesh.current.visible = false;
+    }
+  });
+  return (
+    <Text
+      fontSize={2}
+      maxWidth={20}
+      lineHeight={1.5}
+      letterSpacing={0}
+      textAlign='center'
+      font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
+      anchorX='center'
+      anchorY='bottom'
+      position={[position[0], position[1] - 2, position[2]]}
+      ref={mesh}
+    >
+      <meshStandardMaterial
+        attach='material'
+        color='white'
+        emissive='white'
+        emissiveIntensity={1}
+      />
+      {song.name}
+    </Text>
+  );
+};
+
 const Song = ({ position, args, color, speed, getHeightAt, song }) => {
   const mesh = useRef(null);
   useFrame((state, delta) => {
@@ -27,20 +68,7 @@ const Song = ({ position, args, color, speed, getHeightAt, song }) => {
           factor={0.3}
         />
       </mesh>
-      <Text
-        color='lightgreen'
-        fontSize={2}
-        maxWidth={20}
-        lineHeight={1.5}
-        letterSpacing={0}
-        textAlign='center'
-        font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
-        anchorX='center'
-        anchorY='bottom'
-        position={[position[0], position[1] - 2, position[2]]}
-      >
-        {song.name}
-      </Text>
+      <SongText song={song} position={position} />
     </group>
   );
 };
