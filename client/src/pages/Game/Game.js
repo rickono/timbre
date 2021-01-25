@@ -9,6 +9,7 @@ import axios from 'axios';
 import { Box } from 'drei';
 import Loading from '../../components/Loading';
 import Setup from './Setup';
+import Usercard from './Usercard';
 
 const SIDE_LENGTH = 320;
 const DIVISIONS = SIDE_LENGTH / 4;
@@ -23,6 +24,13 @@ function Game() {
 
   const setup = () => {
     setSetupDone(true);
+  };
+
+  const logout = () => {
+    Cookies.remove('access-token');
+    Cookies.remove('refresh-token');
+    Cookies.remove('username');
+    window.location = 'http://localhost:3000';
   };
 
   const playerCheckInterval = setInterval(() => checkForPlayer(), 1000);
@@ -143,6 +151,7 @@ function Game() {
       </Canvas>
       {loading ? <h1 className='loadingtext'>Loading...</h1> : ''}
       {setupDone || loading ? '' : <Setup setup={setup} />}
+      {setupDone && !loading ? <Usercard logout={logout} /> : ''}
     </>
   );
 }
