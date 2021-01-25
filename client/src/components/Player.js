@@ -1,11 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import * as THREE from "three";
 import { useFrame, useThree } from "react-three-fiber";
-
-<<<<<<< HEAD
-=======
 import axios from "axios";
->>>>>>> 8b0590e24c9594f7b48edb3fb1a15a4f1bee07be
 const SPEED = 0.2;
 
 const Player = ({ getHeightAt, cookies, SIDE_LENGTH }) => {
@@ -118,6 +114,7 @@ const Player = ({ getHeightAt, cookies, SIDE_LENGTH }) => {
       getHeightAt(camera.position.x, camera.position.z) +
       5 +
       height +
+      // (moveUp || moveBack || moveLeft || moveRight);
       (moveUp || moveBack || moveLeft || moveRight ? offset : 0);
   });
 

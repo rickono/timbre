@@ -43,6 +43,9 @@ const Biome = ({ DIVISIONS, SIDE_LENGTH, mood, seed, songs, playerId }) => {
     setTimeout(() => {
       setSimplex(new SimplexNoise(Math.random()));
       setSettings(generateSettings(mood));
+      // setGlitch(false);
+    }, 1000);
+    setTimeout(() => {
       setGlitch(false);
     }, 1000);
   };
