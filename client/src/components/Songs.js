@@ -23,9 +23,12 @@ const SongText = ({ song, position }) => {
       const toRotateY = Math.atan(lookingAt.x / lookingAt.z);
       console.log(toRotateY);
       console.log(lookingAt.x / lookingAt.z);
-      mesh.current.rotation.y = toRotateY < 0 ? toRotateY + 0 : toRotateY;
-      // mesh.current.rotation.x = Math.atan(lookingAt.y / lookingAt.z);
-      // mesh.current.rotation.z = Math.atan(lookingAt.y / lookingAt.x);
+      mesh.current.rotation.y =
+        lookingAt.z > 0 ? -Math.PI + toRotateY : toRotateY;
+      // mesh.current.rotation.x = Math.PI / 4;
+      // mesh.current.rotation.z = Math.PI / 4;
+      mesh.current.rotation.x = 0;
+      mesh.current.rotation.z = 0;
     } else {
       mesh.current.visible = false;
     }
