@@ -49,6 +49,10 @@ function Game() {
       clearInterval(playerCheckInterval);
     }
   };
+  // useEffect(() => {
+  //   const {camera} = useThree()
+  //   camera.lookAt(-20, 30, -20)
+  // }, [])
 
   useEffect(() => {
     const init = async () => {
@@ -126,13 +130,17 @@ function Game() {
     };
     init();
   }, [playerLoading]);
-
+  // x: -0.6809544879077204
+  // y: 0.3221502968833599
+  // z: -0.6576626579153612
   return (
     <>
       <Canvas
         shadowMap
         colorManagement
-        camera={{ position: [30, 30, 30], fov: 60 }}
+        // onCreated={({ camera }) => camera.lookAt(-0.6809544879077204, 0.3221502968833599, -0.6576626579153612)}
+        onCreated={({ camera }) => camera.lookAt(-20, 60, -20)}
+        camera={{ position: [30, 30, 30], fov: 60, }}
       >
         {loading ? (
           <Loading />

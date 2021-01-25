@@ -170,13 +170,13 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
             color='pink'
             rotation={[0, (3 * Math.PI) / 4, 0]}
             position={[-20, 30, 80]}
-            text={'PRESS SHIFT NEXT TO A SONG TO PREVIEW'}
+            text={'PRESS E NEXT TO A SONG TO ADD TO PLAYLIST'}
           />
           <Instruction
             color='pink'
             rotation={[0, (5 * Math.PI) / 4, 0]}
             position={[80, 30, 80]}
-            text={'PRESS E NEXT TO A SONG TO ADD TO PLAYLIST'}
+            text={'PRESS SHIFT NEXT TO A SONG TO PREVIEW'}
           />
           <Instruction
             color='pink'

@@ -73,6 +73,7 @@ const Player = ({ getHeightAt, cookies, SIDE_LENGTH }) => {
   useFrame((state, delta) => {
     const lookingAt = new THREE.Vector3();
     camera.getWorldDirection(lookingAt);
+    // console.log(lookingAt)
     const length = Math.sqrt(lookingAt.x ** 2 + lookingAt.z ** 2);
 
     let toMoveX = 0,
