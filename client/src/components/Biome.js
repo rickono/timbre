@@ -1,20 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Terrain from './Terrain';
-import { PointerLockControls, Stars, Sky, OrbitControls } from 'drei';
+import { PointerLockControls, Stars, Sky } from 'drei';
 import SimplexNoise from 'simplex-noise';
 import Lights from './Lights';
-import { Canvas, useFrame, useThree } from 'react-three-fiber';
 import { generateSettings } from '../helpers/utils';
 import Player from './Player';
 import Effects from './Effects';
 import Songs from './Songs';
-import * as THREE from 'three';
 
 const Biome = ({ DIVISIONS, SIDE_LENGTH, mood, seed, songs, playerId }) => {
-  //could provide a seed
   const [simplex, setSimplex] = useState(new SimplexNoise(seed));
   const [glitch, setGlitch] = useState(false);
   const [settings, setSettings] = useState(generateSettings(mood));
+
   const {
     colors,
     colorThresholds,
@@ -41,13 +39,13 @@ const Biome = ({ DIVISIONS, SIDE_LENGTH, mood, seed, songs, playerId }) => {
   const changeScene = () => {
     setGlitch(true);
     setTimeout(() => {
+      const rand_mood = Math.random() < 0.5 ? 'happy' : 'chill';
       setSimplex(new SimplexNoise(Math.random()));
-      setSettings(generateSettings(mood));
-      // setGlitch(false);
+      setSettings(generateSettings(rand_mood));
     }, 1000);
     setTimeout(() => {
       setGlitch(false);
-    }, 1000);
+    }, 1000)
   };
 
   const createMap = (x, z) => {
@@ -135,7 +133,6 @@ const Biome = ({ DIVISIONS, SIDE_LENGTH, mood, seed, songs, playerId }) => {
         cloudRange={cloudRange}
       />
       <PointerLockControls />
-      {/* <OrbitControls /> */}
       <Lights
         directionalColor={directionalColor}
         directionalIntensity={directionalIntensity}
@@ -152,7 +149,6 @@ const Biome = ({ DIVISIONS, SIDE_LENGTH, mood, seed, songs, playerId }) => {
           fade // Faded dots (default=false)
         />
       )}
-      {/* <Water /> */}
       {timeOfDay === 'sunset' ? (
         <Sky
           distance={45000} // Camera distance (default=450000)
