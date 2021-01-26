@@ -121,6 +121,7 @@ const Setup = ({ setup }) => {
               value={playlistName}
               onChange={handleTyping}
               onClick={e => e.target.setSelectionRange(0, e.target.value.length)}
+              placeholder={"playlist name"}
               initial='hidden'
               animate='visible'
               exit='exit'
