@@ -12,15 +12,6 @@ const Loading = () => {
 
   return (
     <>
-      <Cloud 
-        position={[0, 27, 0]} 
-        numPuffs={[35, 35]} 
-        radius={[3,3]} 
-        widthSegments={[15,15]} 
-        heightSegments={[20,20]} 
-        color={"papaywhip"}
-        />
-      
       <mesh position={[-20, 60, -20]} ref={mesh}>
         <boxBufferGeometry attach='geometry' args={[10, 10, 10]} />
         <MeshWobbleMaterial
