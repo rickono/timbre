@@ -131,12 +131,12 @@ h1 {
   }
 }
 ::selection {
-  background-color:palegoldenrod;
+  background-color:rgb(245, 242, 209);
   color: #fff;
 }
 
 /*** Mozilla based browsers ***/
 ::-moz-selection {
-  background-color:palegoldenrod;
+  background-color:rgb(245, 242, 209);
   color: #fff;
 }
