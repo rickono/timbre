@@ -21,6 +21,16 @@ const Cursor = () => {
       cursorRef.current.style.transition = 'box-shadow 0s ease-in-out';
       cursorRef.current.style.boxShadow = ' 0px 0px 30px 10px #acebc2';
     });
+    document.addEventListener('pointerlockchange', (e) => {
+      const toggle = () => {
+        if (cursorRef.current.style.display === 'none') {
+          cursorRef.current.style.display = 'block';
+        } else {
+          cursorRef.current.style.display = 'none';
+        }
+      };
+      toggle();
+    });
   }, []);
 
   return <div className='app-cursor' ref={cursorRef}></div>;
