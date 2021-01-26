@@ -8,6 +8,7 @@ import Player from './Player';
 import Effects from './Effects';
 import Songs from './Songs';
 
+// This component contains all of the information for making the landscape, including terrain, colors, and light.
 const Biome = ({ DIVISIONS, SIDE_LENGTH, mood, seed, songs, playerId }) => {
   const [simplex, setSimplex] = useState(new SimplexNoise(seed));
   const [glitch, setGlitch] = useState(false);
@@ -45,7 +46,7 @@ const Biome = ({ DIVISIONS, SIDE_LENGTH, mood, seed, songs, playerId }) => {
     }, 1000);
     setTimeout(() => {
       setGlitch(false);
-    }, 1000)
+    }, 1000);
   };
 
   const createMap = (x, z) => {
@@ -62,6 +63,8 @@ const Biome = ({ DIVISIONS, SIDE_LENGTH, mood, seed, songs, playerId }) => {
   };
 
   const getHeightAt = (x, z) => {
+    // This function gets the y value of the terrain at a certain (x,z) position.
+
     const length = SIDE_LENGTH / DIVISIONS;
     const floorX = Math.floor(x / length) * length;
     const floorZ = Math.floor(z / length) * length;

@@ -6,6 +6,7 @@ const Lights = ({
   ambientColor,
   ambientIntensity,
 }) => {
+  // All the lights are specified here
   return (
     <>
       <directionalLight

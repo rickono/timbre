@@ -16,6 +16,7 @@ extend({
 });
 
 export default function Effects({ glitch }) {
+  // This component contains all of the postprocessing effects
   const composer = useRef();
   const { scene, gl, size, camera } = useThree();
 
