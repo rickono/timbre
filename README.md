@@ -9,8 +9,11 @@
   <img src="images/Screen%20Shot%202021-01-14%20at%208.50.48%20PM.png " width="500" />
 </p>
 
-<style>
+(setq markdown-xhtml-header-content
+      "<style>
 .zoom:hover {
   transform: scale(1.5);
 }
-</style>
+</style>")
+
+
