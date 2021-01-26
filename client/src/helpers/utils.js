@@ -165,29 +165,6 @@ const generateSettings = (mood) => {
       timeOfDay,
     },
   };
-  // const forest = {
-  //   colors: colors,
-  //   colorThresholds: [5.5, 3, 1, -2, -Infinity],
-  //   freqs: [1/150],
-  //   amps: [3],
-  //   sqThresh: [1, Infinity],
-  //   finalScaleAndThresh: [0, 0, 0],
-  //   fog: fog,
-  //   ambientLight: ambLight,
-  //   directionalLight: dirLight,
-  //   rockInfo: { rockNumber: 150, rockColors, rockRange: [-Infinity, Infinity] },
-  //   cloudInfo: { cloudNumber: 30, cloudRange: [20, 30], cloudColors },
-  //   treeInfo: {
-  //     treeNumber: 500,
-  //     treeRange: [-Infinity, Infinity],
-  //     treeTrunkColor,
-  //     treeLeafColor,
-  //   },
-  //   skyInfo: {
-  //     stars,
-  //     timeOfDay,
-  //   },
-  // };
   return randVal([whiteMountains, greenMountains, mesa]);
 };
 

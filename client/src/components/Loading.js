@@ -1,11 +1,5 @@
 import React, { useRef } from 'react';
 import { MeshWobbleMaterial } from 'drei';
-import * as THREE from 'three';
-import { useFrame } from 'react-three-fiber';
-
-import Montserrat from '../helpers/Montserrat_Regular.json';
-import Cloud from "./clouds/Cloud"
-import clouds from "./clouds/Clouds"
 
 const Loading = () => {
   const mesh = useRef(null);
