@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
-import * as THREE from "three";
 import Cloud from './Cloud';
-import {randVal, randInt} from "../../helpers/utils"
+import {randVal } from "../../helpers/utils"
 
 const Clouds = ({cloudnumber, getHeightAt, side_length, colors, minHeight, maxHeight}) => {
     let positions = []

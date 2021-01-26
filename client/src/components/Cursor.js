@@ -11,13 +11,25 @@ const Cursor = () => {
       const mouseY = clientY - cursorRef.current.clientHeight / 2;
       cursorRef.current.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
     });
-    document.addEventListener('mousedown', (e) => {
-      cursorRef.current.style.width = '1.4rem';
-      cursorRef.current.style.height = '1.4rem';
-    });
     document.addEventListener('mouseup', (e) => {
-      cursorRef.current.style.width = '1rem';
-      cursorRef.current.style.height = '1rem';
+      cursorRef.current.style.transition = 'box-shadow 0.2s ease-in-out';
+      cursorRef.current.style.boxShadow = ' 0px 0px 30px 10px white';
+    });
+    document.addEventListener('mousedown', (e) => {
+      // cursorRef.current.style.width = '1.4rem';
+      // cursorRef.current.style.height = '1.4rem';
+      cursorRef.current.style.transition = 'box-shadow 0s ease-in-out';
+      cursorRef.current.style.boxShadow = ' 0px 0px 30px 10px #acebc2';
+    });
+    document.addEventListener('pointerlockchange', (e) => {
+      const toggle = () => {
+        if (cursorRef.current.style.display === 'none') {
+          cursorRef.current.style.display = 'block';
+        } else {
+          cursorRef.current.style.display = 'none';
+        }
+      };
+      toggle();
     });
   }, []);
 

@@ -1,22 +1,20 @@
 import './game.scss';
 import React, { useEffect, useState, useRef } from 'react';
 import Biome from '../../components/Biome';
-import { Canvas, useFrame, useResource, useThree } from 'react-three-fiber';
+import { Canvas } from 'react-three-fiber';
 import Cookies from 'js-cookie';
-import * as THREE from 'three';
 
 import axios from 'axios';
-import { Box } from 'drei';
 import Loading from '../../components/Loading';
 import Setup from './Setup';
 import Usercard from './Usercard';
+import Cursor from '../../components/Cursor';
 
 const SIDE_LENGTH = 320;
 const DIVISIONS = SIDE_LENGTH / 4;
 
 function Game() {
   let player = useRef();
-  const songs = useRef([]);
   const recommended = useRef([]);
   const [loading, setLoading] = useState(true);
   const [playerLoading, setPlayerLoading] = useState(true);
@@ -49,11 +47,6 @@ function Game() {
       clearInterval(playerCheckInterval);
     }
   };
-  // useEffect(() => {
-  //   const {camera} = useThree()
-  //   camera.lookAt(-20, 30, -20)
-  // }, [])
-
   useEffect(() => {
     const init = async () => {
       if (!playerLoading) {
@@ -130,17 +123,14 @@ function Game() {
     };
     init();
   }, [playerLoading]);
-  // x: -0.6809544879077204
-  // y: 0.3221502968833599
-  // z: -0.6576626579153612
   return (
     <>
+      <Cursor />
       <Canvas
         shadowMap
         colorManagement
-        // onCreated={({ camera }) => camera.lookAt(-0.6809544879077204, 0.3221502968833599, -0.6576626579153612)}
         onCreated={({ camera }) => camera.lookAt(-20, 60, -20)}
-        camera={{ position: [30, 30, 30], fov: 60, }}
+        camera={{ position: [30, 30, 30], fov: 60 }}
       >
         {loading ? (
           <Loading />
@@ -148,7 +138,7 @@ function Game() {
           <Biome
             DIVISIONS={DIVISIONS}
             SIDE_LENGTH={SIDE_LENGTH}
-            mood={'happy'}
+            mood={Math.random() < 0.5 ? 'happy' : 'chill'}
             seed={0}
             songs={recommended.current}
             playerId={player.current._options.id}
@@ -158,7 +148,13 @@ function Game() {
         )}
       </Canvas>
       {loading ? <h1 className='loadingtext'>Loading...</h1> : ''}
-      {setupDone || loading ? '' : <Setup setup={setup} />}
+      {setupDone || loading ? (
+        ''
+      ) : (
+        <>
+          <Setup setup={setup} />
+        </>
+      )}
       {setupDone && !loading ? <Usercard logout={logout} /> : ''}
     </>
   );

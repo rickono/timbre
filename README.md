@@ -1,7 +1,13 @@
-# TIMBRE
-## Explore a world of sound
-## Experience music like never before
-![](images/Screen%20Shot%202021-01-14%20at%208.55.43%20PM.png)
-![](images/Screen%20Shot%202021-01-14%20at%208.48.37%20PM.png)
-![](images/Screen%20Shot%202021-01-14%20at%208.54.27%20PM.png)
-![](images/Screen%20Shot%202021-01-14%20at%208.50.48%20PM.png)
+# TIMBRE 
+> - __*EMMERSE*__ youself in a world of sound
+> - __*EXPERIENCE*__ music like never before
+> - __*EXPLORE*__ recommended songs and *assemble* the perfect playlists
+<p class="zoom" float="middle">
+  <img src="images/Screen%20Shot%202021-01-14%20at%208.55.43%20PM.png" width="500" />
+  <img src="images/Screen%20Shot%202021-01-14%20at%208.48.37%20PM.png" width="500" /> 
+  <img src="images/Screen%20Shot%202021-01-14%20at%208.54.27%20PM.png" width="500" />
+  <img src="images/Screen%20Shot%202021-01-14%20at%208.50.48%20PM.png " width="500" />
+</p>
+
+
+
