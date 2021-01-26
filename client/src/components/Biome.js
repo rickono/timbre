@@ -39,9 +39,9 @@ const Biome = ({ DIVISIONS, SIDE_LENGTH, mood, seed, songs, playerId }) => {
   const changeScene = () => {
     setGlitch(true);
     setTimeout(() => {
-      const rand_mood = Math.random() < 0.5 ? 'happy' : 'chill';
+      const randMood = Math.random() < 0.5 ? 'happy' : 'chill';
       setSimplex(new SimplexNoise(Math.random()));
-      setSettings(generateSettings(rand_mood));
+      setSettings(generateSettings(randMood));
     }, 1000);
     setTimeout(() => {
       setGlitch(false);
