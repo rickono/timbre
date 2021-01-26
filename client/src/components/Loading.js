@@ -9,7 +9,6 @@ import clouds from "./clouds/Clouds"
 
 const Loading = () => {
   const mesh = useRef(null);
-  // useFrame(() => (mesh.current.rotation.x = mesh.current.rotation.y += 0.01));
 
   return (
     <>

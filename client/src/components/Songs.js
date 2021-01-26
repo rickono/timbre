@@ -1,12 +1,9 @@
-import React, { useRef, useEffect, useState, Suspense } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { MeshWobbleMaterial, Text } from 'drei';
 import { useFrame, useThree } from 'react-three-fiber';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import * as THREE from 'three';
-import { Sprite } from 'three';
-import img from './imagetest/yelmount.png';
-import TextSprite from './TextSprite';
 
 const SongText = ({ song, position }) => {
   const { camera } = useThree();
@@ -17,19 +14,13 @@ const SongText = ({ song, position }) => {
       (mesh.current.position.x - camera.position.x) ** 2 +
         (mesh.current.position.z - camera.position.z) ** 2
     );
-    // console.log(distance);
     if (distance < 15) {
       mesh.current.visible = true;
-      console.log(mesh);
       const lookingAt = new THREE.Vector3();
       camera.getWorldDirection(lookingAt);
       const toRotateY = Math.atan(lookingAt.x / lookingAt.z);
-      console.log(toRotateY);
-      console.log(lookingAt.x / lookingAt.z);
       mesh.current.rotation.y =
         lookingAt.z > 0 ? -Math.PI + toRotateY : toRotateY;
-      // mesh.current.rotation.x = -Math.atan(lookingAt.y / lookingAt.z);
-      // mesh.current.rotation.z = -Math.atan(lookingAt.y / lookingAt.x);
     } else {
       mesh.current.visible = false;
     }
@@ -62,11 +53,11 @@ const Song = ({ position, args, color, speed, getHeightAt, song }) => {
   const mesh = useRef(null);
   useFrame((state, delta) => {
     mesh.current.rotation.x = mesh.current.rotation.y += 0.01;
-    // make the offset dependent on howmany line
     mesh.current.position.y =
       getHeightAt(mesh.current.position.x, mesh.current.position.z) +
       10 +
-      Math.sin(state.clock.elapsedTime + position[1]) * 5 + 3;
+      Math.sin(state.clock.elapsedTime + position[1]) * 5 +
+      3;
   });
 
   return (
@@ -155,10 +146,6 @@ const Instruction = ({ rotation, position, text, color }) => {
 };
 
 const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
-  const positions = songs.map((song) => {
-    return song.position;
-  });
-
   const [currentSelection, setCurrentSelection] = useState(0);
   const playlist = useRef([]);
   const fired = useRef(false);
@@ -178,7 +165,6 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
         if (!fired.current) {
           fired.current = true;
           const closeSongs = songs.filter((song) => {
-            // console.log(song);
             return (
               Math.sqrt(
                 (song.position[0] - camera.position.x) ** 2 +

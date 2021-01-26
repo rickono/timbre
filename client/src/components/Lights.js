@@ -1,5 +1,4 @@
 import React from 'react';
-import { Box } from 'drei';
 
 const Lights = ({
   directionalColor,
@@ -9,21 +8,6 @@ const Lights = ({
 }) => {
   return (
     <>
-      {/* <pointLight
-        position={[0, 200, 30]}
-        intensity={30}
-        shadow-mapSize-width={1024}
-        shadow-mapSize-height={1024}
-        shadow-camera-far={50}
-        shadow-camera-near={1}
-        shadow-camera-left={-10}
-        shadow-camera-right={20}
-        shadow-camera-top={10}
-        shadow-camera-bottom={-10}
-        // shadow-radius={30}
-        castShadow
-      /> */}
-      {/* <Box args={[5, 5, 5]} position={[-100, 100, 200]} /> */}
       <directionalLight
         castShadow
         color={directionalColor}

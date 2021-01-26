@@ -1,23 +1,20 @@
 import './game.scss';
 import React, { useEffect, useState, useRef } from 'react';
 import Biome from '../../components/Biome';
-import { Canvas, useFrame, useResource, useThree } from 'react-three-fiber';
+import { Canvas } from 'react-three-fiber';
 import Cookies from 'js-cookie';
-import * as THREE from 'three';
 
 import axios from 'axios';
-import { Box } from 'drei';
 import Loading from '../../components/Loading';
 import Setup from './Setup';
 import Usercard from './Usercard';
-import Playbar from './Playbar';
+import Cursor from '../../components/Cursor';
 
 const SIDE_LENGTH = 320;
 const DIVISIONS = SIDE_LENGTH / 4;
 
 function Game() {
   let player = useRef();
-  const songs = useRef([]);
   const recommended = useRef([]);
   const [loading, setLoading] = useState(true);
   const [playerLoading, setPlayerLoading] = useState(true);
@@ -126,14 +123,14 @@ function Game() {
     };
     init();
   }, [playerLoading]);
-  
   return (
     <>
+      <Cursor />
       <Canvas
         shadowMap
         colorManagement
         onCreated={({ camera }) => camera.lookAt(-20, 60, -20)}
-        camera={{ position: [30, 30, 30], fov: 60, }}
+        camera={{ position: [30, 30, 30], fov: 60 }}
       >
         {loading ? (
           <Loading />
@@ -151,9 +148,14 @@ function Game() {
         )}
       </Canvas>
       {loading ? <h1 className='loadingtext'>Loading...</h1> : ''}
-      {setupDone || loading ? '' : <Setup setup={setup} />}
+      {setupDone || loading ? (
+        ''
+      ) : (
+        <>
+          <Setup setup={setup} />
+        </>
+      )}
       {setupDone && !loading ? <Usercard logout={logout} /> : ''}
-      <Playbar/>
     </>
   );
 }
