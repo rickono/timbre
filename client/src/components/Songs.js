@@ -1,21 +1,9 @@
-<<<<<<< HEAD
-import React, { useRef, useEffect, useState, Suspense } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { MeshWobbleMaterial, Text } from "drei";
 import { useFrame, useThree } from "react-three-fiber";
 import axios from "axios";
 import Cookies from "js-cookie";
 import * as THREE from "three";
-import { Sprite } from "three";
-import img from "./imagetest/yelmount.png";
-import TextSprite from "./TextSprite";
-=======
-import React, { useRef, useEffect, useState } from 'react';
-import { MeshWobbleMaterial, Text } from 'drei';
-import { useFrame, useThree } from 'react-three-fiber';
-import axios from 'axios';
-import Cookies from 'js-cookie';
-import * as THREE from 'three';
->>>>>>> 3c58d10a6e0a8961415c4e66933e9736444a2cbf
 
 const SongText = ({ song, position }) => {
   const { camera } = useThree();
@@ -31,11 +19,6 @@ const SongText = ({ song, position }) => {
       const lookingAt = new THREE.Vector3();
       camera.getWorldDirection(lookingAt);
       const toRotateY = Math.atan(lookingAt.x / lookingAt.z);
-<<<<<<< HEAD
-      // console.log(toRotateY);
-      // console.log(lookingAt.x / lookingAt.z);
-=======
->>>>>>> 3c58d10a6e0a8961415c4e66933e9736444a2cbf
       mesh.current.rotation.y =
         lookingAt.z > 0 ? -Math.PI + toRotateY : toRotateY;
     } else {
@@ -110,14 +93,13 @@ const DisplayCurrentSong = ({ color, currentSong }) => {
       ref={mesh}
       color={color}
       fontSize={10}
-      maxWidth={120}
+      maxWidth={200}
       lineHeight={1.5}
       letterSpacing={0}
       textAlign="center"
       font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
       anchorX="center"
       anchorY="bottom"
-      // rotation={rotation}
       position={[
         camera.position.x + lookingAt.x * 120,
         60,
@@ -152,14 +134,13 @@ const DisplayCurrentArtist = ({ color, currentArtist }) => {
       ref={mesh}
       color={color}
       fontSize={10}
-      maxWidth={120}
+      maxWidth={200}
       lineHeight={1.5}
       letterSpacing={0}
       textAlign="center"
       font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
       anchorX="center"
       anchorY="bottom"
-      // rotation={rotation}
       position={[
         camera.position.x + lookingAt.x * 120,
         40,
@@ -214,22 +195,12 @@ const Instruction = ({ rotation, position, text, color }) => {
 };
 
 const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
-<<<<<<< HEAD
-  const positions = songs.map((song) => {
-    return song.position;
-  });
-  const { camera } = useThree();
-  const lookingAt = new THREE.Vector3();
-  camera.getWorldDirection(lookingAt);
-
   const [currentSong, setCurrentSong] = useState(null);
   const [currentArtist, setCurrentArtist] = useState(null);
-=======
->>>>>>> 3c58d10a6e0a8961415c4e66933e9736444a2cbf
   const [currentSelection, setCurrentSelection] = useState(0);
   const playlist = useRef([]);
   const fired = useRef(false);
-
+  const { camera } = useThree();
   const config = {
     headers: {
       "access-token": Cookies.get("access-token"),
