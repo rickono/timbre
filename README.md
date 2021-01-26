@@ -1,5 +1,4 @@
 # TIMBRE 
-___
 > - __*EMMERSE*__ youself in a world of sound
 > - __*EXPERIENCE*__ music like never before
 > - __*EXPLORE*__ recommended songs and *assemble* the perfect playlists
