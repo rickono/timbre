@@ -1,12 +1,12 @@
-import React, { useRef, useEffect, useState, Suspense } from 'react';
-import { MeshWobbleMaterial, Text } from 'drei';
-import { useFrame, useThree } from 'react-three-fiber';
-import axios from 'axios';
-import Cookies from 'js-cookie';
-import * as THREE from 'three';
-import { Sprite } from 'three';
-import img from './imagetest/yelmount.png';
-import TextSprite from './TextSprite';
+import React, { useRef, useEffect, useState, Suspense } from "react";
+import { MeshWobbleMaterial, Text } from "drei";
+import { useFrame, useThree } from "react-three-fiber";
+import axios from "axios";
+import Cookies from "js-cookie";
+import * as THREE from "three";
+import { Sprite } from "three";
+import img from "./imagetest/yelmount.png";
+import TextSprite from "./TextSprite";
 
 const SongText = ({ song, position }) => {
   const { camera } = useThree();
@@ -20,12 +20,11 @@ const SongText = ({ song, position }) => {
     // console.log(distance);
     if (distance < 15) {
       mesh.current.visible = true;
-      console.log(mesh);
       const lookingAt = new THREE.Vector3();
       camera.getWorldDirection(lookingAt);
       const toRotateY = Math.atan(lookingAt.x / lookingAt.z);
-      console.log(toRotateY);
-      console.log(lookingAt.x / lookingAt.z);
+      // console.log(toRotateY);
+      // console.log(lookingAt.x / lookingAt.z);
       mesh.current.rotation.y =
         lookingAt.z > 0 ? -Math.PI + toRotateY : toRotateY;
       // mesh.current.rotation.x = -Math.atan(lookingAt.y / lookingAt.z);
@@ -40,17 +39,17 @@ const SongText = ({ song, position }) => {
       maxWidth={20}
       lineHeight={1.5}
       letterSpacing={0}
-      textAlign='center'
-      font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
-      anchorX='center'
-      anchorY='bottom'
+      textAlign="center"
+      font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
+      anchorX="center"
+      anchorY="bottom"
       position={[position[0], position[1] - 2, position[2]]}
       ref={mesh}
     >
       <meshStandardMaterial
-        attach='material'
-        color='white'
-        emissive='white'
+        attach="material"
+        color="white"
+        emissive="white"
         emissiveIntensity={1}
       />
       {song.name}
@@ -71,11 +70,11 @@ const Song = ({ position, args, color, speed, getHeightAt, song }) => {
   return (
     <group>
       <mesh castShadow position={position} ref={mesh}>
-        <boxBufferGeometry attach='geometry' args={args} />
+        <boxBufferGeometry attach="geometry" args={args} />
         <MeshWobbleMaterial
-          emissive='white'
+          emissive="white"
           emissiveIntensity={1}
-          attach='material'
+          attach="material"
           color={color}
           speed={speed}
           factor={0.3}
@@ -86,35 +85,86 @@ const Song = ({ position, args, color, speed, getHeightAt, song }) => {
   );
 };
 
-const CurrentSong = ({ position, text, color }) => {
+const DisplayCurrentSong = ({ color, currentSong }) => {
+  const { camera } = useThree();
   const mesh = useRef(null);
+  const lookingAt = new THREE.Vector3();
+  camera.getWorldDirection(lookingAt);
   useFrame((state, delta) => {
-    mesh.current.position.y =
-      position[1] + Math.sin(state.clock.elapsedTime) * 5;
+    const toRotateY = Math.atan(lookingAt.x / lookingAt.z);
+    mesh.current.rotation.y =
+      lookingAt.z > 0 ? -Math.PI + toRotateY : toRotateY;
   });
   return (
     <Text
       ref={mesh}
       color={color}
-      fontSize={5}
+      fontSize={10}
       maxWidth={120}
       lineHeight={1.5}
       letterSpacing={0}
-      textAlign='center'
-      font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
-      anchorX='center'
-      anchorY='bottom'
-      position={position}
+      textAlign="center"
+      font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
+      anchorX="center"
+      anchorY="bottom"
+      // rotation={rotation}
+      position={[
+        camera.position.x + lookingAt.x * 120,
+        60,
+        camera.position.z + lookingAt.z * 120,
+      ]}
     >
       <MeshWobbleMaterial
         emissive={color}
         emissiveIntensity={1}
-        attach='material'
+        attach="material"
         color={color}
         speed={2}
         factor={0.03}
       />
-      {text}
+      {"Song: " + currentSong}
+    </Text>
+  );
+};
+
+const DisplayCurrentArtist = ({ color, currentArtist }) => {
+  const { camera } = useThree();
+  const mesh = useRef(null);
+  const lookingAt = new THREE.Vector3();
+  camera.getWorldDirection(lookingAt);
+  useFrame((state, delta) => {
+    const toRotateY = Math.atan(lookingAt.x / lookingAt.z);
+    mesh.current.rotation.y =
+      lookingAt.z > 0 ? -Math.PI + toRotateY : toRotateY;
+  });
+  return (
+    <Text
+      ref={mesh}
+      color={color}
+      fontSize={10}
+      maxWidth={120}
+      lineHeight={1.5}
+      letterSpacing={0}
+      textAlign="center"
+      font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
+      anchorX="center"
+      anchorY="bottom"
+      // rotation={rotation}
+      position={[
+        camera.position.x + lookingAt.x * 120,
+        40,
+        camera.position.z + lookingAt.z * 120,
+      ]}
+    >
+      <MeshWobbleMaterial
+        emissive={color}
+        emissiveIntensity={1}
+        attach="material"
+        color={color}
+        speed={2}
+        factor={0.03}
+      />
+      {"Artist: " + currentArtist}
     </Text>
   );
 };
@@ -133,17 +183,17 @@ const Instruction = ({ rotation, position, text, color }) => {
       maxWidth={80}
       lineHeight={1.5}
       letterSpacing={0}
-      textAlign='center'
-      font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
-      anchorX='center'
-      anchorY='bottom'
+      textAlign="center"
+      font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
+      anchorX="center"
+      anchorY="bottom"
       rotation={rotation}
       position={position}
     >
       <MeshWobbleMaterial
-        emissive='white'
+        emissive="white"
         emissiveIntensity={1}
-        attach='material'
+        attach="material"
         color={color}
         speed={3}
         factor={0.03}
@@ -157,23 +207,27 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
   const positions = songs.map((song) => {
     return song.position;
   });
+  const { camera } = useThree();
+  const lookingAt = new THREE.Vector3();
+  camera.getWorldDirection(lookingAt);
 
+  const [currentSong, setCurrentSong] = useState(null);
+  const [currentArtist, setCurrentArtist] = useState(null);
   const [currentSelection, setCurrentSelection] = useState(0);
   const playlist = useRef([]);
   const fired = useRef(false);
 
-  const { camera } = useThree();
   const config = {
     headers: {
-      'access-token': Cookies.get('access-token'),
-      'refresh-token': Cookies.get('refresh-token'),
+      "access-token": Cookies.get("access-token"),
+      "refresh-token": Cookies.get("refresh-token"),
     },
   };
 
   useEffect(() => {
     fired.current = false;
-    window.addEventListener('keydown', async (e) => {
-      if (e.key === 'Shift' || e.key === 'e') {
+    window.addEventListener("keydown", async (e) => {
+      if (e.key === "Shift" || e.key === "e") {
         if (!fired.current) {
           fired.current = true;
           const closeSongs = songs.filter((song) => {
@@ -191,13 +245,15 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
               `http://localhost:8888/api/v1/play?id=${playerId}&uris=${closeSongs[0].uri}`,
               config
             );
-            if (e.key === 'e') {
+            if (e.key === "e") {
               changeScene();
               setCurrentSelection(currentSelection + 1);
+              setCurrentSong(closeSongs[0].name);
+              setCurrentArtist(closeSongs[0].artists[0]["name"]);
               playlist.current = [...playlist.current, closeSongs[0].id];
               await axios.get(
                 `http://localhost:8888/api/v1/addtoplaylist?playlist=${Cookies.get(
-                  'playlist-id'
+                  "playlist-id"
                 )}&uri=${closeSongs[0].uri}`,
                 config
               );
@@ -206,8 +262,8 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
         }
       }
     });
-    window.addEventListener('keyup', (e) => {
-      if (e.key === 'Shift' || e.key === 'e') {
+    window.addEventListener("keyup", (e) => {
+      if (e.key === "Shift" || e.key === "e") {
         fired.current = false;
       }
     });
@@ -224,7 +280,7 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
               song.position[1],
             ]}
             args={[3, 3, 3]}
-            color='red'
+            color="red"
             speed={2}
             key={song.id + song.position[0]}
             getHeightAt={getHeightAt}
@@ -235,52 +291,34 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
       {currentSelection === 0 ? (
         <>
           <Instruction
-            color='pink'
+            color="pink"
             rotation={[0, Math.PI / 4, 0]}
             position={[-20, 30, -20]}
-            text={'MOVE AROUND USING WASD AND SPACE'}
+            text={"MOVE AROUND USING WASD AND SPACE"}
           />
           <Instruction
-            color='pink'
+            color="pink"
             rotation={[0, (3 * Math.PI) / 4, 0]}
             position={[-20, 30, 80]}
-            text={'PRESS E NEXT TO A SONG TO ADD TO PLAYLIST'}
+            text={"PRESS E NEXT TO A SONG TO ADD TO PLAYLIST"}
           />
           <Instruction
-            color='pink'
+            color="pink"
             rotation={[0, (5 * Math.PI) / 4, 0]}
             position={[80, 30, 80]}
-            text={'PRESS SHIFT NEXT TO A SONG TO PREVIEW'}
+            text={"PRESS SHIFT NEXT TO A SONG TO PREVIEW"}
           />
           <Instruction
-            color='pink'
+            color="pink"
             rotation={[0, (7 * Math.PI) / 4, 0]}
             position={[80, 30, -20]}
-            text={'THE FLOATING BOXES ARE SONGS'}
+            text={"THE FLOATING BOXES ARE SONGS"}
           />
         </>
       ) : (
         <>
-          <CurrentSong
-            color='#0066dd'
-            position={[-10, 40, -10]}
-            text={'Song: I Will Follow You Into The Dark'}
-          />
-          <CurrentSong
-            color='#fff333'
-            position={[-9.5, 40, -9.5]}
-            text={'Song: I Will Follow You Into The Dark'}
-          />
-          <CurrentSong
-            color='#0066dd'
-            position={[-10, 30, -10]}
-            text={'Artist: Aminé'}
-          />
-          <CurrentSong
-            color='#fff333'
-            position={[-9.5, 30, -10]}
-            text={'Artist: Aminé'}
-          />
+          <DisplayCurrentSong color="white" currentSong={currentSong} />
+          <DisplayCurrentArtist color="white" currentArtist={currentArtist} />
         </>
       )}
     </>
