@@ -47,7 +47,6 @@ function Game() {
       clearInterval(playerCheckInterval);
     }
   };
-
   useEffect(() => {
     const init = async () => {
       if (!playerLoading) {
@@ -139,7 +138,7 @@ function Game() {
           <Biome
             DIVISIONS={DIVISIONS}
             SIDE_LENGTH={SIDE_LENGTH}
-            mood={'happy'}
+            mood={Math.random() < 0.5 ? 'happy' : 'chill'}
             seed={0}
             songs={recommended.current}
             playerId={player.current._options.id}

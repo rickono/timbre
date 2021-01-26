@@ -1,9 +1,5 @@
 import React, { useRef } from 'react';
 import { MeshWobbleMaterial } from 'drei';
-import * as THREE from 'three';
-import { useFrame } from 'react-three-fiber';
-
-import Montserrat from '../helpers/Montserrat_Regular.json';
 
 const Loading = () => {
   const mesh = useRef(null);
@@ -19,8 +15,8 @@ const Loading = () => {
           factor={0.6}
         />
       </mesh>
-      <pointLight position={[0, 5, 10]} intensity={0.8} />
-      <pointLight position={[4, 2, 6]} intensity={1} />
+      <pointLight position={[-20, 65, -10]} intensity={0.8} color={"blue"}/>
+      <pointLight position={[-16, 62, -14]} intensity={1} color={"papayawhip"}/>
       <ambientLight intensity={1} />
     </>
   );

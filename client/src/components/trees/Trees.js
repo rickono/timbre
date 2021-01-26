@@ -1,5 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
-import Bush from './Bush';
+import React from 'react';
 import SimpleTree from './SimpleTree';
 import StackedTree from './StackedTree';
 import {randRange, randInt, randVal} from "../../helpers/utils"
