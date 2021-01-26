@@ -223,6 +223,25 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
             );
           });
 
+          closeSongs.sort((a, b) => {
+            const distA = Math.sqrt(
+              (a.position[0] - camera.position.x) ** 2 +
+                (a.position[1] - camera.position.z) ** 2
+            );
+            const distB = Math.sqrt(
+              (b.position[0] - camera.position.x) ** 2 +
+                (b.position[1] - camera.position.z) ** 2
+            );
+
+            if (distA < distB) {
+              return -1;
+            } else if (distA > distB) {
+              return 1;
+            } else {
+              return 0;
+            }
+          });
+
           if (closeSongs.length > 0) {
             await axios.get(
               `${process.env.REACT_APP_API_URL}/api/v1/play?id=${playerId}&uris=${closeSongs[0].uri}`,
