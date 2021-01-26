@@ -10,6 +10,7 @@ import { Box } from 'drei';
 import Loading from '../../components/Loading';
 import Setup from './Setup';
 import Usercard from './Usercard';
+import Playbar from './Playbar';
 
 const SIDE_LENGTH = 320;
 const DIVISIONS = SIDE_LENGTH / 4;
@@ -160,6 +161,7 @@ function Game() {
       {loading ? <h1 className='loadingtext'>Loading...</h1> : ''}
       {setupDone || loading ? '' : <Setup setup={setup} />}
       {setupDone && !loading ? <Usercard logout={logout} /> : ''}
+      <Playbar/>
     </>
   );
 }

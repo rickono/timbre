@@ -62,10 +62,11 @@ const Song = ({ position, args, color, speed, getHeightAt, song }) => {
   const mesh = useRef(null);
   useFrame((state, delta) => {
     mesh.current.rotation.x = mesh.current.rotation.y += 0.01;
+    // make the offset dependent on howmany line
     mesh.current.position.y =
       getHeightAt(mesh.current.position.x, mesh.current.position.z) +
       10 +
-      Math.sin(state.clock.elapsedTime + position[1]) * 5;
+      Math.sin(state.clock.elapsedTime + position[1]) * 5 + 7;
   });
 
   return (
@@ -220,7 +221,7 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
           <Song
             position={[
               song.position[0],
-              getHeightAt(song.position[0], song.position[1]) + 20,
+              getHeightAt(song.position[0], song.position[1]) + 5,
               song.position[1],
             ]}
             args={[3, 3, 3]}
