@@ -1,7 +1,7 @@
 import './game.scss';
 import React, { useEffect, useState, useRef } from 'react';
 import Biome from '../../components/Biome';
-import { Canvas, useFrame, useResource, useThree } from 'react-three-fiber';
+import { Canvas } from 'react-three-fiber';
 import Cookies from 'js-cookie';
 
 import axios from 'axios';
@@ -16,7 +16,6 @@ const DIVISIONS = SIDE_LENGTH / 4;
 
 function Game() {
   let player = useRef();
-  const songs = useRef([]);
   const recommended = useRef([]);
   const [loading, setLoading] = useState(true);
   const [playerLoading, setPlayerLoading] = useState(true);
