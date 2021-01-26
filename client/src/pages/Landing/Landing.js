@@ -7,7 +7,7 @@ import React from 'react';
 import Cursor from '../../components/Cursor';
 
 const onLogin = async () => {
-  const res = await axios.get('http://localhost:8888/api/v1/auth');
+  const res = await axios.get(process.env.REACT_APP_API_URL + '/api/v1/auth');
   const authUrl = res.data.url;
   console.log(authUrl);
   window.location = authUrl;

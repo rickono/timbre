@@ -70,7 +70,7 @@ const Setup = ({ setup }) => {
         setup();
       }, 3000);
       const playlistIdRes = await axios.get(
-        `http://localhost:8888/api/v1/createplaylist?name=${playlistName}`,
+        `${process.env.REACT_APP_API_URL}/api/v1/createplaylist?name=${playlistName}`,
         config
       );
       Cookies.set('playlist-id', playlistIdRes.data.id);

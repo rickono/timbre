@@ -12,7 +12,7 @@ const Auth = ({ authenticate }) => {
   Cookies.set('refresh-token', refresh_token);
   Cookies.set('username', name);
 
-  window.location = 'http://localhost:3000/game';
+  window.location = process.env.REACT_APP_BASE_URL + '/game';
 
   return <h1>Logging you in...</h1>;
 };

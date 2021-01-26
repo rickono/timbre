@@ -28,7 +28,7 @@ function Game() {
     Cookies.remove('access-token');
     Cookies.remove('refresh-token');
     Cookies.remove('username');
-    window.location = 'http://localhost:3000';
+    window.location = process.env.REACT_APP_BASE_URL;
   };
 
   const playerCheckInterval = setInterval(() => checkForPlayer(), 1000);
@@ -63,7 +63,7 @@ function Game() {
         };
 
         const topSongsRes = await axios.get(
-          'http://localhost:8888/api/v1/me/toptracks',
+          process.env.REACT_APP_API_URL + '/api/v1/me/toptracks',
           config
         );
         const topSongs = topSongsRes.data.items;
@@ -71,34 +71,30 @@ function Game() {
         const topSongsIds = topSongs.map((song) => song.id);
 
         const recommendedSongsRes = await axios.get(
-          `http://localhost:8888/api/v1/recommended?seed=${topSongsIds.slice(
-            0,
-            5
-          )}`,
+          `${
+            process.env.REACT_APP_API_URL
+          }/api/v1/recommended?seed=${topSongsIds.slice(0, 5)}`,
           config
         );
 
         const recommendedSongs2Res = await axios.get(
-          `http://localhost:8888/api/v1/recommended?seed=${topSongsIds.slice(
-            6,
-            10
-          )}`,
+          `${
+            process.env.REACT_APP_API_URL
+          }/api/v1/recommended?seed=${topSongsIds.slice(6, 10)}`,
           config
         );
 
         const recommendedSongs3Res = await axios.get(
-          `http://localhost:8888/api/v1/recommended?seed=${topSongsIds.slice(
-            11,
-            15
-          )}`,
+          `${
+            process.env.REACT_APP_API_URL
+          }/api/v1/recommended?seed=${topSongsIds.slice(11, 15)}`,
           config
         );
 
         const recommendedSongs4Res = await axios.get(
-          `http://localhost:8888/api/v1/recommended?seed=${topSongsIds.slice(
-            16,
-            20
-          )}`,
+          `${
+            process.env.REACT_APP_API_URL
+          }/api/v1/recommended?seed=${topSongsIds.slice(16, 20)}`,
           config
         );
 
