@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as THREE from 'three';
 import { useFrame, useThree } from 'react-three-fiber';
 
@@ -12,7 +12,6 @@ const Player = ({ getHeightAt, cookies, SIDE_LENGTH }) => {
   const [moveRight, setMoveRight] = useState(false);
   const [velocity, setVelocity] = useState(0);
   const [height, setHeight] = useState(0);
-  // const [offset, setOffset] = useState(0);
 
   const GRAVITY = 0.05;
 
@@ -104,15 +103,12 @@ const Player = ({ getHeightAt, cookies, SIDE_LENGTH }) => {
         ? toMoveZ * 70 * delta
         : 0;
 
-    // setOffset(Math.sin(state.clock.elapsedTime * 11) / 6);
-
     setHeight(height + velocity > 0 ? height + velocity : 0);
     setVelocity(velocity - GRAVITY);
     camera.position.y =
       getHeightAt(camera.position.x, camera.position.z) +
       5 +
       height +
-      // (moveUp || moveBack || moveLeft || moveRight);
       (moveUp || moveBack || moveLeft || moveRight);
   });
 

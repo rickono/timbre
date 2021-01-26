@@ -97,7 +97,6 @@ const Setup = ({ setup }) => {
 
   return (
     <>
-      {/* <Cursor /> */}
       <div className='absolute-container' variants={staggerChildren}>
         {stage === 0 ? (
           <>

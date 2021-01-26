@@ -3,10 +3,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import Biome from '../../components/Biome';
 import { Canvas, useFrame, useResource, useThree } from 'react-three-fiber';
 import Cookies from 'js-cookie';
-import * as THREE from 'three';
 
 import axios from 'axios';
-import { Box } from 'drei';
 import Loading from '../../components/Loading';
 import Setup from './Setup';
 import Usercard from './Usercard';
@@ -132,16 +130,12 @@ function Game() {
     };
     init();
   }, [playerLoading]);
-  // x: -0.6809544879077204
-  // y: 0.3221502968833599
-  // z: -0.6576626579153612
   return (
     <>
       <Cursor />
       <Canvas
         shadowMap
         colorManagement
-        // onCreated={({ camera }) => camera.lookAt(-0.6809544879077204, 0.3221502968833599, -0.6576626579153612)}
         onCreated={({ camera }) => camera.lookAt(-20, 60, -20)}
         camera={{ position: [30, 30, 30], fov: 60 }}
       >

@@ -1,10 +1,8 @@
-import React, { useRef, useState } from 'react';
-import { useFrame, useUpdate } from 'react-three-fiber';
-import { Box, Sphere } from 'drei';
+import React, { useState } from 'react';
+import { useUpdate } from 'react-three-fiber';
 import Trees from './trees/Trees';
 import Clouds from './clouds/Clouds';
 import Rocks from './rocks/Rocks';
-import * as THREE from 'three';
 
 const Terrain = ({
   args,
@@ -39,7 +37,6 @@ const Terrain = ({
       }
       geometry.verticesNeedUpdate = true;
       // ===== Colors =====
-      //if really want to make more general could use functions instead...mightbe overkill
       geometry.faces.forEach((face) => {
         const maxHeight = Math.max(
           geometry.vertices[face.a].y,
