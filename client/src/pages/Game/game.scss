@@ -130,3 +130,13 @@ h1 {
     cursor: pointer;
   }
 }
+::selection {
+  background-color:palegoldenrod;
+  color: #fff;
+}
+
+/*** Mozilla based browsers ***/
+::-moz-selection {
+  background-color:palegoldenrod;
+  color: #fff;
+}
