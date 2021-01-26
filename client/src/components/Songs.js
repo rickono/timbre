@@ -36,7 +36,7 @@ const SongText = ({ song, position }) => {
   });
   return (
     <Text
-      fontSize={2}
+      fontSize={1.5}
       maxWidth={20}
       lineHeight={1.5}
       letterSpacing={0}
@@ -66,7 +66,7 @@ const Song = ({ position, args, color, speed, getHeightAt, song }) => {
     mesh.current.position.y =
       getHeightAt(mesh.current.position.x, mesh.current.position.z) +
       10 +
-      Math.sin(state.clock.elapsedTime + position[1]) * 5 + 7;
+      Math.sin(state.clock.elapsedTime + position[1]) * 5 + 3;
   });
 
   return (
