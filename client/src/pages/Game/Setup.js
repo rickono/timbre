@@ -4,6 +4,7 @@ import './game.scss';
 import Cookies from 'js-cookie';
 import { motion } from 'framer-motion';
 import axios from 'axios';
+import Cursor from '../../components/Cursor';
 
 const ContinueButton = ({ handleContinue, stage }) => {
   const fadeInVariants = {
@@ -96,6 +97,7 @@ const Setup = ({ setup }) => {
 
   return (
     <>
+      {/* <Cursor /> */}
       <div className='absolute-container' variants={staggerChildren}>
         {stage === 0 ? (
           <>

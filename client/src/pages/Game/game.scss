@@ -61,7 +61,7 @@ h1 {
 .continue {
   background: none;
   border: none;
-  cursor: pointer;
+  // cursor: pointer;
   &:focus {
     outline: none;
   }
@@ -116,7 +116,7 @@ h1 {
     display: flex;
     text-align: center;
     justify-content: center;
-  
+
     .songname {
       font-weight: 300;
     }

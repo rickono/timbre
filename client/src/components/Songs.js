@@ -20,12 +20,9 @@ const SongText = ({ song, position }) => {
     // console.log(distance);
     if (distance < 15) {
       mesh.current.visible = true;
-      console.log(mesh);
       const lookingAt = new THREE.Vector3();
       camera.getWorldDirection(lookingAt);
       const toRotateY = Math.atan(lookingAt.x / lookingAt.z);
-      console.log(toRotateY);
-      console.log(lookingAt.x / lookingAt.z);
       mesh.current.rotation.y =
         lookingAt.z > 0 ? -Math.PI + toRotateY : toRotateY;
       // mesh.current.rotation.x = -Math.atan(lookingAt.y / lookingAt.z);
@@ -66,7 +63,8 @@ const Song = ({ position, args, color, speed, getHeightAt, song }) => {
     mesh.current.position.y =
       getHeightAt(mesh.current.position.x, mesh.current.position.z) +
       10 +
-      Math.sin(state.clock.elapsedTime + position[1]) * 5 + 3;
+      Math.sin(state.clock.elapsedTime + position[1]) * 5 +
+      3;
   });
 
   return (

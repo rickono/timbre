@@ -11,6 +11,7 @@ import Loading from '../../components/Loading';
 import Setup from './Setup';
 import Usercard from './Usercard';
 import Playbar from './Playbar';
+import Cursor from '../../components/Cursor';
 
 const SIDE_LENGTH = 320;
 const DIVISIONS = SIDE_LENGTH / 4;
@@ -136,12 +137,13 @@ function Game() {
   // z: -0.6576626579153612
   return (
     <>
+      <Cursor />
       <Canvas
         shadowMap
         colorManagement
         // onCreated={({ camera }) => camera.lookAt(-0.6809544879077204, 0.3221502968833599, -0.6576626579153612)}
         onCreated={({ camera }) => camera.lookAt(-20, 60, -20)}
-        camera={{ position: [30, 30, 30], fov: 60, }}
+        camera={{ position: [30, 30, 30], fov: 60 }}
       >
         {loading ? (
           <Loading />
@@ -159,9 +161,15 @@ function Game() {
         )}
       </Canvas>
       {loading ? <h1 className='loadingtext'>Loading...</h1> : ''}
-      {setupDone || loading ? '' : <Setup setup={setup} />}
+      {setupDone || loading ? (
+        ''
+      ) : (
+        <>
+          <Setup setup={setup} />
+        </>
+      )}
       {setupDone && !loading ? <Usercard logout={logout} /> : ''}
-      <Playbar/>
+      <Playbar />
     </>
   );
 }

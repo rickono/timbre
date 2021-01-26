@@ -16,7 +16,7 @@ const onLogin = async () => {
 const Landing = () => {
   return (
     <>
-      {/* <Cursor /> */}
+      <Cursor />
       <div className='container'>
         <button className='login' onClick={onLogin}>
           Login with Spotify
