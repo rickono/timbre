@@ -4,6 +4,8 @@ import axios from 'axios';
 
 import React from 'react';
 
+import Cursor from '../../components/Cursor';
+
 const onLogin = async () => {
   const res = await axios.get('http://localhost:8888/api/v1/auth');
   const authUrl = res.data.url;
@@ -13,12 +15,15 @@ const onLogin = async () => {
 
 const Landing = () => {
   return (
-    <div className='container'>
-      <button className='login' onClick={onLogin}>
-        Login with Spotify
-      </button>
-      <h1 className='name'>TIMBRE</h1>
-    </div>
+    <>
+      {/* <Cursor /> */}
+      <div className='container'>
+        <button className='login' onClick={onLogin}>
+          Login with Spotify
+        </button>
+        <h1 className='name'>TIMBRE</h1>
+      </div>
+    </>
   );
 };
 
