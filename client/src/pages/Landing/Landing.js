@@ -18,6 +18,9 @@ const Landing = () => {
     <>
       <Cursor />
       <div className='container'>
+        <h3 className='disclaimer'>
+          You must have Spotify Premium for this app to work properly.
+        </h3>
         <button className='login' onClick={onLogin}>
           Login with Spotify
         </button>

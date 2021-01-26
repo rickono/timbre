@@ -8,7 +8,6 @@ import axios from 'axios';
 import Loading from '../../components/Loading';
 import Setup from './Setup';
 import Usercard from './Usercard';
-import Playbar from './Playbar';
 import Cursor from '../../components/Cursor';
 
 const SIDE_LENGTH = 320;
@@ -48,10 +47,6 @@ function Game() {
       clearInterval(playerCheckInterval);
     }
   };
-  // useEffect(() => {
-  //   const {camera} = useThree()
-  //   camera.lookAt(-20, 30, -20)
-  // }, [])
 
   useEffect(() => {
     const init = async () => {
@@ -162,7 +157,6 @@ function Game() {
         </>
       )}
       {setupDone && !loading ? <Usercard logout={logout} /> : ''}
-      <Playbar />
     </>
   );
 }
