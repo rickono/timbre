@@ -12,7 +12,7 @@ const Player = ({ getHeightAt, cookies, SIDE_LENGTH }) => {
   const [moveRight, setMoveRight] = useState(false);
   const [velocity, setVelocity] = useState(0);
   const [height, setHeight] = useState(0);
-  const [offset, setOffset] = useState(0);
+  // const [offset, setOffset] = useState(0);
 
   const GRAVITY = 0.05;
 
@@ -104,7 +104,7 @@ const Player = ({ getHeightAt, cookies, SIDE_LENGTH }) => {
         ? toMoveZ * 70 * delta
         : 0;
 
-    setOffset(Math.sin(state.clock.elapsedTime * 11) / 6);
+    // setOffset(Math.sin(state.clock.elapsedTime * 11) / 6);
 
     setHeight(height + velocity > 0 ? height + velocity : 0);
     setVelocity(velocity - GRAVITY);
@@ -113,7 +113,7 @@ const Player = ({ getHeightAt, cookies, SIDE_LENGTH }) => {
       5 +
       height +
       // (moveUp || moveBack || moveLeft || moveRight);
-      (moveUp || moveBack || moveLeft || moveRight ? offset : 0);
+      (moveUp || moveBack || moveLeft || moveRight);
   });
 
   return <mesh />;
