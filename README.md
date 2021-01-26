@@ -1,7 +1,7 @@
 # TIMBRE 
-- __*EMMERSE*__ youself in a world of sound
-- __*EXPERIENCE*__ music like never before
-- __*EXPLORE*__ recommended songs and *assemble* the perfect playlists
+> - __*EMMERSE*__ youself in a world of sound
+> - __*EXPERIENCE*__ music like never before
+> - __*EXPLORE*__ recommended songs and *assemble* the perfect playlists
 
 ![](images/Screen%20Shot%202021-01-14%20at%208.55.43%20PM.png)
 ![](images/Screen%20Shot%202021-01-14%20at%208.48.37%20PM.png)
