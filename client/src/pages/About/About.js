@@ -346,7 +346,9 @@ const About = () => {
   return (
     <>
       <Link className='home' to='/'>
-        Home
+        <motion.p whileTap={{ scale: 0.9 }} whileHover={{ scale: 1.1 }}>
+          Home
+        </motion.p>
       </Link>
       <Cursor />
       <div className='about-container'>
