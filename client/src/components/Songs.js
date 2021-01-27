@@ -85,7 +85,6 @@ const Song = ({
   getHeightAt,
   song,
   selectedSong,
-  boolScene
 }) => {
   const mesh = useRef(null);
   useFrame((state, delta) => {
@@ -101,8 +100,7 @@ const Song = ({
       <mesh castShadow position={position} ref={mesh}>
         <boxBufferGeometry attach='geometry' args={args} />
         <MeshWobbleMaterial
-          emissive={song === selectedSong && boolScene ? 'red' : song === selectedSong ? 'aqua' :  'papayawhip'}
-          emissiveIntensity={1}
+          emissive={song === selectedSong ? 'aqua' : 'papayawhip'}
           attach='material'
           color={color}
           speed={speed}
@@ -112,8 +110,8 @@ const Song = ({
       <SongText
         song={song}
         position={position}
-        color={song === selectedSong && boolScene ? 'red' : song === selectedSong ? 'aqua' :  'papayawhip'}
-        //song === selectedSong ? 'aqua' : 'papayawhip'}
+        color={song === selectedSong ? 'aqua' : 'papayawhip'}
+        //
       />
     </group>
   );
@@ -240,7 +238,6 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
   const [selectedSong, setSelectedSong] = useState(null);
   const [currentArtist, setCurrentArtist] = useState(null);
   const [currentSelection, setCurrentSelection] = useState(0);
-  const [boolScene, setBoolScene] = useState(false);
   const playlist = useRef([]);
   const fired = useRef(false);
   const { camera } = useThree();
@@ -266,7 +263,7 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
             );
           });
 
-          closeSongs.sort((a, b) => {
+          songs.sort((a, b) => {
             const distA = Math.sqrt(
               (a.position[0] - camera.position.x) ** 2 +
                 (a.position[1] - camera.position.z) ** 2
@@ -287,23 +284,23 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
 
           if (closeSongs.length > 0) {
             await axios.get(
-              `${process.env.REACT_APP_API_URL}/api/v1/play?id=${playerId}&uris=${closeSongs[0].uri}`,
+              `${process.env.REACT_APP_API_URL}/api/v1/play?id=${playerId}&uris=${songs[0].uri}`,
               config
             );
-            setSelectedSong(closeSongs[0]);
+            setSelectedSong(songs[0]);
             if (e.key === 'e') {
               changeScene();
-              setBoolScene(true)
+              const closestSong = songs.shift();
               setCurrentSelection(currentSelection + 1);
-              setCurrentSong(closeSongs[0].name);
-              setCurrentArtist(closeSongs[0].artists[0]['name']);
-              playlist.current = [...playlist.current, closeSongs[0].id];
+              setCurrentSong(closestSong.name);
+              setCurrentArtist(closestSong.artists[0]['name']);
+              playlist.current = [...playlist.current, closestSong.id];
               await axios.get(
                 `${
                   process.env.REACT_APP_API_URL
                 }/api/v1/addtoplaylist?playlist=${Cookies.get(
                   'playlist-id'
-                )}&uri=${closeSongs[0].uri}`,
+                )}&uri=${closestSong.uri}`,
                 config
               );
             }
@@ -335,7 +332,6 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
             getHeightAt={getHeightAt}
             song={song}
             selectedSong={selectedSong}
-            boolScene={boolScene}
           />
         );
       })}
