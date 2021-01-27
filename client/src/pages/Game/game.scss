@@ -110,24 +110,6 @@ h1 {
     font-weight: 300;
   }
 
-  .playbar {
-    position: absolute;
-    top: 0;
-    right: 2;
-    z-index: 2;
-    font-family: Montserrat, sans-serif;
-    color: papayawhip;
-    background-color: rgba(0, 0, 0, 0.7);
-    margin: 1rem;
-    padding: 0.4rem 0.8rem;
-    display: flex;
-    text-align: center;
-    justify-content: center;
-
-    .songname {
-      font-weight: 300;
-    }
-  }
   .logout {
     text-align: center;
     margin: auto;
