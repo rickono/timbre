@@ -5,6 +5,7 @@ import Auth from './pages/Auth';
 
 import { AnimatePresence } from 'framer-motion';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import About from './pages/About/About';
 
 const App = () => {
   return (
@@ -16,6 +17,9 @@ const App = () => {
           </Route>
           <Route path='/auth'>
             <Auth />
+          </Route>
+          <Route path='/about'>
+            <About />
           </Route>
           <Route path='/'>
             <Landing />
