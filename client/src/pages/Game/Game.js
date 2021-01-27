@@ -108,8 +108,8 @@ function Game() {
           return {
             ...track,
             position: [
-              Math.floor(Math.random() * SIDE_LENGTH - SIDE_LENGTH / 2),
-              Math.floor(Math.random() * SIDE_LENGTH - SIDE_LENGTH / 2),
+              Math.random() * SIDE_LENGTH - SIDE_LENGTH / 2,
+              Math.random() * SIDE_LENGTH - SIDE_LENGTH / 2,
             ],
           };
         });

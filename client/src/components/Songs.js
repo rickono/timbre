@@ -71,9 +71,9 @@ const SongText = ({ song, position, color }) => {
           emissive={color}
           emissiveIntensity={1}
         />
-        {"by " + song.artists[0]['name']}
+        {'by ' + song.artists[0]['name']}
       </Text>
-   </> 
+    </>
   );
 };
 
