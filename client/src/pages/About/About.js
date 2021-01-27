@@ -357,8 +357,8 @@ const About = () => {
         </p>
         <p className='info'>
           Every user's songs are curated specifically for the user based on
-          their Spotify listening history, and no two generated terrains will
-          ever be the same.
+          their Spotify listening history, and no two users will ever see the
+          same generated terrains.
         </p>
         <p className='info'>
           Timbre utilizes React Three Fiber, a React renderer for Three.js that
@@ -367,8 +367,8 @@ const About = () => {
           users information for the personalized experience.
         </p>
         <p className='info'>
-          Note: For now, please try not to press 'e' while holding any other key
-          in the app, as this can lead to unexpected behavior.
+          Note: For now, please try not to press 'e' or 'shift' while holding
+          any other key in the app, as this can lead to unexpected behavior.
         </p>
         <h3 className='subheader'>Technologies</h3>
         <p className='smallinfo'>
