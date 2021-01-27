@@ -25,8 +25,6 @@ const SongText = ({ song, position, color }) => {
         lookingAt.z > 0 ? -Math.PI + toRotateY : toRotateY;
       mesh2.current.rotation.y =
         lookingAt.z > 0 ? -Math.PI + toRotateY : toRotateY;
-      console.log(mesh2)
-      console.log(mesh)
     } else {
       mesh.current.visible = false;
       mesh2.current.visible = false;
@@ -43,7 +41,7 @@ const SongText = ({ song, position, color }) => {
         font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
         anchorX='center'
         anchorY='bottom'
-        position={[position[0], position[1] - 2, position[2]]}
+        position={[position[0], position[1], position[2]]}
         ref={mesh}
       >
         <meshStandardMaterial
@@ -64,7 +62,7 @@ const SongText = ({ song, position, color }) => {
         font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
         anchorX='center'
         anchorY='top'
-        position={[position[0], position[1] - 2, position[2]]}
+        position={[position[0], position[1], position[2]]}
         ref={mesh2}
       >
         <meshStandardMaterial
