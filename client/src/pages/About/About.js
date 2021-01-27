@@ -14,6 +14,7 @@ import { BiCookie } from 'react-icons/bi';
 import { AiFillGithub } from 'react-icons/ai';
 
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const ThreeJS = () => {
   return (
@@ -120,7 +121,7 @@ const technologies = {
     name: 'nodemon',
     color: '#4DB33D',
     description:
-      'Nodemon was used to continuously refresh the server during development.',
+      'Nodemon continuously refreshed the local server during development.',
     icon: <SiNodemon />,
   },
   netlify: {
@@ -344,6 +345,9 @@ const OtherTech = () => {
 const About = () => {
   return (
     <>
+      <Link className='home' to='/'>
+        Home
+      </Link>
       <Cursor />
       <div className='about-container'>
         <h2 className='header'>About this app</h2>
@@ -352,8 +356,9 @@ const About = () => {
           Boshar, and Alvin Li. This project was an entry to the competition.
         </p>
         <p className='info'>
-          Every users songs are curated specifically for the user based on their
-          Spotify listening history.
+          Every user's songs are curated specifically for the user based on
+          their Spotify listening history, and no two users will ever see the
+          same generated terrains.
         </p>
         <p className='info'>
           Timbre utilizes React Three Fiber, a React renderer for Three.js that
@@ -362,8 +367,8 @@ const About = () => {
           users information for the personalized experience.
         </p>
         <p className='info'>
-          Note: For now, please try not to press 'e' while holding any other key
-          in the app, as this can lead to unexpected behavior.
+          Note: For now, please try not to press 'e' or 'shift' while holding
+          any other key in the app, as this can lead to unexpected behavior.
         </p>
         <h3 className='subheader'>Technologies</h3>
         <p className='smallinfo'>
