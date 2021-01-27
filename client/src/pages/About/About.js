@@ -356,8 +356,9 @@ const About = () => {
           Boshar, and Alvin Li. This project was an entry to the competition.
         </p>
         <p className='info'>
-          Every users songs are curated specifically for the user based on their
-          Spotify listening history.
+          Every user's songs are curated specifically for the user based on
+          their Spotify listening history, and no two generated terrains will
+          ever be the same.
         </p>
         <p className='info'>
           Timbre utilizes React Three Fiber, a React renderer for Three.js that
