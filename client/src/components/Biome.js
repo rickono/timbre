@@ -32,7 +32,6 @@ const Biome = ({ DIVISIONS, SIDE_LENGTH, mood, seed, songs, playerId }) => {
 
   const { directionalColor, directionalIntensity } = directionalLight;
   const { isFog, fogColor, fogNear, fogFar } = fog;
-  console.log(fogColor)
   const { ambientColor, ambientIntensity } = ambientLight;
   const { cloudNumber, cloudColors, cloudRange } = cloudInfo;
   const { treeNumber, treeLeafColor, treeTrunkColor, treeRange } = treeInfo;

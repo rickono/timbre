@@ -44,7 +44,7 @@ const generateSettings = (mood) => {
     colors = randVal(colorSchemes.happy);
     ambLight = { ambientColor, ambientIntensity: 0.2 };
     dirLight = { directionalColor, directionalIntensity: 0.5 };
-    fog = { isFog: true, fogColor: 0xadbfc7, fogNear: 1, fogFar: 175 };
+    fog = { isFog: true, fogColor: 0xadbfc7, fogNear: 1, fogFar: 190 };
     stars = false;
     timeOfDay = 'day';
     cloudColors = ['white', 'papayawhip'];
@@ -54,7 +54,7 @@ const generateSettings = (mood) => {
     colors = randVal(colorSchemes.sad);
     ambLight = { ambientColor, ambientIntensity: 0.2 };
     dirLight = { directionalColor, directionalIntensity: 0.5 };
-    fog = { isFog: true, fogColor: 'black', fogNear: 1, fogFar: 175 };
+    fog = { isFog: true, fogColor: 'black', fogNear: 1, fogFar: 190 };
     stars = true;
     timeOfDay = 'night';
     cloudColors = ['lightgrey', 'grey'];
@@ -63,7 +63,7 @@ const generateSettings = (mood) => {
     colors = randVal(colorSchemes.happy);
     ambLight = { ambientColor: 'lightpink', ambientIntensity: 0.2 };
     dirLight = { directionalColor: 'lightblue', directionalIntensity: 0.5 };
-    fog = { isFog: true, fogColor: 0x422e34, fogNear: 1, fogFar: 175 };
+    fog = { isFog: true, fogColor: 0x422e34, fogNear: 1, fogFar: 190 };
     //0x57363b
     stars = true;
     timeOfDay = 'sunset';
