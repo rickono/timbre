@@ -7,8 +7,19 @@ body {
   background-color: #22292c;
 }
 
+.home {
+  text-decoration: none;
+  font-family: Montserrat, sans-serif;
+  text-transform: capitalize;
+  color: #cbd5cb;
+  position: fixed;
+  right: 0;
+  top: 0;
+  margin: 2rem 4rem;
+}
+
 .about-container {
-  padding-top: 3rem;
+  padding-top: 10vh;
   font-family: Lato;
   display: flex;
   flex-direction: column;

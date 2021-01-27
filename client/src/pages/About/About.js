@@ -14,6 +14,7 @@ import { BiCookie } from 'react-icons/bi';
 import { AiFillGithub } from 'react-icons/ai';
 
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const ThreeJS = () => {
   return (
@@ -344,6 +345,9 @@ const OtherTech = () => {
 const About = () => {
   return (
     <>
+      <Link className='home' to='/'>
+        Home
+      </Link>
       <Cursor />
       <div className='about-container'>
         <h2 className='header'>About this app</h2>
