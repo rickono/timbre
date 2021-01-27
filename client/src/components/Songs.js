@@ -9,6 +9,7 @@ const SongText = ({ song, position , color}) => {
   const { camera } = useThree();
 
   const mesh = useRef();
+  const mesh2 = useRef();
   useFrame(() => {
     const distance = Math.sqrt(
       (mesh.current.position.x - camera.position.x) ** 2 +
@@ -16,37 +17,65 @@ const SongText = ({ song, position , color}) => {
     );
     if (distance < 15) {
       mesh.current.visible = true;
+      mesh2.current.visible = true;
       const lookingAt = new THREE.Vector3();
       camera.getWorldDirection(lookingAt);
       const toRotateY = Math.atan(lookingAt.x / lookingAt.z);
       mesh.current.rotation.y =
         lookingAt.z > 0 ? -Math.PI + toRotateY : toRotateY;
+      mesh2.current.rotation.y =
+        lookingAt.z > 0 ? -Math.PI + toRotateY : toRotateY;
+      console.log(mesh2)
+      console.log(mesh)
     } else {
       mesh.current.visible = false;
+      mesh2.current.visible = false;
     }
   });
   return (
-    <Text
-      fontSize={1.5}
-      maxWidth={20}
-      lineHeight={1.5}
-      letterSpacing={0}
-      textAlign='center'
-      font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
-      anchorX='center'
-      anchorY='bottom'
-      position={[position[0], position[1] - 2, position[2]]}
-      ref={mesh}
-    >
-      <meshStandardMaterial
-        attach='material'
-        color='white'
-        emissive={color}
-        emissiveIntensity={1}
-      />
-      {song.name}
-      {"\nby " + song.artists[0]['name']}
-    </Text>
+    <>
+      <Text
+        fontSize={1.5}
+        maxWidth={20}
+        lineHeight={1.5}
+        letterSpacing={0}
+        textAlign='center'
+        font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
+        anchorX='center'
+        anchorY='bottom'
+        position={[position[0], position[1] - 2, position[2]]}
+        ref={mesh}
+      >
+        <meshStandardMaterial
+          attach='material'
+          color='white'
+          emissive={color}
+          emissiveIntensity={1}
+        />
+        {song.name}
+        {/* {"\nby " + song.artists[0]['name']} */}
+      </Text>
+      <Text
+        fontSize={0.8}
+        maxWidth={20}
+        lineHeight={1.5}
+        letterSpacing={0}
+        textAlign='center'
+        font='https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff'
+        anchorX='center'
+        anchorY='top'
+        position={[position[0], position[1] - 2, position[2]]}
+        ref={mesh2}
+      >
+        <meshStandardMaterial
+          attach='material'
+          color='white'
+          emissive={color}
+          emissiveIntensity={1}
+        />
+        {"by " + song.artists[0]['name']}
+      </Text>
+   </> 
   );
 };
 
@@ -73,7 +102,7 @@ const Song = ({ position, args, color, speed, getHeightAt, song, selectedSong}) 
           factor={0.3}
         />
       </mesh>
-      <SongText song={song} position={position} color={song === selectedSong ? "lightpink": "papayawhip"} />
+      <SongText song={song} position={position} color={song === selectedSong ? "lightpink": "papayawhip"}/>
     </group>
   );
 };
