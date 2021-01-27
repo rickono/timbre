@@ -5,7 +5,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import * as THREE from 'three';
 
-const SongText = ({ song, position }) => {
+const SongText = ({ song, position , color}) => {
   const { camera } = useThree();
 
   const mesh = useRef();
@@ -41,15 +41,16 @@ const SongText = ({ song, position }) => {
       <meshStandardMaterial
         attach='material'
         color='white'
-        emissive='white'
+        emissive={color}
         emissiveIntensity={1}
       />
       {song.name}
+      {"\nby " + song.artists[0]['name']}
     </Text>
   );
 };
 
-const Song = ({ position, args, color, speed, getHeightAt, song }) => {
+const Song = ({ position, args, color, speed, getHeightAt, song, selectedSong}) => {
   const mesh = useRef(null);
   useFrame((state, delta) => {
     mesh.current.rotation.x = mesh.current.rotation.y += 0.01;
@@ -59,13 +60,12 @@ const Song = ({ position, args, color, speed, getHeightAt, song }) => {
       Math.sin(state.clock.elapsedTime + position[1]) * 5 +
       3;
   });
-
   return (
     <group>
       <mesh castShadow position={position} ref={mesh}>
         <boxBufferGeometry attach='geometry' args={args} />
         <MeshWobbleMaterial
-          emissive='white'
+          emissive={song === selectedSong ? "lightpink": "papayawhip"}
           emissiveIntensity={1}
           attach='material'
           color={color}
@@ -73,7 +73,7 @@ const Song = ({ position, args, color, speed, getHeightAt, song }) => {
           factor={0.3}
         />
       </mesh>
-      <SongText song={song} position={position} />
+      <SongText song={song} position={position} color={song === selectedSong ? "lightpink": "papayawhip"} />
     </group>
   );
 };
@@ -114,7 +114,7 @@ const DisplayCurrentSong = ({ color, currentSong }) => {
         speed={2}
         factor={0.03}
       />
-      {'Song: ' + currentSong}
+      {'Last Added Song: ' + currentSong}
     </Text>
   );
 };
@@ -196,6 +196,7 @@ const Instruction = ({ rotation, position, text, color }) => {
 
 const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
   const [currentSong, setCurrentSong] = useState(null);
+  const [selectedSong, setSelectedSong] = useState(null)
   const [currentArtist, setCurrentArtist] = useState(null);
   const [currentSelection, setCurrentSelection] = useState(0);
   const playlist = useRef([]);
@@ -247,6 +248,7 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
               `${process.env.REACT_APP_API_URL}/api/v1/play?id=${playerId}&uris=${closeSongs[0].uri}`,
               config
             );
+            setSelectedSong(closeSongs[0])
             if (e.key === 'e') {
               changeScene();
               setCurrentSelection(currentSelection + 1);
@@ -289,6 +291,7 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
             key={song.id + song.position[0]}
             getHeightAt={getHeightAt}
             song={song}
+            selectedSong={selectedSong}
           />
         );
       })}
