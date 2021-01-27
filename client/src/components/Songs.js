@@ -85,6 +85,7 @@ const Song = ({
   getHeightAt,
   song,
   selectedSong,
+  boolScene
 }) => {
   const mesh = useRef(null);
   useFrame((state, delta) => {
@@ -100,7 +101,7 @@ const Song = ({
       <mesh castShadow position={position} ref={mesh}>
         <boxBufferGeometry attach='geometry' args={args} />
         <MeshWobbleMaterial
-          emissive={song === selectedSong ? 'aqua' : 'papayawhip'}
+          emissive={song === selectedSong && boolScene ? 'red' : song === selectedSong ? 'aqua' :  'papayawhip'}
           emissiveIntensity={1}
           attach='material'
           color={color}
@@ -111,7 +112,8 @@ const Song = ({
       <SongText
         song={song}
         position={position}
-        color={song === selectedSong ? 'aqua' : 'papayawhip'}
+        color={song === selectedSong && boolScene ? 'red' : song === selectedSong ? 'aqua' :  'papayawhip'}
+        //song === selectedSong ? 'aqua' : 'papayawhip'}
       />
     </group>
   );
@@ -238,6 +240,7 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
   const [selectedSong, setSelectedSong] = useState(null);
   const [currentArtist, setCurrentArtist] = useState(null);
   const [currentSelection, setCurrentSelection] = useState(0);
+  const [boolScene, setBoolScene] = useState(false);
   const playlist = useRef([]);
   const fired = useRef(false);
   const { camera } = useThree();
@@ -290,6 +293,7 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
             setSelectedSong(closeSongs[0]);
             if (e.key === 'e') {
               changeScene();
+              setBoolScene(true)
               setCurrentSelection(currentSelection + 1);
               setCurrentSong(closeSongs[0].name);
               setCurrentArtist(closeSongs[0].artists[0]['name']);
@@ -331,6 +335,7 @@ const Songs = ({ songs, getHeightAt, playerId, changeScene }) => {
             getHeightAt={getHeightAt}
             song={song}
             selectedSong={selectedSong}
+            boolScene={boolScene}
           />
         );
       })}
