@@ -121,7 +121,7 @@ const technologies = {
     name: 'nodemon',
     color: '#4DB33D',
     description:
-      'Nodemon was used to continuously refresh the server during development.',
+      'Nodemon continuously refreshed the local server during development.',
     icon: <SiNodemon />,
   },
   netlify: {
