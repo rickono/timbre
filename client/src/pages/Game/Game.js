@@ -36,7 +36,7 @@ function Game() {
   const checkForPlayer = () => {
     if (window.Spotify !== null && window.Spotify !== undefined) {
       player.current = new window.Spotify.Player({
-        name: 'Weblab Player',
+        name: 'Timbre App',
         getOAuthToken: (callback) => {
           callback(Cookies.get('access-token'));
         },

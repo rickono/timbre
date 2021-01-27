@@ -8,6 +8,17 @@
   flex-direction: column-reverse;
 }
 
+.link {
+  text-decoration: none;
+  font-family: Montserrat, sans-serif;
+  text-transform: capitalize;
+  color: #cbd5cb;
+  position: fixed;
+  right: 0;
+  top: 0;
+  margin: 2rem 4rem;
+}
+
 .login {
   background-color: #1db954;
   padding: 1.2rem 3.4rem;

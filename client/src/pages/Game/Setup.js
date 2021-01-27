@@ -120,8 +120,10 @@ const Setup = ({ setup }) => {
               className='playlist-input'
               value={playlistName}
               onChange={handleTyping}
-              onClick={e => e.target.setSelectionRange(0, e.target.value.length)}
-              placeholder={"playlist name"}
+              onClick={(e) =>
+                e.target.setSelectionRange(0, e.target.value.length)
+              }
+              placeholder={'playlist name'}
               initial='hidden'
               animate='visible'
               exit='exit'
@@ -130,6 +132,10 @@ const Setup = ({ setup }) => {
               key={'input'}
             />
             <ContinueButton handleContinue={handleContinue} stage={stage} />
+            <p className='tip'>
+              You can follow along with your playlist using the Spotify app on
+              your phone or computer.
+            </p>
           </>
         ) : stage === 3 ? (
           <>
